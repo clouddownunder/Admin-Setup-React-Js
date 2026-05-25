@@ -1,17 +1,20 @@
-import PropTypes from 'prop-types';
+/* eslint-disable */
 
-import Box from '@mui/material/Box';
+import PropTypes from "prop-types";
 
-import { useResponsive } from 'src/hooks/use-responsive';
+import Box from "@mui/material/Box";
 
-import { NAV, HEADER } from './config-layout';
+import { useResponsive } from "src/hooks/use-responsive";
+
+import { NAV, HEADER } from "./config-layout";
+import Header from "./header";
 
 // ----------------------------------------------------------------------
 
 const SPACING = 8;
 
-export default function Main({ children, sx, ...other }) {
-  const lgUp = useResponsive('up', 'lg');
+export default function Main({ children, sx, setOpenNav, ...other }) {
+  const lgUp = useResponsive("up", "lg");
 
   return (
     <Box
@@ -19,8 +22,8 @@ export default function Main({ children, sx, ...other }) {
       sx={{
         flexGrow: 1,
         minHeight: 1,
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         py: `${HEADER.H_MOBILE + SPACING}px`,
         ...(lgUp && {
           px: 2,
@@ -31,6 +34,7 @@ export default function Main({ children, sx, ...other }) {
       }}
       {...other}
     >
+      <Header onOpenNav={() => setOpenNav(true)} />
       {children}
     </Box>
   );

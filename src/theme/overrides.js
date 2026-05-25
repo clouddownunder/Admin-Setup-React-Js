@@ -1,5 +1,7 @@
-import { alpha } from '@mui/material/styles';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+/*eslint-disable*/
+
+import { alpha } from "@mui/material/styles";
+import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 
 // ----------------------------------------------------------------------
 
@@ -7,43 +9,53 @@ export function overrides(theme) {
   return {
     MuiCssBaseline: {
       styleOverrides: {
-        '*': {
-          boxSizing: 'border-box',
+        "*": {
+          boxSizing: "border-box",
         },
         html: {
           margin: 0,
           padding: 0,
-          width: '100%',
-          height: '100%',
-          WebkitOverflowScrolling: 'touch',
+          width: "100%",
+          height: "100%",
+          WebkitOverflowScrolling: "touch",
         },
         body: {
           margin: 0,
           padding: 0,
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
         },
-        '#root': {
-          width: '100%',
-          height: '100%',
+        "#root": {
+          width: "100%",
+          height: "100%",
         },
         input: {
-          '&[type=number]': {
-            MozAppearance: 'textfield',
-            '&::-webkit-outer-spin-button': {
+          "&[type=number]": {
+            MozAppearance: "textfield",
+            "&::-webkit-outer-spin-button": {
               margin: 0,
-              WebkitAppearance: 'none',
+              WebkitAppearance: "none",
             },
-            '&::-webkit-inner-spin-button': {
+            "&::-webkit-inner-spin-button": {
               margin: 0,
-              WebkitAppearance: 'none',
+              WebkitAppearance: "none",
             },
           },
         },
         img: {
-          maxWidth: '100%',
-          display: 'inline-block',
-          verticalAlign: 'bottom',
+          maxWidth: "100%",
+          display: "inline-block",
+          verticalAlign: "bottom",
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.MuiInputLabel-shrink": {
+            backgroundColor: theme.palette.background.paper,
+            padding: "0 6px",
+          },
         },
       },
     },
@@ -53,39 +65,36 @@ export function overrides(theme) {
           backgroundColor: alpha(theme.palette.grey[900], 0.8),
         },
         invisible: {
-          background: 'transparent',
+          background: "transparent",
         },
       },
     },
     MuiButton: {
       styleOverrides: {
-        containedInherit: {
-          color: theme.palette.common.white,
-          backgroundColor: theme.palette.grey[800],
-          '&:hover': {
-            color: theme.palette.common.white,
-            backgroundColor: theme.palette.grey[800],
+        containedPrimary: {
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+          "&:hover": {
+            backgroundColor: theme.palette.primary.dark,
+            boxShadow: `0 0 16px ${alpha(theme.palette.primary.main, 0.5)}`,
           },
-        },
-        sizeLarge: {
-          minHeight: 48,
         },
       },
     },
+
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: theme.customShadows.card,
-          borderRadius: Number(theme.shape.borderRadius) * 2,
-          position: 'relative',
-          zIndex: 0, // Fix Safari overflow: hidden with border radius
+          backgroundColor: theme.palette.background.paper,
+          border: `1px solid ${alpha(theme.palette.primary.main, 0.15)}`,
         },
       },
     },
+
     MuiCardHeader: {
       defaultProps: {
-        titleTypographyProps: { variant: 'h6' },
-        subheaderTypographyProps: { variant: 'body2' },
+        titleTypographyProps: { variant: "h6" },
+        subheaderTypographyProps: { variant: "body2" },
       },
       styleOverrides: {
         root: {
@@ -96,12 +105,14 @@ export function overrides(theme) {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          [`& .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: alpha(theme.palette.grey[500], 0.24),
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.palette.primary.main,
+            boxShadow: `0 0 0 2px ${alpha(theme.palette.primary.main, 0.25)}`,
           },
         },
       },
     },
+
     MuiPaper: {
       defaultProps: {
         elevation: 0,
@@ -110,11 +121,15 @@ export function overrides(theme) {
     MuiTableCell: {
       styleOverrides: {
         head: {
+          backgroundColor:
+            theme.palette.mode === "light"
+              ? theme.palette.grey[200]
+              : "#020617",
           color: theme.palette.text.secondary,
-          backgroundColor: theme.palette.background.neutral,
         },
       },
     },
+
     MuiTooltip: {
       styleOverrides: {
         tooltip: {

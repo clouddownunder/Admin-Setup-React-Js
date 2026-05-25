@@ -1,45 +1,86 @@
-import { lazy, Suspense } from 'react';
-import { Outlet, Navigate, useRoutes } from 'react-router-dom';
+/* eslint-disable */
 
-import DashboardLayout from 'src/layouts/dashboard';
+import { lazy, Suspense } from "react";
+import { Outlet, Navigate, useRoutes } from "react-router-dom";
 
-export const IndexPage = lazy(() => import('src/pages/app'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
-export const UserPage = lazy(() => import('src/pages/user'));
-export const LoginPage = lazy(() => import('src/pages/login'));
-export const ProductsPage = lazy(() => import('src/pages/products'));
-export const Page404 = lazy(() => import('src/pages/page-not-found'));
+import DashboardLayout from "src/layouts/dashboard";
+
+import { ProtectedRoutes, PublicRoutes } from "./protectedRoutes";
+
+export const IndexPage = lazy(() => import("src/pages/app"));
+export const BlogPage = lazy(() => import("src/pages/blog"));
+export const UserPage = lazy(() => import("src/pages/user"));
+export const FeedbackPage = lazy(() => import("src/pages/feedback"));
+export const NotificationsManagementPage = lazy(() =>
+  import("src/pages/notifications"),
+);
+export const LoginPage = lazy(() => import("src/pages/login"));
+export const ForgotPasswordPage = lazy(() =>
+  import("../pages/forget-password"),
+);
+export const ResetPasswordPage = lazy(() => import("../pages/reset-password"));
+export const ViewPage = lazy(() => import("../pages/viewUser"));
+export const ProfilePage = lazy(() => import("../pages/profile"));
+export const CallLogsPage = lazy(() => import("../pages/call-logs"));
+export const IncomePage = lazy(() => import("../pages/income"));
+export const SubscriptionPage = lazy(() => import("../pages/subscription"));
+export const ProfileEditPage = lazy(() => import("../pages/profile-edit"));
+export const Page404 = lazy(() => import("src/pages/page-not-found"));
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
   const routes = useRoutes([
     {
+      path: "dashboard",
       element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
+        <ProtectedRoutes>
+          <DashboardLayout>
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        </ProtectedRoutes>
       ),
       children: [
         { element: <IndexPage />, index: true },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: "company-management", element: <UserPage /> },
+        { path: "feedbacks", element: <FeedbackPage /> },
+        {
+          path: "notifications",
+          element: <NotificationsManagementPage />,
+        },
+        { path: "calls&invoices", element: <CallLogsPage /> },
+        { path: "subscription&commission", element: <IncomePage /> },
+        { path: "plans&fess", element: <SubscriptionPage /> },
+        { path: "view/:id", element: <ViewPage /> },
+        { path: "admin-profile", element: <ProfilePage /> },
+        { path: "admin-profile/edit", element: <ProfileEditPage /> },
       ],
     },
     {
-      path: 'login',
-      element: <LoginPage />,
+      path: "login",
+      element: (
+        <PublicRoutes>
+          <LoginPage />
+        </PublicRoutes>
+      ),
     },
     {
-      path: '404',
+      path: "forgetPassword",
+      element: <ForgotPasswordPage />,
+    },
+    {
+      path: "reset-password",
+      element: <ResetPasswordPage />,
+    },
+    {
+      path: "404",
       element: <Page404 />,
     },
     {
-      path: '*',
-      element: <Navigate to="/404" replace />,
+      path: "*",
+      element: <Navigate to="/login" replace />,
     },
   ]);
 

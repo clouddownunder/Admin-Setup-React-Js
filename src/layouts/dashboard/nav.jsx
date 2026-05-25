@@ -1,36 +1,45 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable */
 
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import { alpha } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import ListItemButton from '@mui/material/ListItemButton';
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-import { usePathname } from 'src/routes/hooks';
-import { RouterLink } from 'src/routes/components';
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Drawer from "@mui/material/Drawer";
+// import Button from '@mui/material/Button';
+import Avatar from "@mui/material/Avatar";
+import { alpha } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import ListItemButton from "@mui/material/ListItemButton";
+import { useTheme } from "@mui/material/styles";
 
-import { useResponsive } from 'src/hooks/use-responsive';
+import { usePathname } from "src/routes/hooks";
+import { RouterLink } from "src/routes/components";
 
-import { account } from 'src/_mock/account';
+import { useResponsive } from "src/hooks/use-responsive";
 
-import Logo from 'src/components/logo';
-import Scrollbar from 'src/components/scrollbar';
+import { account } from "src/_mock/account";
+import { getCookie } from "../../utils/format-user";
+import Logo from "src/components/logo";
+import Scrollbar from "src/components/scrollbar";
 
-import { NAV } from './config-layout';
-import navConfig from './config-navigation';
+import { NAV } from "./config-layout";
+import navConfig from "./config-navigation";
+import { Divider } from "@mui/material";
 
 // ----------------------------------------------------------------------
 
 export default function Nav({ openNav, onCloseNav }) {
+  const theme = useTheme();
+
+  const [userData, setUserData] = useState({});
   const pathname = usePathname();
 
-  const upLg = useResponsive('up', 'lg');
+  const upLg = useResponsive("up", "lg");
 
   useEffect(() => {
+    const userData = getCookie("UserData");
+    setUserData(JSON.parse(decodeURIComponent(userData)));
     if (openNav) {
       onCloseNav();
     }
@@ -44,20 +53,28 @@ export default function Nav({ openNav, onCloseNav }) {
         mx: 2.5,
         py: 2,
         px: 2.5,
-        display: 'flex',
+        display: "flex",
         borderRadius: 1.5,
-        alignItems: 'center',
+        alignItems: "center",
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={account.photoURL} alt="photoURL" />
+      {console.log(userData)}
+      <Avatar
+        src={
+          userData.profilePicture
+            ? `${import.meta.env.VITE_IMAGE_URL}${userData.profilePicture}`
+            : ""
+        }
+        alt="photoURL"
+      />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Typography variant="subtitle2">{userData.fullName}</Typography>
 
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {account.role}
-        </Typography>
+        {/* <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          {userData.email}
+        </Typography> */}
       </Box>
     </Box>
   );
@@ -70,55 +87,69 @@ export default function Nav({ openNav, onCloseNav }) {
     </Stack>
   );
 
-  const renderUpgrade = (
-    <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-      <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-        <Box
-          component="img"
-          src="/assets/illustrations/illustration_avatar.png"
-          sx={{ width: 100, position: 'absolute', top: -50 }}
-        />
+  // const renderUpgrade = (
+  //   <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
+  //     <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
+  //       <Box
+  //         component="img"
+  //         src="/assets/illustrations/illustration_avatar.png"
+  //         sx={{ width: 100, position: 'absolute', top: -50 }}
+  //       />
 
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h6">Get more?</Typography>
+  //       <Box sx={{ textAlign: 'center' }}>
+  //         <Typography variant="h6">Get more?</Typography>
 
-          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-            From only $69
-          </Typography>
-        </Box>
+  //         <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+  //           From only $69
+  //         </Typography>
+  //       </Box>
 
-        <Button
-          href="https://material-ui.com/store/items/minimal-dashboard/"
-          target="_blank"
-          variant="contained"
-          color="inherit"
-        >
-          Upgrade to Pro
-        </Button>
-      </Stack>
-    </Box>
-  );
+  //       <Button
+  //         href="https://material-ui.com/store/items/minimal-dashboard/"
+  //         target="_blank"
+  //         variant="contained"
+  //         color="inherit"
+  //       >
+  //         Upgrade to Pro
+  //       </Button>
+  //     </Stack>
+  //   </Box>
+  // );
 
   const renderContent = (
     <Scrollbar
       sx={{
         height: 1,
-        '& .simplebar-content': {
+        "& .simplebar-content": {
           height: 1,
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
         },
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4 }} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          px: 2.5,
+          pt: 3,
+          pb: 0.6,
+        }}
+      >
+        <Logo className="logo" sx={{ height: 32,width: "180px" }} />
+        {/* <Typography
+          variant="h6"
+          sx={{ ml: 1, fontWeight: 600, color: "text.primary" }}
+        >
+          TruckMatch
+        </Typography> */}
+      </Box>
+
+      <Divider sx={{ my: 2, borderBottomWidth: 3, borderColor: "divider" }} />
 
       {renderAccount}
-
       {renderMenu}
-
       <Box sx={{ flexGrow: 1 }} />
-
-      {renderUpgrade}
     </Scrollbar>
   );
 
@@ -133,7 +164,7 @@ export default function Nav({ openNav, onCloseNav }) {
         <Box
           sx={{
             height: 1,
-            position: 'fixed',
+            position: "fixed",
             width: NAV.WIDTH,
             borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
           }}
@@ -176,15 +207,15 @@ function NavItem({ item }) {
       sx={{
         minHeight: 44,
         borderRadius: 0.75,
-        typography: 'body2',
-        color: 'text.secondary',
-        textTransform: 'capitalize',
-        fontWeight: 'fontWeightMedium',
+        typography: "body2",
+        color: "text.secondary",
+        textTransform: "capitalize",
+        fontWeight: "fontWeightMedium",
         ...(active && {
-          color: 'primary.main',
-          fontWeight: 'fontWeightSemiBold',
+          color: "primary.main",
+          fontWeight: "fontWeightSemiBold",
           bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
-          '&:hover': {
+          "&:hover": {
             bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
           },
         }),

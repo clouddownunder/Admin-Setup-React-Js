@@ -1,230 +1,523 @@
-import { faker } from '@faker-js/faker';
-
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
-
-import Iconify from 'src/components/iconify';
-
-import AppTasks from '../app-tasks';
-import AppNewsUpdate from '../app-news-update';
-import AppOrderTimeline from '../app-order-timeline';
-import AppCurrentVisits from '../app-current-visits';
-import AppWebsiteVisits from '../app-website-visits';
-import AppWidgetSummary from '../app-widget-summary';
-import AppTrafficBySite from '../app-traffic-by-site';
-import AppCurrentSubject from '../app-current-subject';
-import AppConversionRates from '../app-conversion-rates';
-
-// ----------------------------------------------------------------------
-
+/* eslint-disable */
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Unstable_Grid2";
+import Typography from "@mui/material/Typography";
+import AppWidgetSummary from "../app-widget-summary";
+import {
+  Button,
+  Stack,
+  MenuItem,
+  TextField,
+  Box,
+  Card,
+  Switch,
+} from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Icon } from "@iconify/react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+// import Chart, { useChart } from "../../../components/chart";
 export default function AppView() {
+
+  const [summary, setSummary] = useState({});
+  const [filter, setFilter] = useState("total");
+  const [startDate, setStartDate] = useState(dayjs().startOf(null));
+  const [endDate, setEndDate] = useState(dayjs().endOf(null));
+  const [customStartDate, setCustomStartDate] = useState(
+    dayjs().startOf("day"),
+  );
+  const [customEndDate, setCustomEndDate] = useState(dayjs().endOf("day"));
+  const [toDateEndDate, setToDateEndDate] = useState(dayjs());
+  const token = localStorage.getItem("token");
+
+  const BASE_URL = import.meta.env.VITE_API_BASEURL;
+
+  const fetchFilteredSummary = async () => {
+    try {
+      const params = { filter };
+
+      if (filter === "todate") {
+        params.startDate = dayjs("2025-01-01T00:00:00Z").toISOString();
+        params.endDate = toDateEndDate?.toISOString();
+      } else if (filter === "custom") {
+        params.startDate = customStartDate.toISOString();
+        params.endDate = customEndDate.toISOString();
+      } else if (filter !== "total") {
+        params.startDate = startDate.toISOString();
+        params.endDate = endDate.toISOString();
+      }
+
+      const res = await axios.get(`${BASE_URL}/auth/adminSummary`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params,
+      });
+
+      if (res.data.status === 1) {
+        const data = res.data.data;
+
+        setSummary({
+          totalUsers: data?.companies?.total ?? 0,
+
+          activeSubscriptions: data?.subscriptions?.active ?? 0,
+          inactiveSubscriptions: data?.subscriptions?.inactive ?? 0,
+          totalSubscriptions: data?.subscriptions?.total ?? 0,
+
+          totalRevenue: data?.revenue?.total ?? 0,
+        });
+      }
+    } catch (err) {
+      console.error("Filtered summary error:", err);
+    }
+  };
+
+  // 🔥 MOCK DATA (replace with API later)
+  // const revenueSeries = [
+  //   {
+  //     name: "Subscription Revenue",
+  //     data: [
+  //       1200, 1800, 1600, 2200, 2600, 3100, 3600, 4000, 6000, 4200, 4800, 5300,
+  //     ],
+  //   },
+  //   {
+  //     name: "Miscellaneous Revenue",
+  //     data: [300, 450, 400, 600, 750, 900, 1200, 1500, 1001, 1700, 2000, 2300],
+  //   },
+  // ];
+
+  // const revenueChartOptions = useChart({
+  //   chart: {
+  //     type: "line",
+  //     toolbar: { show: false },
+  //   },
+  //   stroke: {
+  //     curve: "smooth",
+  //     width: 3,
+  //   },
+  //   xaxis: {
+  //     categories: [
+  //       "Jan",
+  //       "Feb",
+  //       "Mar",
+  //       "Apr",
+  //       "May",
+  //       "Jun",
+  //       "Jul",
+  //       "Aug",
+  //       "Sep",
+  //       "Oct",
+  //       "Nov",
+  //       "Dec",
+  //     ],
+  //   },
+  //   markers: {
+  //     size: 5,
+  //     hover: { size: 7 },
+  //   },
+  //   tooltip: {
+  //     shared: true,
+  //     intersect: false,
+  //     y: {
+  //       formatter: (value) => `$ ${value.toLocaleString()}`,
+  //     },
+  //   },
+  //   legend: {
+  //     position: "top",
+  //     horizontalAlign: "right",
+  //   },
+  // });
+
+  // const getCurrentDateString = () => {
+  //   return dayjs().format("DD-MMM-YYYY");
+  // };
+
+  // console.log(summary, "Filtered");
+  // const handleExportUsersCSV = async () => {
+  //   try {
+  //     const params = { filter };
+
+  //     if (filter === "todate") {
+  //       params.startDate = dayjs("2025-01-01T00:00:00Z").toISOString();
+  //       params.endDate = toDateEndDate?.toISOString();
+  //     } else if (filter === "custom") {
+  //       params.startDate = customStartDate.toISOString();
+  //       params.endDate = customEndDate.toISOString();
+  //     } else if (filter !== "total") {
+  //       params.startDate = startDate?.toISOString();
+  //       params.endDate = endDate?.toISOString();
+  //     }
+
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_API_BASEURL}/admin/user/exportCsv`,
+  //       {
+  //         headers: { Authorization: `${token}` },
+  //         params,
+  //         responseType: "blob",
+  //       }
+  //     );
+
+  //     const dateStr = getCurrentDateString();
+  //     const filename = `Users-${dateStr}.csv`;
+  //     const blob = new Blob([response.data], { type: "text/csv" });
+  //     const url = window.URL.createObjectURL(blob);
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", filename);
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     link.remove();
+  //   } catch (error) {
+  //     console.error("CSV export failed", error);
+  //   }
+  // };
+
+  // const handleExportCallsCSV = async () => {
+  //   try {
+  //     const params = { filter };
+
+  //     if (filter === "todate") {
+  //       params.startDate = dayjs("2025-01-01T00:00:00Z").toISOString();
+  //       params.endDate = toDateEndDate?.toISOString();
+  //     } else if (filter === "custom") {
+  //       params.startDate = customStartDate.toISOString();
+  //       params.endDate = customEndDate.toISOString();
+  //     } else if (filter !== "total") {
+  //       params.startDate = startDate?.toISOString();
+  //       params.endDate = endDate?.toISOString();
+  //     }
+
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_API_BASEURL}/admin/user/exportCallCsv`,
+  //       {
+  //         headers: { Authorization: `${token}` },
+  //         params,
+  //         responseType: "blob",
+  //       }
+  //     );
+
+  //     const dateStr = getCurrentDateString();
+  //     const filename = `Calls-${dateStr}.csv`;
+  //     const blob = new Blob([response.data], { type: "text/csv" });
+  //     const url = window.URL.createObjectURL(blob);
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", filename);
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     link.remove();
+  //   } catch (error) {
+  //     console.error("CSV export failed", error);
+  //   }
+  // };
+
+  useEffect(() => {
+    fetchFilteredSummary();
+  }, [
+    filter,
+    startDate,
+    endDate,
+    customStartDate,
+    customEndDate,
+    toDateEndDate,
+  ]);
+
+  const filterOptions = [
+    { value: "total", label: "Total" },
+    { value: "today", label: "Today" },
+    { value: "week", label: "This Week" },
+    { value: "month", label: "This Month" },
+    { value: "quarter", label: "Last 3 Months" },
+    { value: "year", label: "This Year" },
+    { value: "todate", label: "To Date" },
+    { value: "custom", label: "Custom" },
+  ];
+
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, Welcome back 👋
-      </Typography>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Container maxWidth="xl" sx={{ mt: 3 }}>
+        <Typography variant="h4" sx={{ mb: 5 }}>
+          Dashboard
+        </Typography>
 
-      <Grid container spacing={3}>
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Weekly Sales"
-            total={714000}
-            color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
-          />
-        </Grid>
+        {/* ===== TOP FILTER + EXPORT USERS BUTTON ===== */}
+        <Stack
+          direction="row"
+          spacing={2}
+          mb={3}
+          alignItems="center"
+          sx={{ justifyContent: "space-between" }}
+        >
+          {/* LEFT SIDE FILTERS */}
+          <Box gap={2} sx={{ display: "flex", flexWrap: "wrap" }}>
+            <TextField
+              select
+              label="Filter"
+              value={filter}
+              onChange={(e) => {
+                const selectedFilter = e.target.value;
+                setFilter(selectedFilter);
 
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="New Users"
-            total={1352831}
-            color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
-          />
-        </Grid>
+                if (selectedFilter === "today") {
+                  setStartDate(dayjs().startOf("day"));
+                  setEndDate(dayjs().endOf("day"));
+                } else if (selectedFilter === "week") {
+                  setStartDate(dayjs().startOf("week"));
+                  setEndDate(dayjs().endOf("week"));
+                } else if (selectedFilter === "month") {
+                  setStartDate(dayjs().startOf("month"));
+                  setEndDate(dayjs().endOf("month"));
+                } else if (selectedFilter === "year") {
+                  setStartDate(dayjs().startOf("year").add(1, "day"));
+                  setEndDate(dayjs().endOf("year").add(1, "day"));
+                } else if (selectedFilter === "quarter") {
+                  setStartDate(dayjs().subtract(3, "month").startOf("day"));
+                  setEndDate(dayjs());
+                } else if (selectedFilter === "total") {
+                  setStartDate(null);
+                  setEndDate(null);
+                  setCustomStartDate(dayjs().startOf("day"));
+                  setCustomEndDate(dayjs().endOf("day"));
+                  setToDateEndDate(dayjs());
+                }
+              }}
+              size="small"
+              sx={{ minWidth: 130 }}
+            >
+              {filterOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Item Orders"
-            total={1723315}
-            color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
-          />
-        </Grid>
+            {filter === "todate" && (
+              <DatePicker
+                label="End Date"
+                value={toDateEndDate}
+                maxDate={dayjs()}
+                minDate={dayjs("2025-01-01T00:00:00Z")}
+                onChange={(newValue) => setToDateEndDate(newValue)}
+                renderInput={(params) => <TextField {...params} size="small" />}
+                inputFormat="DD MMM YYYY"
+              />
+            )}
 
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Bug Reports"
-            total={234}
-            color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
-          />
-        </Grid>
+            {filter === "custom" && (
+              <>
+                <DatePicker
+                  label="Start Date"
+                  value={customStartDate}
+                  maxDate={customEndDate || dayjs()}
+                  onChange={(newValue) => setCustomStartDate(newValue)}
+                  renderInput={(params) => (
+                    <TextField {...params} size="small" />
+                  )}
+                  inputFormat="DD MMM YYYY"
+                />
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppWebsiteVisits
-            title="Website Visits"
-            subheader="(+43%) than last year"
-            chart={{
-              labels: [
-                '01/01/2003',
-                '02/01/2003',
-                '03/01/2003',
-                '04/01/2003',
-                '05/01/2003',
-                '06/01/2003',
-                '07/01/2003',
-                '08/01/2003',
-                '09/01/2003',
-                '10/01/2003',
-                '11/01/2003',
-              ],
-              series: [
-                {
-                  name: 'Team A',
-                  type: 'column',
-                  fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
-                },
-                {
-                  name: 'Team B',
-                  type: 'area',
-                  fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-                },
-                {
-                  name: 'Team C',
-                  type: 'line',
-                  fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
-                },
-              ],
-            }}
-          />
-        </Grid>
+                <DatePicker
+                  label="End Date"
+                  value={customEndDate}
+                  minDate={customStartDate}
+                  maxDate={dayjs()}
+                  onChange={(newValue) => setCustomEndDate(newValue)}
+                  renderInput={(params) => (
+                    <TextField {...params} size="small" />
+                  )}
+                  inputFormat="DD MMM YYYY"
+                />
+              </>
+            )}
+          </Box>
 
-        <Grid xs={12} md={6} lg={4}>
-          <AppCurrentVisits
-            title="Current Visits"
-            chart={{
-              series: [
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
-              ],
-            }}
-          />
-        </Grid>
+          {/* EXPORT USERS BUTTON (RIGHT) */}
+          {/* <Button
+            variant="contained"
+            startIcon={<Icon icon="mdi:download" />}
+            onClick={handleExportUsersCSV}
+          >
+            Export Users CSV
+          </Button> */}
+        </Stack>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppConversionRates
-            title="Conversion Rates"
-            subheader="(+43%) than last year"
-            chart={{
-              series: [
-                { label: 'Italy', value: 400 },
-                { label: 'Japan', value: 430 },
-                { label: 'China', value: 448 },
-                { label: 'Canada', value: 470 },
-                { label: 'France', value: 540 },
-                { label: 'Germany', value: 580 },
-                { label: 'South Korea', value: 690 },
-                { label: 'Netherlands', value: 1100 },
-                { label: 'United States', value: 1200 },
-                { label: 'United Kingdom', value: 1380 },
-              ],
-            }}
-          />
-        </Grid>
+        {/* ===== USER SUMMARY CARDS ===== */}
+        {/* <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} md={6}>
+            <AppWidgetSummary
+              title="Small Businesses"
+              total={summary.totalUsers}
+              color="info"
+              icon={
+                <img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />
+              }
+            />
+          </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          <AppCurrentSubject
-            title="Current Subject"
-            chart={{
-              categories: ['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math'],
-              series: [
-                { name: 'Series 1', data: [80, 50, 30, 40, 100, 20] },
-                { name: 'Series 2', data: [20, 30, 40, 80, 20, 80] },
-                { name: 'Series 3', data: [44, 76, 78, 13, 43, 10] },
-              ],
-            }}
-          />
-        </Grid>
+          <Grid item xs={12} sm={6} md={6}>
+            <AppWidgetSummary
+              title="Remote Workers"
+              total={summary.totalSubscriptions || 0}
+              color="success"
+              icon={
+                <img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />
+              }
+            />
+          </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppNewsUpdate
-            title="News Update"
-            list={[...Array(5)].map((_, index) => ({
-              id: faker.string.uuid(),
-              title: faker.person.jobTitle(),
-              description: faker.commerce.productDescription(),
-              image: `/assets/images/covers/cover_${index + 1}.jpg`,
-              postedAt: faker.date.recent(),
-            }))}
-          />
-        </Grid>
+        <Card
+          sx={{
+            p: 4,
+            mb: 4,
+            borderRadius: 3,
+            boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+          }}
+        >
+          <Typography variant="h6" fontWeight={600} mb={3}>
+            Total Users
+          </Typography>
 
-        <Grid xs={12} md={6} lg={4}>
-          <AppOrderTimeline
-            title="Order Timeline"
-            list={[...Array(5)].map((_, index) => ({
-              id: faker.string.uuid(),
-              title: [
-                '1983, orders, $4220',
-                '12 Invoices have been paid',
-                'Order #37745 from September',
-                'New order placed #XF-2356',
-                'New order placed #XF-2346',
-              ][index],
-              type: `order${index + 1}`,
-              time: faker.date.past(),
-            }))}
-          />
-        </Grid>
+          <Grid container spacing={3}>
+            {/* Total Companies */}
+            <Grid xs={12} sm={6} md={4}>
+              <AppWidgetSummary
+                title="Total Companies"
+                total={summary.totalUsers || 0}
+                color="primary"
+                icon={
+                  <img
+                    alt="companies"
+                    src="/assets/icons/glass/ic_glass_users.png"
+                  />
+                }
+              />
+            </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          <AppTrafficBySite
-            title="Traffic by Site"
-            list={[
-              {
-                name: 'FaceBook',
-                value: 323234,
-                icon: <Iconify icon="eva:facebook-fill" color="#1877F2" width={32} />,
-              },
-              {
-                name: 'Google',
-                value: 341212,
-                icon: <Iconify icon="eva:google-fill" color="#DF3E30" width={32} />,
-              },
-              {
-                name: 'Linkedin',
-                value: 411213,
-                icon: <Iconify icon="eva:linkedin-fill" color="#006097" width={32} />,
-              },
-              {
-                name: 'Twitter',
-                value: 443232,
-                icon: <Iconify icon="eva:twitter-fill" color="#1C9CEA" width={32} />,
-              },
-            ]}
-          />
-        </Grid>
+            {/* Active Subscriptions */}
+            <Grid xs={12} sm={6} md={4}>
+              <AppWidgetSummary
+                title="Active Subscriptions"
+                total={summary.activeSubscriptions || 0}
+                color="success"
+                icon={
+                  <img
+                    alt="active"
+                    src="/assets/icons/glass/ic_glass_users.png"
+                  />
+                }
+              />
+            </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppTasks
-            title="Tasks"
-            list={[
-              { id: '1', name: 'Create FireStone Logo' },
-              { id: '2', name: 'Add SCSS and JS files if required' },
-              { id: '3', name: 'Stakeholder Meeting' },
-              { id: '4', name: 'Scoping & Estimations' },
-              { id: '5', name: 'Sprint Showcase' },
-            ]}
+            {/* Inactive Subscriptions */}
+            <Grid xs={12} sm={6} md={4}>
+              <AppWidgetSummary
+                title="Inactive Subscriptions"
+                total={summary.inactiveSubscriptions || 0}
+                color="error"
+                icon={
+                  <img
+                    alt="inactive"
+                    src="/assets/icons/glass/ic_glass_users.png"
+                  />
+                }
+              />
+            </Grid>
+          </Grid>
+        </Card>
+
+        <Card
+          sx={{
+            p: 4,
+            borderRadius: 3,
+            boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+          }}
+        >
+          <Typography variant="h6" fontWeight={600} mb={3}>
+            Revenue Overview
+          </Typography>
+
+          <Grid container spacing={3}>
+            <Grid xs={12} md={4}>
+              <AppWidgetSummary
+                title="Total Revenue"
+                total={summary.totalRevenue || 0}
+                color="warning"
+                icon={
+                  <img
+                    alt="revenue"
+                    src="/assets/icons/glass/ic_glass_message.png"
+                  />
+                }
+              />
+            </Grid>
+
+            {/* Chart */}
+            {/* <Grid xs={12} md={8}>
+              <Chart
+                type="line"
+                series={revenueSeries}
+                options={revenueChartOptions}
+                height={280}
+              />
+            </Grid> */}
+          </Grid>
+        </Card>
+
+        {/* ======================= CALL LOGS GROUP CARD ======================= */}
+        {/* <Card sx={{ p: 3 }}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            mb={3}
+          >
+            <Typography variant="h6" fontWeight={600}>
+              Total Revenue
+            </Typography>
+          </Stack>
+
+          🔥 REVENUE LINE CHART
+          <Chart
+            type="bar"
+            series={revenueSeries}
+            options={revenueChartOptions}
+            height={300}
           />
-        </Grid>
-      </Grid>
-    </Container>
+
+          EXISTING REVENUE CARDS
+          <Grid container spacing={3} mt={3}>
+            <Grid item xs={12} sm={6}>
+              <AppWidgetSummary
+                title="Subscription Revenue"
+                total={0}
+                color="info"
+                icon={
+                  <img
+                    alt="icon"
+                    src="/assets/icons/glass/ic_glass_message.png"
+                  />
+                }
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <AppWidgetSummary
+                title="Other Miscellaneous Revenue"
+                total={0}
+                color="info"
+                icon={
+                  <img
+                    alt="icon"
+                    src="/assets/icons/glass/ic_glass_message.png"
+                  />
+                }
+              />
+            </Grid>
+          </Grid>
+        </Card> */}
+      </Container>
+    </LocalizationProvider>
   );
 }

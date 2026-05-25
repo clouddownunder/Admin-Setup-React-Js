@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -14,7 +16,6 @@ export default function DashboardLayout({ children }) {
 
   return (
     <>
-      <Header onOpenNav={() => setOpenNav(true)} />
 
       <Box
         sx={{
@@ -25,7 +26,7 @@ export default function DashboardLayout({ children }) {
       >
         <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
 
-        <Main>{children}</Main>
+        <Main setOpenNav={setOpenNav} >{children}</Main>
       </Box>
     </>
   );

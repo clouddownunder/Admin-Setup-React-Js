@@ -1,0 +1,11 @@
+.logo svg{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    overflow: auto;
+    object-position: center;
+}
+
+.dark-mode .logo svg path.logo-text-black {
+    fill: #fff;
+}

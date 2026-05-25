@@ -18,7 +18,8 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
         height: 96,
         display: 'flex',
         justifyContent: 'space-between',
-        p: (theme) => theme.spacing(0, 1, 0, 3),
+        // p: (theme) => theme.spacing(0, 1, 0, 3),
+        padding:"0px !important",
         ...(numSelected > 0 && {
           color: 'primary.main',
           bgcolor: 'primary.lighter',
@@ -33,7 +34,7 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
         <OutlinedInput
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search user..."
+          placeholder="Search here..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify
@@ -53,9 +54,9 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <IconButton>
+          {/* <IconButton>
             <Iconify icon="ic:round-filter-list" />
-          </IconButton>
+          </IconButton> */}
         </Tooltip>
       )}
     </Toolbar>
