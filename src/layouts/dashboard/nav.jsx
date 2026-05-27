@@ -1,191 +1,55 @@
 /* eslint-disable */
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Drawer from "@mui/material/Drawer";
-// import Button from '@mui/material/Button';
-import Avatar from "@mui/material/Avatar";
-import { alpha } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
-import { useTheme } from "@mui/material/styles";
 
 import { usePathname } from "src/routes/hooks";
 import { RouterLink } from "src/routes/components";
 
-import { useResponsive } from "src/hooks/use-responsive";
-
-import { account } from "src/_mock/account";
-import { getCookie } from "../../utils/format-user";
 import Logo from "src/components/logo";
-import Scrollbar from "src/components/scrollbar";
 
 import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
-import { Divider } from "@mui/material";
 
 // ----------------------------------------------------------------------
 
 export default function Nav({ openNav, onCloseNav }) {
-  const theme = useTheme();
-
-  const [userData, setUserData] = useState({});
   const pathname = usePathname();
 
-  const upLg = useResponsive("up", "lg");
-
   useEffect(() => {
-    const userData = getCookie("UserData");
-    setUserData(JSON.parse(decodeURIComponent(userData)));
     if (openNav) {
       onCloseNav();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  const renderAccount = (
-    <Box
-      sx={{
-        my: 3,
-        mx: 2.5,
-        py: 2,
-        px: 2.5,
-        display: "flex",
-        borderRadius: 1.5,
-        alignItems: "center",
-        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
-      }}
-    >
-      {console.log(userData)}
-      <Avatar
-        src={
-          userData.profilePicture
-            ? `${import.meta.env.VITE_IMAGE_URL}${userData.profilePicture}`
-            : ""
-        }
-        alt="photoURL"
-      />
-
-      <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{userData.fullName}</Typography>
-
-        {/* <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {userData.email}
-        </Typography> */}
-      </Box>
-    </Box>
-  );
-
   const renderMenu = (
-    <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
-      {navConfig.map((item) => (
-        <NavItem key={item.title} item={item} />
-      ))}
-    </Stack>
+    <div className="sidebar-menu sidebar-scroll">
+      <ul className="sidebar-menu-list">
+        {navConfig.map((item) => (
+          <li className="sb-nav-item" key={item.title}>
+            <NavItem item={item} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-
-  // const renderUpgrade = (
-  //   <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-  //     <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-  //       <Box
-  //         component="img"
-  //         src="/assets/illustrations/illustration_avatar.png"
-  //         sx={{ width: 100, position: 'absolute', top: -50 }}
-  //       />
-
-  //       <Box sx={{ textAlign: 'center' }}>
-  //         <Typography variant="h6">Get more?</Typography>
-
-  //         <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-  //           From only $69
-  //         </Typography>
-  //       </Box>
-
-  //       <Button
-  //         href="https://material-ui.com/store/items/minimal-dashboard/"
-  //         target="_blank"
-  //         variant="contained"
-  //         color="inherit"
-  //       >
-  //         Upgrade to Pro
-  //       </Button>
-  //     </Stack>
-  //   </Box>
-  // );
 
   const renderContent = (
-    <Scrollbar
-      sx={{
-        height: 1,
-        "& .simplebar-content": {
-          height: 1,
-          display: "flex",
-          flexDirection: "column",
-        },
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          px: 2.5,
-          pt: 3,
-          pb: 0.6,
-        }}
-      >
-        <Logo className="logo" sx={{ height: 32,width: "180px" }} />
-        {/* <Typography
-          variant="h6"
-          sx={{ ml: 1, fontWeight: 600, color: "text.primary" }}
-        >
-          TruckMatch
-        </Typography> */}
-      </Box>
+    <div className="sidebar sidebar-menu-main">
+      <div className="header-logo-wrap">
+        <Logo className="logo img-fluid" sx={{ height: 32, width: "180px" }} />
+      </div>
 
-      <Divider sx={{ my: 2, borderBottomWidth: 3, borderColor: "divider" }} />
-
-      {renderAccount}
       {renderMenu}
-      <Box sx={{ flexGrow: 1 }} />
-    </Scrollbar>
+    </div>
   );
 
-  return (
-    <Box
-      sx={{
-        flexShrink: { lg: 0 },
-        width: { lg: NAV.WIDTH },
-      }}
-    >
-      {upLg ? (
-        <Box
-          sx={{
-            height: 1,
-            position: "fixed",
-            width: NAV.WIDTH,
-            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
-          }}
-        >
-          {renderContent}
-        </Box>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          PaperProps={{
-            sx: {
-              width: NAV.WIDTH,
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
-    </Box>
-  );
+  return <aside className="main-sidebar">{renderContent}</aside>;
 }
 
 Nav.propTypes = {
@@ -193,6 +57,8 @@ Nav.propTypes = {
   onCloseNav: PropTypes.func,
 };
 
+// ----------------------------------------------------------------------
+// Sidebar Menu List Items
 // ----------------------------------------------------------------------
 
 function NavItem({ item }) {
@@ -204,28 +70,13 @@ function NavItem({ item }) {
     <ListItemButton
       component={RouterLink}
       href={item.path}
-      sx={{
-        minHeight: 44,
-        borderRadius: 0.75,
-        typography: "body2",
-        color: "text.secondary",
-        textTransform: "capitalize",
-        fontWeight: "fontWeightMedium",
-        ...(active && {
-          color: "primary.main",
-          fontWeight: "fontWeightSemiBold",
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
-          "&:hover": {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
-          },
-        }),
-      }}
+      className={`sb-nav-link ${active ? "active" : ""}`}
     >
-      <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
+      <Box component="span" className="admin-icon-wrap">
         {item.icon}
       </Box>
 
-      <Box component="span">{item.title} </Box>
+      <span className="site-menu-title">{item.title}</span>
     </ListItemButton>
   );
 }

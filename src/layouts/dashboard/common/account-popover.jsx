@@ -140,7 +140,6 @@ export default function AccountPopover() {
           }),
         }}
       >
-        {/* <Button variant="contained"><Link to="/dashboard" style={{color:"white"}}>Back</Link></Button> */}
         <Avatar
           src={
             userData.profilePicture
@@ -149,10 +148,9 @@ export default function AccountPopover() {
           }
           alt={userData.name}
           sx={{
-            width: 36,
-            height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
+          className="profile-avtar-img"
         >
           {account.displayName.charAt(0).toUpperCase()}
         </Avatar>

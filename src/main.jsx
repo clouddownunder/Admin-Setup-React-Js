@@ -7,13 +7,13 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { RecoilRoot } from "recoil";
 
-import App from "./app";
-
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./theme/root-style.css";
 import "./theme/custom.css";
 import "./theme/responsive.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
+import App from "./app";
 // ======================================================
 // APP VERSION CACHE RESET
 // ======================================================

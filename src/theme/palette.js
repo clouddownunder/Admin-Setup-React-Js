@@ -133,27 +133,3 @@ export function palette(mode = "dark") {
   };
 }
 
-
-// export function palette() {
-//   return {
-//     ...base,
-//     mode: "dark",
-
-//     text: {
-//       primary: "#E5E7EB",
-//       secondary: "#9CA3AF",
-//       disabled: "#6B7280",
-//     },
-
-//     background: {
-//       default: "#0F0A07", // warm dark
-//       paper: "#16110D", // card background
-//       neutral: "#0F0A07",
-//     },
-
-//     action: {
-//       ...base.action,
-//       active: brandAccent.main, // neon green highlight
-//     },
-//   };
-// }

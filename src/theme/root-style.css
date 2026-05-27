@@ -1,0 +1,304 @@
+/* ========================================
+   Admin Global CSS 
+======================================== */
+body {
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    font-family: 'Public Sans';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+:root {
+    --theme-background-color: #f3f4f5;
+    --bg-light: #f9f9fa;
+
+    --white: #FFFFFF;
+    --black: #000000;
+
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-disabled: #9CA3AF;
+
+    /* ===== GREY ===== */
+    --grey-100: #F9FAFB;
+    --grey-200: #F4F6F8;
+    --grey-300: #DFE3E8;
+    --grey-400: #C4CDD5;
+    --grey-500: #919EAB;
+    --grey-600: #637381;
+    --grey-700: #454F5B;
+    --grey-800: #212B36;
+    --grey-900: #161C24;
+
+    /* ===== PRIMARY ===== */
+    --primary-lighter: #FDE5DE;
+    --primary-light: #F58A6B;
+    --primary-main: #D74315;
+    --primary-dark: #A6320F;
+    --primary-darker: #7A250B;
+
+    /* ===== SECONDARY ===== */
+    --secondary-lighter: #EFD6FF;
+    --secondary-light: #C684FF;
+    --secondary-main: #8E33FF;
+    --secondary-dark: #5119B7;
+    --secondary-darker: #27097A;
+
+    /* ===== INFO ===== */
+    --info-lighter: #CAFDF5;
+    --info-light: #61F3F3;
+    --info-main: #00B8D9;
+    --info-dark: #006C9C;
+    --info-darker: #003768;
+
+    /* ===== SUCCESS ===== */
+    --success-lighter: #C8FAD6;
+    --success-light: #5BE49B;
+    --success-main: #00A76F;
+    --success-dark: #007867;
+    --success-darker: #004B50;
+
+    /* ===== WARNING ===== */
+    --warning-lighter: #FFF5CC;
+    --warning-light: #FFD666;
+    --warning-main: #FFAB00;
+    --warning-dark: #B76E00;
+    --warning-darker: #7A4100;
+
+    /* ===== ERROR ===== */
+    --error-lighter: #FFE9D5;
+    --error-light: #FFAC82;
+    --error-main: #FF5630;
+    --error-dark: #B71D18;
+    --error-darker: #7A0916;
+}
+
+/* ========================================
+   HEADINGS 
+======================================== */
+
+h1,
+.h1 {
+    font-size: 64px;
+    line-height: 1.25;
+    font-weight: 800;
+}
+
+h2,
+.h2 {
+    font-size: 48px;
+    line-height: 1.33;
+    font-weight: 800;
+}
+
+h3,
+.h3 {
+    font-size: 32px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+h4,
+.h4 {
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+h5,
+.h5 {
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+h6,
+.h6 {
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 700;
+}
+
+p,
+.p {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.subtitle1 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.caption {
+    font-size: 12px;
+}
+
+/* =========================================================
+   FONT-WIGHT
+========================================================= */
+
+.fw-400 {
+    font-weight: 400;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+.fw-800 {
+    font-weight: 800;
+}
+
+
+a {
+    color: var(--text-primary);
+    display: inline-block;
+}
+
+a:hover,
+a:active {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+a,
+*:hover,
+*:focus,
+*:active :focus {
+    text-decoration: none;
+    outline: none !important;
+    outline-offset: 0 !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(193 193 193);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(193 193 193) transparent;
+}
+
+a,
+i,
+input {
+    transition: all 0.4s ease-in-out 0s;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    -o-transition: all 0.4s ease-in-out 0s;
+    -ms-transition: all 0.4s ease-in-out 0s;
+}
+
+a img,
+img {
+    border: none;
+    outline: none !important;
+    outline-offset: 0 !important;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Utilities CSS */
+.ellipsis-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.ellipsis-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+
+/* =========================================================
+   BUTTON 
+========================================================= */
+
+.btn {
+    font-size: 14px;
+    line-height: normal;
+    font-weight: 700;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    box-shadow: none;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    transition: all 0.4s ease-in-out 0s;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    -ms-transition: all 0.4s ease-in-out 0s;
+    -o-transition: all 0.4s ease-in-out 0s;
+}
+
+.btn-primary {
+    background: var(--primary-main);
+    color: var(--white);
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+    background: var(--primary-main);
+    /* box-shadow: 0 0 16px rgba(215, 67, 21, 0.5); */
+}
+
+.btn-light {
+    background: var(--bs-gray-300);
+    color: var(--bs-gray-800);
+    border: none;
+}
+
+.btn-light:hover,
+.btn-light:active {
+    background: var(--bs-gray-700);
+    color: var(--white);
+}
+
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
