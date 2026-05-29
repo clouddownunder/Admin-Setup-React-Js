@@ -162,18 +162,26 @@
 }
 
 .sidebar.sidebar-menu-main {
-    padding: 12px 20px 30px;
+    /* padding: 12px 20px 30px;
     height: 100vh;
     height: 100dvh;
     display: flex;
+    flex-direction: column; */
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    height: calc(-60px + 100vh);
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 65px;
+    padding: 30px 14px;
 }
 
 .sidebar-scroll {
-    overflow-x: hidden;
+    /* overflow-x: hidden;
     overflow-y: auto;
     flex-grow: 1;
-    margin-top: 30px;
+    margin-top: 53px; */
 }
 
 .page-wrapper {
@@ -181,6 +189,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: var(--theme-background-color);
 }
 
 .page {
@@ -188,4 +197,8 @@
     width: calc(100% - 300px);
     margin-left: auto;
     transition: all .3s ease-in-out;
+    /* background-color: var(--bg-light);
+    width: calc(100% - 260px);
+    margin-left: auto;
+    transition: 0.3s ease-in-out; */
 }

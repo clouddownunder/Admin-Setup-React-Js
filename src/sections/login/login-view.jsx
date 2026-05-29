@@ -123,15 +123,18 @@ export default function LoginView() {
         </Link>
       </Stack>
 
-      <LoadingButton
+      {/* <LoadingButton
         fullWidth
         size="large"
-        type="submit" // 🔥 important
+        type="submit"
         variant="contained"
         sx={{ color: "white" }}
       >
         Login
-      </LoadingButton>
+      </LoadingButton> */}
+      <button type="submit" className="btn btn-primary w-100 btn-lg">
+        Login
+      </button>
     </Box>
   );
 
@@ -144,10 +147,22 @@ export default function LoginView() {
         }),
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
+      {/* Logo outside and above the card */}
+      <Logo
+        className="logo"
+        sx={{
+          width: "210px",
+          height: "auto",
+          marginBottom: "20px",
+          marginTop: "10px",
+        }}
+      />
+
       <Card
         sx={{
           p: 5,
@@ -155,21 +170,28 @@ export default function LoginView() {
           maxWidth: 420,
         }}
       >
-        <Stack spacing={2} alignItems="center">
-          <Logo
-            className="logo"
-            sx={{
-              width: "190px",
-              height: "auto",
-              marginBottom: "20px",
-              marginTop: "10px",
-            }}
-          />
-          <Typography variant="h4" textAlign="center">
+        {/* <Stack spacing={2} alignItems="left">
+          <Typography variant="h4" textAlign="left">
             Login
           </Typography>
-        </Stack>
-        <br />
+          <Typography
+            variant="body2"
+            textAlign="left"
+            sx={{
+              color: "text.secondary",
+            }}
+          >
+            Please enter your detail to logn in your account
+          </Typography>
+        </Stack> */}
+
+        <div className="mb-4"> 
+          <h2 className="fw-bold h4 mb-1">Login</h2> 
+          <p className="text-muted subtitle1 mb-0"> Please enter your detail to login in your account </p> 
+        </div>
+
+        {/* <br /> */}
+
         {renderForm}
       </Card>
     </Box>

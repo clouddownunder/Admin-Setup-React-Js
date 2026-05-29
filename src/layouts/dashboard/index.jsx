@@ -24,7 +24,8 @@ export default function DashboardLayout({ children }) {
           <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
 
           {/* Main Content */}
-          <div className="page-content">{children}</div>
+          {/* <div className="page-content">{children}</div> */}
+          <div className="page">{children}</div>
         </div>
       </div>
     </>

@@ -297,9 +297,10 @@ export default function ProfileEditView() {
               <Box
                 display="flex"
                 alignItems="center"
-                justifyContent="space-between"
+                // justifyContent="space-between"
                 gap={3}
               >
+                <Avatar src={preview || ""} sx={{ width: 70, height: 70 }} />
                 <Button
                   variant="outlined"
                   component="label"
@@ -314,12 +315,14 @@ export default function ProfileEditView() {
                     onChange={handleProfileChange}
                   />
                 </Button>
-                <Avatar src={preview || ""} sx={{ width: 70, height: 70 }} />
               </Box>
 
-              <Button variant="contained" onClick={handleProfileSubmit}>
+              {/* <Button variant="contained" onClick={handleProfileSubmit}>
                 Save Profile
-              </Button>
+              </Button> */}
+              <button type="submit" className="btn btn-primary w-100 btn-lg">
+                Save Profile
+              </button>
             </Stack>
           </Paper>
         </Grid>
@@ -344,9 +347,12 @@ export default function ProfileEditView() {
               {renderPasswordField("New Password", "newPassword")}
               {renderPasswordField("Confirm Password", "confirmPassword")}
 
-              <Button variant="contained" onClick={handlePasswordSubmit}>
+              {/* <Button variant="contained" onClick={handlePasswordSubmit}>
                 Change Password
-              </Button>
+              </Button> */}
+              <button type="submit" className="btn btn-primary w-100 btn-lg">
+                Change Password
+              </button>
             </Stack>
           </Paper>
         </Grid>
