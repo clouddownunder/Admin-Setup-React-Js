@@ -1,20 +1,17 @@
 /* eslint-disable */
 
 import PropTypes from "prop-types";
-import Header from "./header";
 
 // ----------------------------------------------------------------------
 
-export default function Main({ children, sx, setOpenNav, ...other }) {
+export default function Main({ children }) {
   return (
-    <div className="page" component="main" {...other}>
-      <Header onOpenNav={() => setOpenNav(true)} />
-      {children}
+    <div className="page-content">
+      <div className="page-content-wrap-inn">{children}</div>
     </div>
   );
 }
 
 Main.propTypes = {
   children: PropTypes.node,
-  sx: PropTypes.object,
 };

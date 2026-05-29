@@ -3,9 +3,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import Nav from "./nav";
-import Main from "./main";
 import Header from "./header";
+import Nav from "./nav";
 
 // ----------------------------------------------------------------------
 
@@ -14,11 +13,19 @@ export default function DashboardLayout({ children }) {
 
   return (
     <>
+      <div className="sidebar-show-hide-bck"></div>
       <div className="page-wrapper">
-        <span className="header-box-shadow"></span>
-        <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
+        {/* Header */}
+        <Header onOpenNav={() => setOpenNav(true)} />
 
-        <Main setOpenNav={setOpenNav}>{children}</Main>
+        {/* Sidebar + Page Content */}
+        <div className="content-wrapper-main">
+          {/* Sidebar */}
+          <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
+
+          {/* Main Content */}
+          <div className="page-content">{children}</div>
+        </div>
       </div>
     </>
   );

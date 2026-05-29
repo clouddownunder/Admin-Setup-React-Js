@@ -9,9 +9,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { usePathname } from "src/routes/hooks";
 import { RouterLink } from "src/routes/components";
 
-import Logo from "src/components/logo";
-
-import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
 
 // ----------------------------------------------------------------------
@@ -41,10 +38,6 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const renderContent = (
     <div className="sidebar sidebar-menu-main">
-      <div className="header-logo-wrap">
-        <Logo className="logo img-fluid" sx={{ height: 32, width: "180px" }} />
-      </div>
-
       {renderMenu}
     </div>
   );
