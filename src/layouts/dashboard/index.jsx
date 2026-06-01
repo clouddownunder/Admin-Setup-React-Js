@@ -16,6 +16,7 @@ export default function DashboardLayout({ children }) {
       <div className="sidebar-show-hide-bck"></div>
       <div className="page-wrapper">
         {/* Header */}
+        <div className="header-height"></div>
         <Header onOpenNav={() => setOpenNav(true)} />
 
         {/* Sidebar + Page Content */}
@@ -24,7 +25,6 @@ export default function DashboardLayout({ children }) {
           <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
 
           {/* Main Content */}
-          {/* <div className="page-content">{children}</div> */}
           <div className="page">{children}</div>
         </div>
       </div>

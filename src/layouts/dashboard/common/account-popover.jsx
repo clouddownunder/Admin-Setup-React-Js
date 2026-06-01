@@ -129,6 +129,7 @@ export default function AccountPopover() {
         </DialogActions>
       </Dialog>
       <IconButton
+        className="profile-avtar-img"
         onClick={handleOpen}
         sx={{
           width: 40,
@@ -150,7 +151,6 @@ export default function AccountPopover() {
           sx={{
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
-          className="profile-avtar-img"
         >
           {account.displayName.charAt(0).toUpperCase()}
         </Avatar>

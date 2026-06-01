@@ -1,11 +1,3 @@
-.logo svg {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    overflow: auto;
-    object-position: center;
-}
-
 /* =========================================================
    Header 
 ========================================================= */
@@ -43,6 +35,7 @@
 .main-header .profile-avtar-img {
     width: 36px;
     height: 36px;
+    padding: 0;
 }
 
 .main-header-right {
@@ -53,6 +46,8 @@
 }
 
 .headera-logo-wrap {
+    display: inline-flex;
+    align-items: center;
     width: 300px;
     position: relative;
     transition: all .3s ease-in-out;
@@ -63,11 +58,59 @@
     white-space: nowrap;
 }
 
+.sidebar-show-hide .headera-logo-wrap {
+    width: 100px;
+}
+
+.headera-logo-wrap .logo {
+    height: 40px;
+    width: 200px;
+    max-width: 200px;
+    display: inline-block;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+.headera-logo-wrap .logo svg,
+.headera-logo-wrap .logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.headera-mlogo {
+    transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    -webkit-transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    -moz-transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    -ms-transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    -o-transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+}
+
+.sidebar-show-hide .headera-mlogo {
+    /* opacity: 1;
+    visibility: visible; */
+}
+
+.headera-logo {
+    margin-left: -32px;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+.sidebar-show-hide .headera-logo {
+    opacity: 0;
+}
+
 .main-header .sidebar-toggle {
     width: 40px;
     height: 40px;
     position: absolute;
-    right: 0px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
@@ -95,13 +138,27 @@
     height: 100%;
 }
 
-.sidebar-menu .admin-icon-wrap {
-    width: 24px;
-    height: 24px;
+.sidebar-menu .admin-icon-wrap,
+.sidebar-menu .svg-color {
+    width: 22px;
+    height: 22px;
 }
 
 .sidebar-menu .site-menu-title {
     padding-left: 16px;
+    font-weight: 500;
+    line-height: normal;
+    color: var(--text-primary);
+    text-transform: capitalize;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
 }
 
 .sidebar-menu .sb-nav-link {
@@ -111,6 +168,34 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.sidebar-menu .svg-color {
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.sidebar-menu .sb-nav-link:hover,
+.sidebar-menu .sb-nav-link.active {
+    background-color: var(--primary-lighter2);
+}
+
+.sidebar-menu .sb-nav-link:hover .site-menu-title,
+.sidebar-menu .sb-nav-link.active .site-menu-title {
+    color: var(--primary-main);
+}
+
+.sidebar-menu .sb-nav-link:hover .svg-color,
+.sidebar-menu .sb-nav-link.active .svg-color {
+    background-color: var(--primary-main);
 }
 
 .sidebar-menu-list .sb-nav-item {
@@ -119,6 +204,17 @@
 
 .sidebar-menu-list .sb-nav-item:last-child {
     margin-bottom: 0;
+}
+
+.sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link .site-menu-title {
+    padding-left: 0px;
+    opacity: 0;
+    display: none;
+}
+
+.sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link {
+    max-width: fit-content;
+    margin-left: 8px;
 }
 
 .sidebar-admin-card {
@@ -153,7 +249,7 @@
     top: 0;
     width: 300px;
     background: var(--white);
-    z-index: 999;
+    z-index: 99;
     transition: margin-left .3s ease-in-out, width .3s ease-in-out;
     -webkit-transition: margin-left .3s ease-in-out, width .3s ease-in-out;
     -moz-transition: margin-left .3s ease-in-out, width .3s ease-in-out;
@@ -161,27 +257,23 @@
     -o-transition: margin-left .3s ease-in-out, width .3s ease-in-out;
 }
 
+.sidebar-show-hide .main-sidebar {
+    width: 100px;
+}
+
 .sidebar.sidebar-menu-main {
-    /* padding: 12px 20px 30px;
-    height: 100vh;
-    height: 100dvh;
-    display: flex;
-    flex-direction: column; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(-60px + 100vh);
+    height: calc(100vh - 64px);
     overflow-x: hidden;
     overflow-y: auto;
-    margin-top: 65px;
+    margin-top: 64px;
     padding: 30px 14px;
 }
 
-.sidebar-scroll {
-    /* overflow-x: hidden;
-    overflow-y: auto;
-    flex-grow: 1;
-    margin-top: 53px; */
+.header-height {
+    padding-top: 64px;
 }
 
 .page-wrapper {
@@ -193,16 +285,39 @@
 }
 
 .page {
-    /* min-height: 100%; */
     width: calc(100% - 300px);
     margin-left: auto;
     transition: all .3s ease-in-out;
-    /* background-color: var(--bg-light);
-    width: calc(100% - 260px);
-    margin-left: auto;
-    transition: 0.3s ease-in-out; */
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
 }
 
+.sidebar-show-hide .page,
+.sidebar-show-hide .site-footer {
+    width: calc(100vw - 100px);
+}
+
+.page {
+    min-height: 100%;
+}
+
+.site-footer {
+    height: auto;
+    padding: 16px 30px;
+    flex-shrink: 1;
+}
+
+.content-wrapper-main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+/* =========================================================
+   Login Screen Styles 
+========================================================= */
 .input-field input {
     border-radius: 10px;
     font-size: 16px;

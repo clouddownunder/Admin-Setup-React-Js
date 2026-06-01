@@ -33,6 +33,7 @@ body {
     --grey-900: #161C24;
 
     /* ===== PRIMARY ===== */
+    --primary-lighter2: #fcf1f0;
     --primary-lighter: #FDE5DE;
     --primary-light: #F58A6B;
     --primary-main: #D74315;

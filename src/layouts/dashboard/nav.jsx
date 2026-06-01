@@ -25,7 +25,7 @@ export default function Nav({ openNav, onCloseNav }) {
   }, [pathname]);
 
   const renderMenu = (
-    <div className="sidebar-menu sidebar-scroll">
+    <div className="sidebar-menu">
       <ul className="sidebar-menu-list">
         {navConfig.map((item) => (
           <li className="sb-nav-item" key={item.title}>
