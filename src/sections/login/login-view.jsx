@@ -58,87 +58,101 @@ export default function LoginView() {
   };
 
   const renderForm = (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      style={{ borderRadius: "50px" }}
-    >
-      <Stack spacing={3}>
-        {errorMessage && (
-          <Typography
-            color="error"
-            variant="body2"
-            sx={{ textAlign: "center", fontWeight: "bolder" }}
-          >
-            {errorMessage}
+
+   
+
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        style={{ borderRadius: "50px" }}
+      >
+        <Stack>
+          {errorMessage && (
+            <Typography
+              color="error"
+              variant="body2"
+              sx={{ textAlign: "center", fontWeight: "bolder" }}
+            >
+              {errorMessage}
+            </Typography>
+          )}
+
+          <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+            Email Address*
           </Typography>
-        )}
+          <TextField
+            name="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            margin="none"
+            className="input-field"
+          />
 
-        <TextField
-          name="email"
-          label="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+            Password*
+          </Typography>
+          <TextField
+            name="password"
+            placeholder="Password"
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="input-field"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                    sx={{ color: "black" }}
+                  >
+                    <Iconify
+                      style={{ fontSize: "small" }}
+                      icon={showPassword ? "eva:eye-off-fill" : "eva:eye-fill"}
+                    />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Stack>
 
-        <TextField
-          name="password"
-          label="Password"
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge="end"
-                  sx={{ color: "black" }}
-                >
-                  <Iconify
-                    style={{ fontSize: "small" }}
-                    icon={showPassword ? "eva:eye-off-fill" : "eva:eye-fill"}
-                  />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
-
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="flex-end"
-        sx={{ my: 3 }}
-      >
-        <Link
-          underline="hover"
-          onClick={() => router.push("/forgetPassword")}
-          style={{ cursor: "pointer" }}
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="flex-end"
+          sx={{ mt: 1,mb: 3 }}
         >
-          Forgot password?
-        </Link>
-      </Stack>
+          <Link
+            underline="hover"
+            onClick={() => router.push("/forgetPassword")}
+            style={{ cursor: "pointer" }}
+          >
+            Forgot password?
+          </Link>
+        </Stack>
 
-      {/* <LoadingButton
-        fullWidth
-        size="large"
-        type="submit"
-        variant="contained"
-        sx={{ color: "white" }}
-      >
-        Login
-      </LoadingButton> */}
-      <button type="submit" className="btn btn-primary w-100 btn-lg">
-        Login
-      </button>
-    </Box>
+        {/* <LoadingButton
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+          sx={{ color: "white" }}
+        >
+          Login
+        </LoadingButton> */}
+        <button type="submit" className="btn btn-primary w-100 btn-lg">
+          Login
+        </button>
+      </Box>
+
   );
 
   return (
+    <div className="parentform">
     <Box
       sx={{
         ...bgGradient({
@@ -164,11 +178,12 @@ export default function LoginView() {
       />
 
       <Card
-        sx={{
-          p: 5,
-          width: 1,
-          maxWidth: 420,
-        }}
+      className="login-cardm1"
+        // sx={{
+        //   p: "35px 40px",
+        //   width: 1,
+        //   maxWidth: 420,
+        // }}
       >
         {/* <Stack spacing={2} alignItems="left">
           <Typography variant="h4" textAlign="left">
@@ -185,7 +200,7 @@ export default function LoginView() {
           </Typography>
         </Stack> */}
 
-        <div className="mb-4"> 
+        <div className="mb-3"> 
           <h2 className="fw-bold h4 mb-1">Login</h2> 
           <p className="text-muted subtitle1 mb-0"> Please enter your detail to login in your account </p> 
         </div>
@@ -195,5 +210,6 @@ export default function LoginView() {
         {renderForm}
       </Card>
     </Box>
+    </div>
   );
 }

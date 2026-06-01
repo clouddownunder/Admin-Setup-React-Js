@@ -202,3 +202,22 @@
     margin-left: auto;
     transition: 0.3s ease-in-out; */
 }
+
+.input-field input {
+    border-radius: 10px;
+    font-size: 16px;
+    color: var(--LightBlack);
+    font-weight: 300;
+    padding: 10px 20px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.parentform .login-cardm1 {
+    padding: 35px 40px;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 12px;
+}
