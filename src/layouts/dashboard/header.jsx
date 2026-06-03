@@ -24,7 +24,7 @@ export default function Header({ onOpenNav }) {
   const renderContent = (
     <>
       <div className="header-right">
-        <div className="navbar-avtar">
+        <div className="navbar-avtar d-flex align-items-center">
           <LanguagePopover />
           <AccountPopover />
         </div>

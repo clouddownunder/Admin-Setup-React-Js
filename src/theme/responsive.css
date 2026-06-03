@@ -10,18 +10,53 @@
 
 @media (max-width: 1024px) {}
 
-@media (max-width: 991px) {}
+@media (max-width: 991px) {
+    .input-field .form-control.border {
+        font-size: 14px;
+    }
+
+    .input-field .form-control.border::placeholder,
+    .input-field .form-control.border::-moz-placeholder,
+    .input-field .form-control.border:-ms-input-placeholder,
+    .input-field .form-control.border::-webkit-input-placeholder,
+    .input-field .form-control.border::-o-input-placeholder {
+        font-size: 14px;
+    }
+
+    .input-field .form-control:-webkit-autofill,
+    .input-field .form-control:-webkit-autofill:hover,
+    .input-field .form-control:-webkit-autofill:focus,
+    .input-field .form-control:-webkit-autofill:active {
+        font-size: 14px;
+    }
+
+    .login-container .forgotpass {
+        font-size: 14px;
+    }
+
+    .wrap-reset-pass label {
+        font-size: 14px;
+    }
+
+    .parentform .login-cardm1 {
+        padding: 24px 24px;
+    }
+
+    .login-container {
+        padding: 16px;
+    }
+}
 
 @media (max-width: 768px) {}
 
 @media (max-width: 575px) {
     .parentform .login-cardm1 {
-        padding: 30px;
+        padding: 20px 18px;
     }
 }
 
-@media (max-width: 380px) {
-    .parentform .login-cardm1 {
-        padding: 25px;
+@media (max-width: 359px) {
+    .login-container {
+        padding: 12px;
     }
 }

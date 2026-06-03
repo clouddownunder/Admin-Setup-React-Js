@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import LoadingButton from "@mui/lab/LoadingButton";
+// import LoadingButton from "@mui/lab/LoadingButton";
 import { alpha, useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { setCookie } from "../../utils/format-user";
@@ -58,158 +58,129 @@ export default function LoginView() {
   };
 
   const renderForm = (
-
-   
-
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        style={{ borderRadius: "50px" }}
-      >
-        <Stack>
-          {errorMessage && (
-            <Typography
-              color="error"
-              variant="body2"
-              sx={{ textAlign: "center", fontWeight: "bolder" }}
-            >
-              {errorMessage}
-            </Typography>
-          )}
-
-          <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
-            Email Address*
-          </Typography>
-          <TextField
-            name="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            margin="none"
-            className="input-field"
-          />
-
-          <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
-            Password*
-          </Typography>
-          <TextField
-            name="password"
-            placeholder="Password"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="input-field"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                    sx={{ color: "black" }}
-                  >
-                    <Iconify
-                      style={{ fontSize: "small" }}
-                      icon={showPassword ? "eva:eye-off-fill" : "eva:eye-fill"}
-                    />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Stack>
-
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="flex-end"
-          sx={{ mt: 1,mb: 3 }}
-        >
-          <Link
-            underline="hover"
-            onClick={() => router.push("/forgetPassword")}
-            style={{ cursor: "pointer" }}
+    <Box component="form" onSubmit={handleSubmit}>
+      <Stack>
+        {errorMessage && (
+          <Typography
+            color="error"
+            variant="body2"
+            sx={{ textAlign: "center", fontWeight: "bolder" }}
           >
-            Forgot password?
-          </Link>
-        </Stack>
+            {errorMessage}
+          </Typography>
+        )}
 
-        {/* <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          sx={{ color: "white" }}
+        <Typography variant="body2" sx={{ mt: 2, mb: 1, fontWeight: 500 }}>
+          Email Address*
+        </Typography>
+        <TextField
+          name="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          margin="none"
+          className="input-field"
+          InputProps={{
+            inputProps: {
+              className: "form-control border",
+            },
+          }}
+        />
+
+        <Typography variant="body2" sx={{ mt: 2, mb: 1, fontWeight: 500 }}>
+          Password*
+        </Typography>
+        <TextField
+          name="password"
+          placeholder="Password"
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="input-field"
+          InputProps={{
+            inputProps: {
+              className: "form-control border",
+            },
+            endAdornment: (
+              <InputAdornment position="end" className="pass-eye-icon">
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                  sx={{ color: "black" }}
+                >
+                  <Iconify
+                    style={{ fontSize: "small" }}
+                    icon={showPassword ? "eva:eye-off-fill" : "eva:eye-fill"}
+                  />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Stack>
+
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="flex-end"
+        sx={{ mt: 1, mb: 3 }}
+      >
+        <Link
+          className="forgotpass"
+          underline="hover"
+          onClick={() => router.push("/forgetPassword")}
+          style={{ cursor: "pointer" }}
         >
-          Login
-        </LoadingButton> */}
-        <button type="submit" className="btn btn-primary w-100 btn-lg">
-          Login
-        </button>
-      </Box>
+          Forgot password?
+        </Link>
+      </Stack>
 
+      <button className="login-btn btn btn-primary w-100" type="submit">
+        Login
+      </button>
+    </Box>
   );
 
   return (
     <div className="parentform">
-    <Box
-      sx={{
-        ...bgGradient({
-          color: alpha(theme.palette.background.default, 0.9),
-          imgUrl: "/assets/background/overlay_4.jpg",
-        }),
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {/* Logo outside and above the card */}
-      <Logo
-        className="logo"
+      <Box
+        className="login-container"
         sx={{
-          width: "210px",
-          height: "auto",
-          marginBottom: "20px",
-          marginTop: "10px",
+          ...bgGradient({
+            color: alpha(theme.palette.background.default, 0.9),
+            imgUrl: "/assets/background/overlay_4.jpg",
+          }),
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-      />
-
-      <Card
-      className="login-cardm1"
-        // sx={{
-        //   p: "35px 40px",
-        //   width: 1,
-        //   maxWidth: 420,
-        // }}
       >
-        {/* <Stack spacing={2} alignItems="left">
-          <Typography variant="h4" textAlign="left">
-            Login
-          </Typography>
-          <Typography
-            variant="body2"
-            textAlign="left"
-            sx={{
-              color: "text.secondary",
-            }}
-          >
-            Please enter your detail to logn in your account
-          </Typography>
-        </Stack> */}
+        {/* Logo outside and above the card */}
+        <Logo
+          className="logo"
+          sx={{
+            width: "210px",
+            height: "auto",
+            marginBottom: "20px",
+            marginTop: "10px",
+          }}
+        />
 
-        <div className="mb-3"> 
-          <h2 className="fw-bold h4 mb-1">Login</h2> 
-          <p className="text-muted subtitle1 mb-0"> Please enter your detail to login in your account </p> 
-        </div>
-
-        {/* <br /> */}
-
-        {renderForm}
-      </Card>
-    </Box>
+        <Card className="login-cardm1">
+          <div className="mb-3">
+            <h2 className="fw-bold h4 mb-1">Login</h2>
+            <p className="text-muted subtitle1 mb-0">
+              {" "}
+              Please enter your detail to login in your account{" "}
+            </p>
+          </div>
+          {renderForm}
+        </Card>
+      </Box>
     </div>
   );
 }

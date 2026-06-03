@@ -7,7 +7,7 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import LoadingButton from "@mui/lab/LoadingButton";
+// import LoadingButton from "@mui/lab/LoadingButton";
 import { alpha, useTheme } from "@mui/material/styles";
 import { bgGradient } from "src/theme/css";
 import Logo from "src/components/logo";
@@ -21,7 +21,6 @@ export default function ForgotPasswordView() {
   const theme = useTheme();
 
   const [email, setEmail] = useState("");
-  // const [loading, setLoading] = useState(false);
 
   const handleForgotPassword = async () => {
     if (!email) {
@@ -29,7 +28,6 @@ export default function ForgotPasswordView() {
       return;
     }
 
-    // setLoading(true);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_BASEURL}/auth/adminForgotPassword`,
@@ -48,12 +46,12 @@ export default function ForgotPasswordView() {
       console.error(err);
       showError(theme, err.message);
     }
-    // setLoading(false);
   };
 
   return (
     <div className="parentform">
       <Box
+        className="login-container"
         sx={{
           ...bgGradient({
             color: alpha(theme.palette.background.default, 0.9),
@@ -76,33 +74,15 @@ export default function ForgotPasswordView() {
             marginTop: "10px",
           }}
         />
-        <Card 
-        className="login-cardm1"
-        // sx={{ p: "35px 40px", width: 1, maxWidth: 420 }}
-        >
-          {/* <Stack spacing={2} alignItems="center">
-            <Logo
-              className="logo"
-              sx={{
-                width: "190px",
-                height: "auto",
-                marginBottom: "20px",
-                marginTop: "10px",
-              }}
-            />
-            <Typography variant="h4" textAlign="center">
-              Forgot Password
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Enter your registered email address and we’ll send you a reset link.
-            </Typography>
-          </Stack> */}
-          <div className="mb-3"> 
-            <h2 className="fw-bold h4 mb-1">Forgot Password</h2> 
-            <p className="text-muted subtitle1 mb-0"> Enter your registered email address and we’ll send you a reset link. </p> 
+        <Card className="login-cardm1">
+          <div className="mb-3">
+            <h2 className="fw-bold h4 mb-1">Forgot Password</h2>
+            <p className="text-muted subtitle1 mb-0">
+              {" "}
+              Enter your registered email address and we’ll send you a reset
+              link.{" "}
+            </p>
           </div>
-
-          {/* <br /> */}
 
           <Stack>
             <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
@@ -114,18 +94,17 @@ export default function ForgotPasswordView() {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="input-field"
+              className="input-field mb-4"
+              InputProps={{
+                inputProps: {
+                  className: "form-control border",
+                },
+              }}
             />
 
-            {/* <LoadingButton
-              fullWidth
-              loading={loading}
-              variant="contained"
-              onClick={handleForgotPassword}
-            >
-              Send Reset Link
-            </LoadingButton> */}
-            <button type="submit" className="btn btn-primary w-100 btn-lg mt-4"
+            <button
+              type="submit"
+              className="login-btn btn btn-primary w-100"
               onClick={handleForgotPassword}
             >
               Send Reset Link
@@ -136,9 +115,10 @@ export default function ForgotPasswordView() {
             color="text.secondary"
             textAlign="center"
             mt={2}
+            className="backtologin-text"
           >
             Back To{" "}
-            <Link to="/login" style={{ color: "grey" }}>
+            <Link to="/login" className="re-login-link">
               Login
             </Link>
           </Typography>

@@ -7,11 +7,10 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
-import LoadingButton from "@mui/lab/LoadingButton";
+// import LoadingButton from "@mui/lab/LoadingButton";
 import { alpha, useTheme } from "@mui/material/styles";
 
 import { bgGradient } from "src/theme/css";
@@ -38,13 +37,13 @@ export default function ResetPasswordView() {
 
   const [loading, setLoading] = useState(false);
 
-  if (!token) {
-    return (
-      <Box textAlign="center" mt={5}>
-        Invalid or expired link
-      </Box>
-    );
-  }
+  // if (!token) {
+  //   return (
+  //     <Box textAlign="center" mt={5}>
+  //       Invalid or expired link
+  //     </Box>
+  //   );
+  // }
 
   const handleResetPassword = async () => {
     if (!password || !confirmPassword) {
@@ -86,91 +85,111 @@ export default function ResetPasswordView() {
   };
 
   return (
-    <Box
-      sx={{
-        ...bgGradient({
-          color: alpha(theme.palette.background.default, 0.9),
-          imgUrl: "/assets/background/overlay_4.jpg",
-        }),
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Card sx={{ p: 5, width: 1, maxWidth: 420 }}>
-        <Stack spacing={2} alignItems="center">
-          <Logo
-            sx={{
-              width: "190px",
-              height: "auto",
-              marginBottom: "20px",
-              marginTop: "10px",
-            }}
-          />
+    <div className="parentform">
+      <Box
+        className="login-container"
+        sx={{
+          ...bgGradient({
+            color: alpha(theme.palette.background.default, 0.9),
+            imgUrl: "/assets/background/overlay_4.jpg",
+          }),
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {/* Logo outside and above the card */}
+        <Logo
+          className="logo"
+          sx={{
+            width: "210px",
+            height: "auto",
+            marginBottom: "20px",
+            marginTop: "10px",
+          }}
+        />
+        <Card className="login-cardm1">
+          <div className="mb-3">
+            <h2 className="fw-bold h4 mb-1">Reset Password</h2>
+            <p className="text-muted subtitle1 mb-0">
+              Enter your new password below.
+            </p>
+          </div>
 
-          <Typography variant="h4" textAlign="center">
-            Reset Password
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary" textAlign="center">
-            Enter your new password below.
-          </Typography>
-        </Stack>
-
-        <br />
-
-        <Stack spacing={3}>
           {/* New Password */}
-          <TextField
-            fullWidth
-            label="New Password"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    <Iconify
-                      icon={showPassword ? "eva:eye-fill" : "eva:eye-off-fill"}
-                    />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Stack spacing={2} alignItems="center" sx={{ mt: 4, mb: 3 }} className="wrap-reset-pass">
+            <TextField
+              fullWidth
+              label="New Password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input-field"
+              InputProps={{
+                inputProps: {
+                  className: "form-control border",
+                },
+                endAdornment: (
+                  <InputAdornment position="end" className="pass-eye-icon">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                      sx={{ color: "black" }}
+                    >
+                      <Iconify
+                        style={{ fontSize: "small" }}
+                        icon={
+                          showPassword ? "eva:eye-fill" : "eva:eye-off-fill"
+                        }
+                      />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
 
-          {/* Confirm Password */}
-          <TextField
-            fullWidth
-            label="Confirm Password"
-            type={showConfirm ? "text" : "password"}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowConfirm(!showConfirm)}>
-                    <Iconify
-                      icon={showConfirm ? "eva:eye-fill" : "eva:eye-off-fill"}
-                    />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+            {/* Confirm Password */}
+            <TextField
+              fullWidth
+              label="Confirm Password"
+              type={showConfirm ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="input-field"
+              InputProps={{
+                inputProps: {
+                  className: "form-control border",
+                },
+                endAdornment: (
+                  <InputAdornment position="end" className="pass-eye-icon">
+                    <IconButton
+                      onClick={() => setShowConfirm(!showConfirm)}
+                      edge="end"
+                      sx={{ color: "black" }}
+                    >
+                      <Iconify
+                        style={{ fontSize: "small" }}
+                        icon={showConfirm ? "eva:eye-fill" : "eva:eye-off-fill"}
+                      />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Stack>
 
-          <LoadingButton
-            fullWidth
+          <button
+            className="login-btn btn btn-primary w-100"
+            type="submit"
             loading={loading}
-            variant="contained"
             onClick={handleResetPassword}
           >
             Change Password
-          </LoadingButton>
-        </Stack>
-      </Card>
-    </Box>
+          </button>
+        </Card>
+      </Box>
+    </div>
   );
 }

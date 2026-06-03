@@ -83,49 +83,49 @@ body {
 h1,
 .h1 {
     font-size: 64px;
-    line-height: 1.25;
+    line-height: 1.2;
     font-weight: 800;
 }
 
 h2,
 .h2 {
     font-size: 48px;
-    line-height: 1.33;
+    line-height: 1.2;
     font-weight: 800;
 }
 
 h3,
 .h3 {
     font-size: 32px;
-    line-height: 1.5;
+    line-height: 1.2;
     font-weight: 700;
 }
 
 h4,
 .h4 {
     font-size: 24px;
-    line-height: 1.5;
+    line-height: 1.2;
     font-weight: 700;
 }
 
 h5,
 .h5 {
     font-size: 20px;
-    line-height: 1.5;
+    line-height: 1.2;
     font-weight: 700;
 }
 
 h6,
 .h6 {
     font-size: 18px;
-    line-height: 1.55;
+    line-height: 1.5;
     font-weight: 700;
 }
 
 p,
 .p {
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.2;
     font-weight: 600;
 }
 
@@ -166,6 +166,12 @@ p,
     font-weight: 800;
 }
 
+/* =========================================================
+    COLOR CLASSNAME
+========================================================= */
+.text_primary {
+    color: var(--primary-main);
+}
 
 a {
     color: var(--text-primary);
@@ -272,6 +278,16 @@ ul {
     -moz-transition: all 0.4s ease-in-out 0s;
     -ms-transition: all 0.4s ease-in-out 0s;
     -o-transition: all 0.4s ease-in-out 0s;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus,
+.btn:focus-visible {
+    color: var(--white);
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 .btn-primary {
