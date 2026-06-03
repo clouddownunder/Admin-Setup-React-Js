@@ -490,6 +490,7 @@ body.remove-scroll {
 
 .wrap-reset-pass label {
     line-height: 1.1;
+    background-color: var(--white) !important;
 }
 
 /* Input style */
