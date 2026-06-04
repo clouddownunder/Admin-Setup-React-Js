@@ -259,7 +259,7 @@ export default function AppView() {
         </span>
       </div>
 
-      <div className="page-content dashboard-main">
+      <div className="page-content dashboard-main pt-3">
         <div className="panel">
           <div className="custom-section-class pt-0">
             {/* ===== TOP FILTER ===== */}

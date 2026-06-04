@@ -76,12 +76,12 @@
     cursor: pointer;
     z-index: 2;
     padding: 0 12px;
-    padding-right: 36px;
+    padding-right: 26px;
 }
 
 .profile-avtar-btn::after {
     position: absolute;
-    right: 12px;
+    right: 0;
     top: 0px;
     bottom: 0px;
     width: 13px;
@@ -235,6 +235,10 @@
     -moz-transition: all .3s ease-in-out;
     -ms-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
+}
+
+.headera-logo a {
+    display: inline-block;
 }
 
 .headera-logo-wrap .logo svg>path:first-child {
@@ -428,7 +432,8 @@
     background-color: var(--bg-light);
 }
 
-.page {
+.page,
+.site-footer {
     width: calc(100% - 300px);
     margin-left: auto;
     transition: all .3s ease-in-out;
@@ -448,9 +453,17 @@
 }
 
 .site-footer {
-    height: auto;
     padding: 16px 30px;
     flex-shrink: 1;
+    border-top: 1px solid var(--border-color-light);
+}
+
+.site-footer-legal {
+    display: inline-block;
+    font-weight: 600;
+    opacity: .6;
+    color: var(--text-primary);
+    text-align: center;
 }
 
 .content-wrapper-main {
@@ -717,6 +730,7 @@ body.remove-scroll {
 .filter-menu-list .filter-menu-item {
     font-size: 16px;
     color: var(--text-primary);
+    min-height: auto;
     font-weight: 400;
     transition: all .3s ease;
     -webkit-transition: all .3s ease;
@@ -765,6 +779,9 @@ body.remove-scroll {
     right: 16px;
     height: auto;
     padding-top: 4px;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0 !important;
 }
 
 .date-cal-wrapper {
@@ -806,4 +823,8 @@ body.remove-scroll {
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
+}
+
+.MuiCalendarOrClockPicker-root {
+    flex-direction: column;
 }

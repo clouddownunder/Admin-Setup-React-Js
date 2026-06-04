@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
@@ -120,14 +122,15 @@ export default function ResetPasswordView() {
 
           {/* New Password */}
           <Stack
-            spacing={2}
-            alignItems="center"
-            sx={{ mt: 4, mb: 3 }}
-            className="floating-label"
+            sx={{ mt: 2, mb: 3 }}
           >
+            <Typography variant="body2" sx={{ mt: 2, mb: 1, fontWeight: 500 }}>
+              New Password*
+            </Typography>
             <TextField
               fullWidth
-              label="New Password"
+              name="password"
+              placeholder="New Password"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -156,9 +159,13 @@ export default function ResetPasswordView() {
             />
 
             {/* Confirm Password */}
+            <Typography variant="body2" sx={{ mt: 2, mb: 1, fontWeight: 500 }}>
+              Confirm Password*
+            </Typography>
             <TextField
               fullWidth
-              label="Confirm Password"
+              name="password"
+              placeholder=" Confirm Password"
               type={showConfirm ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}

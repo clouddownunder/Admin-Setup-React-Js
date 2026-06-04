@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 
 import Header from "./header";
 import Nav from "./nav";
+import Footer from "./footer";
+
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +29,9 @@ export default function DashboardLayout({ children }) {
           {/* Main Content */}
           <div className="page">{children}</div>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </>
   );

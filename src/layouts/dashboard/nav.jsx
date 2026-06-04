@@ -37,9 +37,7 @@ export default function Nav({ openNav, onCloseNav }) {
   );
 
   const renderContent = (
-    <div className="sidebar sidebar-menu-main">
-      {renderMenu}
-    </div>
+    <div className="sidebar sidebar-menu-main">{renderMenu}</div>
   );
 
   return <aside className="main-sidebar">{renderContent}</aside>;
@@ -58,11 +56,18 @@ function NavItem({ item }) {
   const pathname = usePathname();
 
   const active = item.path === pathname;
+  
+  const handleNavClick = () => {
+    if (window.innerWidth < 992) {
+      document.body.classList.remove("sidebar-show-hide");
+    }
+  };
 
   return (
     <ListItemButton
       component={RouterLink}
       href={item.path}
+      onClick={handleNavClick}
       className={`sb-nav-link ${active ? "active" : ""}`}
     >
       <Box component="span" className="admin-icon-wrap">
