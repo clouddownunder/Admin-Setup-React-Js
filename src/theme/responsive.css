@@ -1,6 +1,127 @@
 @media (max-width: 1800px) {}
 
-@media (max-width: 1600px) {}
+@media (max-width: 1600px) {
+
+    /* Dashboard CSS */
+    .page-header {
+        padding: 25px 20px;
+    }
+
+    .page-content {
+        padding: 25px 20px;
+    }
+
+    .custom-section-class {
+        padding: 10px 0 0;
+    }
+
+    .stat-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .stat-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+    }
+
+    .custom-section-class .card .counter-label {
+        font-size: 11px;
+        letter-spacing: .4px;
+    }
+
+    .counter-number.user-counter {
+        font-size: 22px;
+    }
+
+    .custom-section-class .card .counter-main {
+        gap: 14px;
+    }
+
+    .custom-section-class .card {
+        padding: 16px 16px;
+        border-radius: 12px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+        margin-bottom: 18px;
+        height: calc(100% - 18px);
+    }
+
+    .section-header {
+        padding: 16px 16px;
+        border-radius: 12px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+    }
+
+    /* header or sidebar CSS */
+    .sidebar-show-hide .page,
+    .sidebar-show-hide .site-footer {
+        width: calc(100% - 85px);
+    }
+
+    .sidebar-show-hide .main-sidebar {
+        width: 85px;
+    }
+
+    .sidebar-show-hide .headera-logo-wrap {
+        width: 85px;
+    }
+
+    .main-sidebar {
+        width: 250px;
+    }
+
+    .page,
+    .site-footer {
+        width: calc(100% - 250px);
+    }
+
+    .sidebar.sidebar-menu-main {
+        padding: 20px 10px;
+        margin-top: 68px;
+    }
+
+    .header-height {
+        padding-top: 68px;
+    }
+
+    .main-header {
+        padding: 12px 24px;
+    }
+
+    .navbar_avatar .user-menu img,
+    .navbar_avatar .user-menu .h-userprofileicon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .ha-dropdown-click {
+        padding-right: 32px;
+    }
+
+    .ha-dropdown-click.dropdown-toggle::after {
+        right: 8px;
+    }
+
+    .main-sidebar .sb-nav-item .sb-nav-link {
+        padding: 10px 10px;
+    }
+
+    .sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link {
+        max-width: 42px;
+    }
+
+}
 
 @media (max-width: 1500px) {}
 
