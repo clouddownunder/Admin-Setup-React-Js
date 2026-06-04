@@ -21,6 +21,8 @@ body {
     --text-secondary: #4B5563;
     --text-disabled: #9CA3AF;
 
+    --border-color-light: #e2e2e2;
+
     /* ===== GREY ===== */
     --grey-100: #F9FAFB;
     --grey-200: #F4F6F8;
@@ -33,6 +35,7 @@ body {
     --grey-900: #161C24;
 
     /* ===== PRIMARY ===== */
+    --primary-lighter3: #ff6b3d14;
     --primary-lighter2: #fcf1f0;
     --primary-lighter: #FDE5DE;
     --primary-light: #F58A6B;
@@ -46,6 +49,8 @@ body {
     --secondary-main: #8E33FF;
     --secondary-dark: #5119B7;
     --secondary-darker: #27097A;
+    --purple: #6366f1;
+    --purple-light: #e0e7ff;
 
     /* ===== INFO ===== */
     --info-lighter: #CAFDF5;
@@ -53,6 +58,8 @@ body {
     --info-main: #00B8D9;
     --info-dark: #006C9C;
     --info-darker: #003768;
+    --blue-light: #dbeafe;
+    --blue: #3b82f6;
 
     /* ===== SUCCESS ===== */
     --success-lighter: #C8FAD6;
@@ -74,6 +81,38 @@ body {
     --error-main: #FF5630;
     --error-dark: #B71D18;
     --error-darker: #7A0916;
+    --danger: #dc3545;
+    --danger-light: #fee2e2;
+}
+
+.purple-box {
+    background-color: var(--purple-light);
+    color: var(--purple);
+}
+
+.blue-box {
+    background-color: var(--blue-light);
+    color: var(--blue);
+}
+
+.warning-box {
+    background: var(--warning-lighter);
+    color: var(--warning-main);
+}
+
+.error-box {
+    background: var(--error-lighter);
+    color: var(--error-main);
+}
+
+.danger-box {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.success-box {
+    background: var(--success-lighter);
+    color: var(--success-main);
 }
 
 /* ========================================

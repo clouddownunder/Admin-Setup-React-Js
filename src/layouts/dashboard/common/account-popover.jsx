@@ -3,14 +3,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getCookie, deleteCookie } from "../../../utils/format-user";
-import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import Popover from "@mui/material/Popover";
-import { alpha } from "@mui/material/styles";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -130,13 +124,14 @@ export default function AccountPopover() {
           </Button>
         </DialogActions>
       </Dialog>
-      <IconButton
+      <div
         onClick={handleOpen}
-        className={`profile-avtar-btn ${open ? "active" : ""}`}
-        sx={{}}
+        className={`profile-avtar-btn d-flex align-items-center ${
+          open ? "active" : ""
+        }`}
       >
         <Avatar
-          className="profile-avtar-img"
+          className={`profile-avtar-img ${open ? "active" : ""}`}
           src={
             userData.profilePicture
               ? `${import.meta.env.VITE_IMAGE_URL}${userData.profilePicture}`
@@ -146,8 +141,11 @@ export default function AccountPopover() {
         >
           {account.displayName.charAt(0).toUpperCase()}
         </Avatar>
-      </IconButton>
-      <h4 className="profile-user-name mb-0 ellipsis-1">{userData.fullName}</h4>
+
+        <h4 className="profile-user-name mb-0 ellipsis-1">
+          {userData.fullName}
+        </h4>
+      </div>
 
       <Popover
         className="profile-modal-main"

@@ -119,7 +119,12 @@ export default function ResetPasswordView() {
           </div>
 
           {/* New Password */}
-          <Stack spacing={2} alignItems="center" sx={{ mt: 4, mb: 3 }} className="wrap-reset-pass">
+          <Stack
+            spacing={2}
+            alignItems="center"
+            sx={{ mt: 4, mb: 3 }}
+            className="floating-label"
+          >
             <TextField
               fullWidth
               label="New Password"

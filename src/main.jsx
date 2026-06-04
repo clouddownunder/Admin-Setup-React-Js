@@ -12,6 +12,7 @@ import "./theme/root-style.css";
 import "./theme/custom.css";
 import "./theme/responsive.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import ThemeProvider from "src/theme";
 
 import App from "./app";
 // ======================================================
@@ -173,7 +174,9 @@ root.render(
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>
         <RecoilRoot>
-          <App />
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
         </RecoilRoot>
       </Suspense>
     </BrowserRouter>

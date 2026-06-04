@@ -1,27 +1,14 @@
 /* eslint-disable */
+import { getCookie } from "../../../utils/format-user";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Unstable_Grid2";
-import Typography from "@mui/material/Typography";
-import AppWidgetSummary from "../app-widget-summary";
-import {
-  Button,
-  Stack,
-  MenuItem,
-  TextField,
-  Box,
-  Card,
-  Switch,
-} from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
+
 import { DatePicker } from "@mui/x-date-pickers";
-import { Icon } from "@iconify/react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-// import Chart, { useChart } from "../../../components/chart";
 export default function AppView() {
-
   const [summary, setSummary] = useState({});
   const [filter, setFilter] = useState("total");
   const [startDate, setStartDate] = useState(dayjs().startOf(null));
@@ -72,6 +59,34 @@ export default function AppView() {
       console.error("Filtered summary error:", err);
     }
   };
+
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    try {
+      const user = getCookie("UserData");
+
+      if (user) {
+        setUserData(JSON.parse(decodeURIComponent(user)));
+      }
+    } catch (error) {
+      console.error("User data parse error:", error);
+    }
+  }, []);
+
+  const CustomSwitchIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+    >
+      <path
+        transform="translate(0,1)"
+        d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
 
   // 🔥 MOCK DATA (replace with API later)
   // const revenueSeries = [
@@ -236,288 +251,367 @@ export default function AppView() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Container maxWidth="xl" sx={{ mt: 3 }}>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Dashboard
-        </Typography>
+      <div className="page-header">
+        <h1 className="page-title mb-0">Dashboard</h1>
+        <span className="d-inline-block title-sub-text">
+          Welcome back,{" "}
+          <span className="fw-600">{userData?.fullName || "Admin"}</span>
+        </span>
+      </div>
 
-        {/* ===== TOP FILTER + EXPORT USERS BUTTON ===== */}
-        <Stack
-          direction="row"
-          spacing={2}
-          mb={3}
-          alignItems="center"
-          sx={{ justifyContent: "space-between" }}
-        >
-          {/* LEFT SIDE FILTERS */}
-          <Box gap={2} sx={{ display: "flex", flexWrap: "wrap" }}>
-            <TextField
-              select
-              label="Filter"
-              value={filter}
-              onChange={(e) => {
-                const selectedFilter = e.target.value;
-                setFilter(selectedFilter);
+      <div className="page-content dashboard-main">
+        <div className="panel">
+          <div className="custom-section-class pt-0">
+            {/* ===== TOP FILTER ===== */}
+            <div className="section-header">
+              <div className="statistics-dropdown">
+                <div className="row gy-3 gx-3">
+                  <div className="col-md-4 col-xxl-3">
+                    {/* LEFT SIDE FILTERS */}
+                    <div className="filter-dropdown-wrap floating-label group-field">
+                      <label htmlFor="filter" className="mb-2 main-label">
+                        Select Time Range
+                      </label>
 
-                if (selectedFilter === "today") {
-                  setStartDate(dayjs().startOf("day"));
-                  setEndDate(dayjs().endOf("day"));
-                } else if (selectedFilter === "week") {
-                  setStartDate(dayjs().startOf("week"));
-                  setEndDate(dayjs().endOf("week"));
-                } else if (selectedFilter === "month") {
-                  setStartDate(dayjs().startOf("month"));
-                  setEndDate(dayjs().endOf("month"));
-                } else if (selectedFilter === "year") {
-                  setStartDate(dayjs().startOf("year").add(1, "day"));
-                  setEndDate(dayjs().endOf("year").add(1, "day"));
-                } else if (selectedFilter === "quarter") {
-                  setStartDate(dayjs().subtract(3, "month").startOf("day"));
-                  setEndDate(dayjs());
-                } else if (selectedFilter === "total") {
-                  setStartDate(null);
-                  setEndDate(null);
-                  setCustomStartDate(dayjs().startOf("day"));
-                  setCustomEndDate(dayjs().endOf("day"));
-                  setToDateEndDate(dayjs());
-                }
-              }}
-              size="small"
-              sx={{ minWidth: 130 }}
-            >
-              {filterOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+                      <TextField
+                        select
+                        className="filter-dropdown input-field"
+                        InputProps={{
+                          inputProps: {
+                            className: "form-control border",
+                          },
+                        }}
+                        SelectProps={{
+                          IconComponent: () => (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              className="custom-select-arrow"
+                            >
+                              <path
+                                d="M19.061 7.854a1.5 1.5 0 0 0-2.122 0l-4.586 4.585a.5.5 0 0 1-.707 0L7.061 7.854a1.5 1.5 0 0 0-2.122 2.121l4.586 4.586a3.5 3.5 0 0 0 4.95 0l4.586-4.586a1.5 1.5 0 0 0 0-2.121Z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          ),
+                          MenuProps: {
+                            PaperProps: {
+                              className: "filter-menu-list",
+                            },
+                          },
+                        }}
+                        // label="Filter"
+                        value={filter}
+                        onChange={(e) => {
+                          const selectedFilter = e.target.value;
+                          setFilter(selectedFilter);
 
-            {filter === "todate" && (
-              <DatePicker
-                label="End Date"
-                value={toDateEndDate}
-                maxDate={dayjs()}
-                minDate={dayjs("2025-01-01T00:00:00Z")}
-                onChange={(newValue) => setToDateEndDate(newValue)}
-                renderInput={(params) => <TextField {...params} size="small" />}
-                inputFormat="DD MMM YYYY"
-              />
-            )}
+                          if (selectedFilter === "today") {
+                            setStartDate(dayjs().startOf("day"));
+                            setEndDate(dayjs().endOf("day"));
+                          } else if (selectedFilter === "week") {
+                            setStartDate(dayjs().startOf("week"));
+                            setEndDate(dayjs().endOf("week"));
+                          } else if (selectedFilter === "month") {
+                            setStartDate(dayjs().startOf("month"));
+                            setEndDate(dayjs().endOf("month"));
+                          } else if (selectedFilter === "year") {
+                            setStartDate(dayjs().startOf("year").add(1, "day"));
+                            setEndDate(dayjs().endOf("year").add(1, "day"));
+                          } else if (selectedFilter === "quarter") {
+                            setStartDate(
+                              dayjs().subtract(3, "month").startOf("day"),
+                            );
+                            setEndDate(dayjs());
+                          } else if (selectedFilter === "total") {
+                            setStartDate(null);
+                            setEndDate(null);
+                            setCustomStartDate(dayjs().startOf("day"));
+                            setCustomEndDate(dayjs().endOf("day"));
+                            setToDateEndDate(dayjs());
+                          }
+                        }}
+                      >
+                        {filterOptions.map((option) => (
+                          <MenuItem
+                            className="filter-menu-item"
+                            key={option.value}
+                            value={option.value}
+                          >
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </div>
+                  </div>
 
-            {filter === "custom" && (
-              <>
-                <DatePicker
-                  label="Start Date"
-                  value={customStartDate}
-                  maxDate={customEndDate || dayjs()}
-                  onChange={(newValue) => setCustomStartDate(newValue)}
-                  renderInput={(params) => (
-                    <TextField {...params} size="small" />
+                  {/* Date picker */}
+                  {filter === "todate" && (
+                    <div className="col-md-4 col-xxl-3">
+                      <div className="group-field main-datepicker">
+                        <div className="floating-label ">
+                          <label htmlFor="todate" className="mb-2 main-label">
+                            End Date
+                          </label>
+                        </div>
+                        <DatePicker
+                          className="input-field"
+                          // label=""
+                          value={toDateEndDate}
+                          maxDate={dayjs()}
+                          minDate={dayjs("2025-01-01T00:00:00Z")}
+                          onChange={(newValue) => setToDateEndDate(newValue)}
+                          PopperProps={{
+                            className: "date-cal-wrapper",
+                          }}
+                          components={{
+                            SwitchViewIcon: CustomSwitchIcon,
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              inputProps={{
+                                ...params.inputProps,
+                                className: "form-control border",
+                              }}
+                              InputProps={{
+                                ...params.InputProps,
+                                className: "datepicker-wrapper",
+                              }}
+                            />
+                          )}
+                          inputFormat="DD MMM YYYY"
+                        />
+                      </div>
+                    </div>
                   )}
-                  inputFormat="DD MMM YYYY"
-                />
 
-                <DatePicker
-                  label="End Date"
-                  value={customEndDate}
-                  minDate={customStartDate}
-                  maxDate={dayjs()}
-                  onChange={(newValue) => setCustomEndDate(newValue)}
-                  renderInput={(params) => (
-                    <TextField {...params} size="small" />
+                  {filter === "custom" && (
+                    <>
+                      <div className="col-md-4 col-xxl-3">
+                        <div className="group-field main-datepicker">
+                          <div className="floating-label ">
+                            <label htmlFor="custom" className="mb-2 main-label">
+                              Start Date
+                            </label>
+                          </div>
+                          <DatePicker
+                            className="input-field"
+                            // label=""
+                            value={customStartDate}
+                            maxDate={customEndDate || dayjs()}
+                            onChange={(newValue) =>
+                              setCustomStartDate(newValue)
+                            }
+                            PopperProps={{
+                              className: "date-cal-wrapper",
+                            }}
+                            components={{
+                              SwitchViewIcon: CustomSwitchIcon,
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                inputProps={{
+                                  ...params.inputProps,
+                                  className: "form-control border",
+                                }}
+                                InputProps={{
+                                  ...params.InputProps,
+                                  className: "datepicker-wrapper",
+                                }}
+                              />
+                            )}
+                            inputFormat="DD MMM YYYY"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-4 col-xxl-3">
+                        <div className="group-field main-datepicker">
+                          <div className="floating-label ">
+                            <label htmlFor="custom" className="mb-2 main-label">
+                              End Date
+                            </label>
+                          </div>
+                          <DatePicker
+                            className="input-field"
+                            // label=""
+                            value={customEndDate}
+                            minDate={customStartDate}
+                            maxDate={dayjs()}
+                            onChange={(newValue) => setCustomEndDate(newValue)}
+                            PopperProps={{
+                              className: "date-cal-wrapper",
+                            }}
+                            components={{
+                              SwitchViewIcon: CustomSwitchIcon,
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                inputProps={{
+                                  ...params.inputProps,
+                                  className: "form-control border",
+                                }}
+                                InputProps={{
+                                  ...params.InputProps,
+                                  className: "datepicker-wrapper",
+                                }}
+                              />
+                            )}
+                            inputFormat="DD MMM YYYY"
+                          />
+                        </div>
+                      </div>
+                    </>
                   )}
-                  inputFormat="DD MMM YYYY"
-                />
-              </>
-            )}
-          </Box>
+                </div>
+              </div>
+            </div>
 
-          {/* EXPORT USERS BUTTON (RIGHT) */}
-          {/* <Button
-            variant="contained"
-            startIcon={<Icon icon="mdi:download" />}
-            onClick={handleExportUsersCSV}
-          >
-            Export Users CSV
-          </Button> */}
-        </Stack>
+            {/* ===== CARDS ===== */}
+            <div className="row gx-3 gx-xxl-4">
+              {/* card 1 */}
+              <div className="col-sm-6 col-xl-4 col-xxl-3">
+                <div className="card card-block">
+                  <div className="counter-main">
+                    <div className="stat-icon blue-box">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    </div>
+                    <div className="counter counter-lg">
+                      <span className="counter-number user-counter">
+                        {summary.totalUsers || 0}
+                      </span>
+                      <div className="counter-label text-uppercase">
+                        Total Companies
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        {/* ===== USER SUMMARY CARDS ===== */}
-        {/* <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={6}>
-            <AppWidgetSummary
-              title="Small Businesses"
-              total={summary.totalUsers}
-              color="info"
-              icon={
-                <img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />
-              }
-            />
-          </Grid>
+              {/* card 2 */}
+              <div className="col-sm-6 col-xl-4 col-xxl-3">
+                <div className="card card-block">
+                  <div className="counter-main">
+                    <div className="stat-icon success-box">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    </div>
+                    <div className="counter counter-lg">
+                      <span className="counter-number user-counter">
+                        {summary.activeSubscriptions || 0}
+                      </span>
+                      <div className="counter-label text-uppercase">
+                        Active Subscriptions
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          <Grid item xs={12} sm={6} md={6}>
-            <AppWidgetSummary
-              title="Remote Workers"
-              total={summary.totalSubscriptions || 0}
-              color="success"
-              icon={
-                <img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />
-              }
-            />
-          </Grid>
-        </Grid> */}
+              {/* card 3 */}
+              <div className="col-sm-6 col-xl-4 col-xxl-3">
+                <div className="card card-block">
+                  <div className="counter-main">
+                    <div className="stat-icon warning-box">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    </div>
+                    <div className="counter counter-lg">
+                      <span className="counter-number user-counter">
+                        {summary.inactiveSubscriptions || 0}
+                      </span>
+                      <div className="counter-label text-uppercase">
+                        Inactive Subscriptions
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        <Card
-          sx={{
-            p: 4,
-            mb: 4,
-            borderRadius: 3,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
-          }}
-        >
-          <Typography variant="h6" fontWeight={600} mb={3}>
-            Total Users
-          </Typography>
-
-          <Grid container spacing={3}>
-            {/* Total Companies */}
-            <Grid xs={12} sm={6} md={4}>
-              <AppWidgetSummary
-                title="Total Companies"
-                total={summary.totalUsers || 0}
-                color="primary"
-                icon={
-                  <img
-                    alt="companies"
-                    src="/assets/icons/glass/ic_glass_users.png"
-                  />
-                }
-              />
-            </Grid>
-
-            {/* Active Subscriptions */}
-            <Grid xs={12} sm={6} md={4}>
-              <AppWidgetSummary
-                title="Active Subscriptions"
-                total={summary.activeSubscriptions || 0}
-                color="success"
-                icon={
-                  <img
-                    alt="active"
-                    src="/assets/icons/glass/ic_glass_users.png"
-                  />
-                }
-              />
-            </Grid>
-
-            {/* Inactive Subscriptions */}
-            <Grid xs={12} sm={6} md={4}>
-              <AppWidgetSummary
-                title="Inactive Subscriptions"
-                total={summary.inactiveSubscriptions || 0}
-                color="error"
-                icon={
-                  <img
-                    alt="inactive"
-                    src="/assets/icons/glass/ic_glass_users.png"
-                  />
-                }
-              />
-            </Grid>
-          </Grid>
-        </Card>
-
-        <Card
-          sx={{
-            p: 4,
-            borderRadius: 3,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
-          }}
-        >
-          <Typography variant="h6" fontWeight={600} mb={3}>
-            Revenue Overview
-          </Typography>
-
-          <Grid container spacing={3}>
-            <Grid xs={12} md={4}>
-              <AppWidgetSummary
-                title="Total Revenue"
-                total={summary.totalRevenue || 0}
-                color="warning"
-                icon={
-                  <img
-                    alt="revenue"
-                    src="/assets/icons/glass/ic_glass_message.png"
-                  />
-                }
-              />
-            </Grid>
-
-            {/* Chart */}
-            {/* <Grid xs={12} md={8}>
-              <Chart
-                type="line"
-                series={revenueSeries}
-                options={revenueChartOptions}
-                height={280}
-              />
-            </Grid> */}
-          </Grid>
-        </Card>
-
-        {/* ======================= CALL LOGS GROUP CARD ======================= */}
-        {/* <Card sx={{ p: 3 }}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            mb={3}
-          >
-            <Typography variant="h6" fontWeight={600}>
-              Total Revenue
-            </Typography>
-          </Stack>
-
-          🔥 REVENUE LINE CHART
-          <Chart
-            type="bar"
-            series={revenueSeries}
-            options={revenueChartOptions}
-            height={300}
-          />
-
-          EXISTING REVENUE CARDS
-          <Grid container spacing={3} mt={3}>
-            <Grid item xs={12} sm={6}>
-              <AppWidgetSummary
-                title="Subscription Revenue"
-                total={0}
-                color="info"
-                icon={
-                  <img
-                    alt="icon"
-                    src="/assets/icons/glass/ic_glass_message.png"
-                  />
-                }
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <AppWidgetSummary
-                title="Other Miscellaneous Revenue"
-                total={0}
-                color="info"
-                icon={
-                  <img
-                    alt="icon"
-                    src="/assets/icons/glass/ic_glass_message.png"
-                  />
-                }
-              />
-            </Grid>
-          </Grid>
-        </Card> */}
-      </Container>
+              {/* card 4 */}
+              <div className="col-sm-6 col-xl-4 col-xxl-3">
+                <div className="card card-block">
+                  <div className="counter-main">
+                    <div className="stat-icon blue-box">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    </div>
+                    <div className="counter counter-lg">
+                      <span className="counter-number user-counter">
+                        {summary.totalRevenue || 0}
+                      </span>
+                      <div className="counter-label text-uppercase">
+                        Total Revenue
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </LocalizationProvider>
   );
 }
