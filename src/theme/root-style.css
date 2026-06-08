@@ -1,6 +1,7 @@
 /* ========================================
    Admin Global CSS 
 ======================================== */
+
 body {
     background-color: var(--bg-light);
     color: var(--text-primary);
@@ -18,17 +19,13 @@ html {
 :root {
     --theme-background-color: #f3f4f5;
     --bg-light: #f9f9fa;
-
     --white: #FFFFFF;
     --black: #000000;
-
     --text-primary: #111827;
     --text-secondary: #4B5563;
     --btn-bg-secondary: #808080;
     --text-disabled: #9CA3AF;
-
     --border-color-light: #e2e2e2;
-
     /* ===== GREY ===== */
     --grey-100: #F9FAFB;
     --grey-200: #F4F6F8;
@@ -39,7 +36,6 @@ html {
     --grey-700: #454F5B;
     --grey-800: #212B36;
     --grey-900: #161C24;
-
     /* ===== PRIMARY ===== */
     --primary-lighter3: #ff6b3d14;
     --primary-lighter2: #fcf1f0;
@@ -48,7 +44,6 @@ html {
     --primary-main: #D74315;
     --primary-dark: #A6320F;
     --primary-darker: #7A250B;
-
     /* ===== SECONDARY ===== */
     --secondary-lighter: #EFD6FF;
     --secondary-light: #C684FF;
@@ -57,7 +52,6 @@ html {
     --secondary-darker: #27097A;
     --purple: #6366f1;
     --purple-light: #e0e7ff;
-
     /* ===== INFO ===== */
     --info-lighter: #CAFDF5;
     --info-light: #61F3F3;
@@ -66,21 +60,18 @@ html {
     --info-darker: #003768;
     --blue-light: #dbeafe;
     --blue: #3b82f6;
-
     /* ===== SUCCESS ===== */
     --success-lighter: #C8FAD6;
     --success-light: #5BE49B;
     --success-main: #00A76F;
     --success-dark: #007867;
     --success-darker: #004B50;
-
     /* ===== WARNING ===== */
     --warning-lighter: #FFF5CC;
     --warning-light: #FFD666;
     --warning-main: #FFAB00;
     --warning-dark: #B76E00;
     --warning-darker: #7A4100;
-
     /* ===== ERROR ===== */
     --error-lighter: #FFE9D5;
     --error-light: #FFAC82;
@@ -120,6 +111,7 @@ html {
     background: var(--success-lighter);
     color: var(--success-main);
 }
+
 
 /* ========================================
    HEADINGS 
@@ -174,6 +166,7 @@ p,
     font-weight: 600;
 }
 
+
 /* =========================================================
    SUBTITLE
 ========================================================= */
@@ -186,6 +179,7 @@ p,
 .caption {
     font-size: 12px;
 }
+
 
 /* =========================================================
    FONT-WIGHT
@@ -211,9 +205,11 @@ p,
     font-weight: 800;
 }
 
+
 /* =========================================================
     COLOR CLASSNAME
 ========================================================= */
+
 .text_primary {
     color: var(--primary-main);
 }
@@ -252,7 +248,9 @@ a,
     background: transparent;
 }
 
+
 /* Firefox */
+
 * {
     scrollbar-width: thin;
     scrollbar-color: rgb(193 193 193) transparent;
@@ -281,7 +279,9 @@ ul {
     padding: 0;
 }
 
+
 /* Utilities CSS */
+
 .ellipsis-1 {
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -375,4 +375,9 @@ ul {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+.submit-btn {
+    background-color: var(--primary-main);
+    color: var(--white);
 }

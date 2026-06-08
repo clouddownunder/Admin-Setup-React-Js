@@ -1,162 +1,100 @@
 /* eslint-disable */
-import { useEffect, useState } from "react";
 import {
-  Card,
-  Container,
-  Typography,
-  Avatar,
-  Stack,
-  Box,
-  Button,
-  Skeleton,
+  TextField,
   IconButton,
+  InputAdornment,
+  Avatar,
 } from "@mui/material";
-import { Icon } from "@iconify/react";
+import { useState, useEffect } from "react";
+import { deleteCookie, getCookie, setCookie } from "../../utils/format-user";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { getCookie } from "../../utils/format-user"; // ✅ REQUIRED
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
+import { showSuccess, showError } from "../../utils/swalTheme";
+import { useTheme } from "@mui/material/styles";
 
-const ProfileView = () => {
+export default function ProfileEditView() {
   const navigate = useNavigate();
-  const [admin, setAdmin] = useState(null);
+  const theme = useTheme();
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    countryCode: "+61",
+    mobileNo: "",
+    adminProfilePic: null,
+  });
 
-  const token = localStorage.getItem("token");
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  
+  const [showPassword, setShowPassword] = useState({
+    currentPassword: false,
+    newPassword: false,
+    confirmPassword: false,
+  });
+  
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+  
+    setPasswordData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  
+  const handleClickShowPassword = (field) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
+  const [preview, setPreview] = useState(null);
+  const showSuccessPopup = (message) => {
+    showSuccess(theme, message); // ✅ PASS THEME
+  };
+
+  const showErrorPopup = (message) => {
+    showError(theme, message); // ✅ PASS THEME
+  };
+  // -------------------- Load User Data --------------------
+  useEffect(() => {
+    const user = getCookie("UserData");
+    if (!user) return;
+
+    const parsed = JSON.parse(decodeURIComponent(user));
+
+    setFormData({
+      fullName: parsed.fullName || "",
+      email: parsed.email || "",
+      countryCode: parsed.countryCode || "+61",
+      mobileNo: parsed.mobileNo ? formatPhoneForDisplay(parsed.mobileNo) : "",
+      adminProfilePic: null, // keep this null for new uploads
+    });
+
+    // Use the actual uploaded image from cookie
+    if (parsed.profilePicture) {
+      setPreview(
+        `${import.meta.env.VITE_IMAGE_URL.replace(/\/$/, "")}${
+          parsed.profilePicture
+        }`
+      );
+    }
+  }, []);
 
   useEffect(() => {
-    const fetchAdmin = async () => {
-      try {
-        if (!token) {
-          console.warn("Token missing");
-          return;
-        }
-
-        const cookie = getCookie("UserData");
-        if (!cookie) {
-          console.warn("UserData cookie missing");
-          return;
-        }
-
-        const user = JSON.parse(decodeURIComponent(cookie));
-
-        console.log("Calling API with ID:", user.userId);
-
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_BASEURL}/auth/getAdminById/${
-            user.userId
-          }`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // ✅ correct
-            },
-          },
-        );
-
-        console.log("API response:", res.data);
-
-        if (res.data.status === 1) {
-          setAdmin(res.data.data);
-        }
-      } catch (err) {
-        console.error("Error fetching admin:", err);
+    return () => {
+      if (preview?.startsWith("blob:")) {
+        URL.revokeObjectURL(preview);
       }
     };
+  }, [preview]);
 
-    fetchAdmin();
-  }, [token]);
-
-  const handleBack = () => navigate("/dashboard");
-  const handleEdit = () => navigate("/dashboard/admin-profile/edit");
-
-  if (!admin) {
-    return (
-      <Container maxWidth="sm">
-        {/* Back button skeleton */}
-        <Box sx={{ display: "flex", mt: 4 }}>
-          <Skeleton
-            animation="wave"
-            variant="rectangular"
-            width={80}
-            height={36}
-          />
-        </Box>
-
-        {/* Title skeleton */}
-        <Skeleton
-          animation="wave"
-          variant="text"
-          height={40}
-          sx={{ mt: 3, width: "60%" }}
-        />
-
-        <Card sx={{ p: 4, mt: 2 }}>
-          {/* Edit button skeleton */}
-          <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-            <Skeleton
-              animation="wave"
-              variant="rectangular"
-              width={60}
-              height={30}
-            />
-          </Box>
-
-          <Stack alignItems="center" spacing={2}>
-            {/* Avatar */}
-            <Skeleton
-              animation="wave"
-              variant="circular"
-              width={100}
-              height={100}
-            />
-
-            {/* Name */}
-            <Skeleton animation="wave" variant="text" width={180} height={30} />
-
-            {/* Email */}
-            <Skeleton animation="wave" variant="text" width={220} />
-
-            {/* Phone */}
-            <Skeleton animation="wave" variant="text" width={160} />
-          </Stack>
-        </Card>
-      </Container>
-    );
-  }
-
-  // const formatMobileNumber = (mobileNo) => {
-  //   if (!mobileNo) return "";
-
-  //   const cleaned = mobileNo.replace(/\s+/g, "").replace(/-/g, "");
-
-  //   const match = cleaned.match(/^(\+\d{1,3})(\d{9,10})$/);
-
-  //   if (!match) return mobileNo;
-
-  //   const countryCode = match[1];
-  //   const number = match[2];
-
-  //   const formattedNumber = number.replace(
-  //     /(\d{3})(\d{3})(\d{3,4})/,
-  //     "$1 $2 $3",
-  //   );
-
-  //   return `${countryCode} ${formattedNumber}`;
-  // };
-  // const formatMobileNumber = (mobileNo) => {
-  //   if (!mobileNo) return "";
-
-  //   const cleaned = mobileNo.replace(/\s+/g, "");
-
-  //   const match = cleaned.match(/^(\+\d{2})(\d{9})$/);
-
-  //   if (!match) return mobileNo;
-
-  //   const countryCode = match[1];
-  //   const number = match[2];
-
-  //   const formatted = number.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
-
-  //   return `${countryCode} ${formatted}`;
-  // };
+  // -------------------- Helpers --------------------
   const formatPhoneForDisplay = (phone) => {
     if (!phone) return "";
     const digits = phone.replace(/\D/g, "");
@@ -169,52 +107,534 @@ const ProfileView = () => {
   };
   const formatPhoneForBackend = (phone) => phone.replace(/\D/g, "");
 
-  return (
-    <Container maxWidth="sm">
-      <Box sx={{ display: "flex", mt: 4 }}>
-        <Button variant="contained" onClick={handleBack}>
-          Back
-        </Button>
-      </Box>
+  // -------------------- Handlers --------------------
+  const handleProfileChange = (e) => {
+    const { name, value, files } = e.target;
 
-      <Typography variant="h4" gutterBottom mt={3}>
-        Admin Profile
-      </Typography>
+    if (name === "adminProfilePic") {
+      const file = files?.[0];
+      if (!file) return;
 
-      <Card sx={{ p: 4, mt: 2, position: "relative" }}>
-        <IconButton
-          onClick={handleEdit}
-          sx={{
-            position: "absolute",
-            top: 16,
-            right: 16,
-            bgcolor: "background.paper",
-            boxShadow: 2,
-            "&:hover": { bgcolor: "grey.100" },
-          }}
-        >
-          <Icon icon="mdi:pencil" width={20} color="#d74315" />
-        </IconButton>
+      setFormData((prev) => ({ ...prev, adminProfilePic: file }));
+      setPreview(URL.createObjectURL(file));
+      return;
+    }
 
-        <Stack alignItems="center" spacing={2}>
-          <Avatar
-            src={
-              admin.profilePicture
-                ? `${import.meta.env.VITE_IMAGE_URL}${admin.profilePicture}`
-                : ""
-            }
-            alt={admin.name}
-            sx={{ width: 100, height: 100 }}
-          />
-          <Typography variant="h5">{admin.fullName}</Typography>
-          <Typography>{admin.email}</Typography>
-          <Typography color="text.secondary">
-            +61 {formatPhoneForDisplay(admin.mobileNo)}
-          </Typography>
-        </Stack>
-      </Card>
-    </Container>
+    if (name === "mobileNo") {
+      setFormData((prev) => ({
+        ...prev,
+        mobileNo: formatPhoneForDisplay(value),
+      }));
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // -------------------- Submit Profile --------------------
+  const handleProfileSubmit = async () => {
+    try {
+      if (!formData.fullName || !formData.email || !formData.mobileNo) {
+        return showErrorPopup("Please fill all the fields");
+      }
+      const form = new FormData();
+      form.append("fullName", formData.fullName);
+      form.append("email", formData.email);
+      form.append("countryCode", formData.countryCode);
+      form.append("mobileNo", formatPhoneForBackend(formData.mobileNo));
+
+      if (formData.adminProfilePic) {
+        form.append("adminProfilePic", formData.adminProfilePic);
+      }
+
+      const token = localStorage.getItem("token");
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASEURL}/auth/editAdmin`,
+        form,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.data.status === 1) {
+        showSuccessPopup(res.data.message);
+        deleteCookie("UserData");
+        setCookie("UserData", JSON.stringify(res.data.data));
+        navigate("/dashboard/admin-profile");
+      } else {
+        showErrorPopup(res.data.message);
+      }
+    } catch (err) {
+      showErrorPopup(err.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  // -------------------- Submit Password --------------------
+  const handlePasswordSubmit = async () => {
+    if (
+      !passwordData.oldPassword ||
+      !passwordData.newPassword ||
+      !passwordData.confirmPassword
+    ) {
+      return showErrorPopup("Please fill all the fields");
+    }
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      return showErrorPopup("New password and confirm password do not match.");
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      console.log(token, "token");
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASEURL}/auth/changePassword`,
+        passwordData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log(res, "resposnse");
+      if (res.data.status === 1) {
+        showSuccessPopup(res.data.message);
+        localStorage.removeItem("token");
+        deleteCookie("UserData");
+        navigate("/login");
+      } else {
+        showErrorPopup(res.data.message);
+      }
+    } catch (err) {
+      showErrorPopup(err.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  const renderPasswordField = (label, name) => (
+    <TextField
+      fullWidth
+      placeholder={label}
+      required
+      className="input-field"
+      name={name}
+      type={showPassword[name] ? "text" : "password"}
+      value={passwordData[name]}
+      onChange={handlePasswordChange}
+      InputProps={{
+        inputProps: {
+          className: "form-control border",
+        },
+        endAdornment: (
+          <InputAdornment position="end" className="pass-eye-icon">
+            <IconButton
+              onClick={() => handleClickShowPassword(name)}
+              edge="end"
+              sx={{ color: "black" }}
+            >
+              <Icon
+                icon={showPassword[name] ? "eva:eye-off-fill" : "eva:eye-fill"}
+                fontSize={18}
+                style={{ color: "black" }}
+              />
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+    />
   );
-};
 
-export default ProfileView;
+  // -------------------- UI --------------------
+  return (
+    <div className="page-content profile-edit-main">
+      {/* OUTER ROW */}
+      <div className="row g-3">
+        {/* LEFT PROFILE CARD */}
+        <div className="col-12 col-md-3">
+          <div className="profile-view text-center">
+            <Avatar className="profile-avatar" src={preview || ""} />
+            <h5 className="profile-avatar-name h4 mb-2">
+              {formData.fullName}
+            </h5>
+            <p className="profile-sub mb-0">{formData.email}</p>
+
+            {/* <Typography variant="h5" fontWeight={700} sx={{ mb: 1 }}>
+          
+        </Typography>
+
+        <Typography variant="body2" color="text.secondary">
+        </Typography> */}
+          </div>
+        </div>
+
+        {/* RIGHT CONTENT */}
+        <div className="col-12 col-md-9">
+          <div className="profile-security-main">
+            <div className="profile-header">
+              <h2 className="h3">Profile & Security</h2>
+
+              <p className="sub-text caption">
+                Manage your account information and keep it secure.
+              </p>
+            </div>
+            {/* INNER ROW */}
+            <div className="profile-security-wrapper">
+              <div className="row">
+                {/* PROFILE INFO */}
+                <div className="col-12 col-md-6">
+                  <div className="card-rl card-right pe-0 pe-md-3">
+                    <div className="sec-header">
+                      {/* HEADER */}
+                      <div className="d-flex align-items-center gap-2 mb-4">
+                        <Avatar className="icon-rounded">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M12 12C14.76 12 17 9.76 17 7S14.76 2 12 2 7 4.24 7 7 9.24 12 12 12ZM12 14C8.67 14 2 15.67 2 19V22H22V19C22 15.67 15.33 14 12 14Z" />
+                          </svg>
+                        </Avatar>
+
+                        <div>
+                          <span className="subtitle1 fw-700">
+                            Profile Information
+                          </span>
+                          <p className="text-secondary caption fw-400 mb-0">
+                            Update your personal information.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* NAME */}
+                    <div className="mb-4">
+                      <div className="title-text mb-2 subtitle1">Name</div>
+
+                      <TextField
+                        fullWidth
+                        name="fullName"
+                        value={formData.fullName || ""}
+                        onChange={handleProfileChange}
+                        className="input-field"
+                        InputProps={{
+                          inputProps: {
+                            className: "form-control border",
+                          },
+                        }}
+                      />
+                    </div>
+
+
+                    {/* MOBILE ROW */}
+                    <div className="row g-2 mb-4">
+                      <div className="col-4">
+                        <div className="title-text mb-2 subtitle1">Code*</div>
+
+                        <TextField
+                          name="countryCode"
+                          value={formData.countryCode}
+                          onChange={handleCountryCodeChange}
+                          className="input-field"
+                          InputProps={{
+                            inputProps: {
+                              className: "form-control border",
+                            },
+                          }}
+                        />
+                      </div>
+
+                      <div className="col-8">
+                        <div className="title-text mb-2 subtitle1">Mobile*</div>
+
+                        <TextField
+                          fullWidth
+                          name="mobileNo"
+                          value={formData.mobileNo}
+                          onChange={handleProfileChange}
+                          className="input-field"
+                          InputProps={{
+                            inputProps: {
+                              className: "form-control border",
+                            },
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* PROFILE IMAGE */}
+                    <div className="mb-4">
+                      <div className="title-text mb-2 subtitle1">
+                        Profile Picture
+                      </div>
+
+                      <div
+                        className="upload-profile"
+                      >
+                        <Avatar className="profile-avatar img-fluid rounded-circle me-2"
+                          src={preview || ""}
+                        />
+
+                        <button className="btn btn-light">
+                          <span className="upload-icon">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              width="18"
+                              height="18"
+                              fill="currentColor"
+                            >
+                              <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" />
+                            </svg>
+                          </span>
+                          <span className="fw-500">Upload Image</span>
+                          <input
+                            hidden
+                            type="file"
+                            name="adminProfilePic"
+                            accept="image/*"
+                            onChange={handleProfileChange}
+                          />
+                        </button>
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                    >
+                      <span className="upload-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                        >
+                          <g>
+                            <circle cx="256" cy="298.667" r="42.667"></circle>
+                            <path
+                              d="M480.768,87.936l-56.704-56.704c-5.674-5.585-11.957-10.515-18.731-14.699V64
+                                 c-0.071,58.881-47.786,106.596-106.667,106.667h-85.333C154.452,170.596,106.737,122.881,106.667,64V0
+                                 C47.786,0.071,0.071,47.786,0,106.667v298.667C0.071,464.215,47.786,511.93,106.667,512h298.667
+                                 C464.214,511.93,511.93,464.215,512,405.334V163.35C512.08,135.049,500.833,107.893,480.768,87.936z M256,384
+                                 c-47.128,0-85.333-38.205-85.333-85.333s38.205-85.333,85.333-85.333s85.333,38.205,85.333,85.333
+                                 S303.128,384,256,384z"
+                            ></path>
+                            <path
+                              d="M213.333,128h85.333c35.346,0,64-28.654,64-64V1.366c-4.638-0.756-9.32-1.212-14.016-1.365H149.333v64
+                                 C149.333,99.346,177.987,128,213.333,128z"
+                            ></path>
+                          </g>
+                        </svg>
+                      </span>
+
+                      <span className="profile-sub-text fw-500">
+                        Save Profile
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* PASSWORD SECTION */}
+                <div className="col-12 col-md-6 border-left">
+                  <div className="card-rl ps-0 ps-md-3">
+                    <div className="sec-header">
+                      {/* HEADER */}
+                      <div className="d-flex align-items-center gap-2 mb-4">
+                        <Avatar className="icon-rounded">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                          >
+                            <path d="M405.333 179.712v-30.379C405.333 66.859 338.475 0 256 0S106.667 66.859 106.667 149.333v30.379c-38.826 16.945-63.944 55.259-64 97.621v128C42.737 464.214 90.452 511.93 149.333 512h213.333c58.881-.07 106.596-47.786 106.667-106.667v-128c-.055-42.362-25.174-80.676-64-97.621zM277.333 362.667c0 11.782-9.551 21.333-21.333 21.333c-11.782 0-21.333-9.551-21.333-21.333V320c0-11.782 9.551-21.333 21.333-21.333c11.782 0 21.333 9.551 21.333 21.333v42.667zM362.667 170.667H149.333v-21.333C149.333 90.423 197.09 42.667 256 42.667s106.667 47.756 106.667 106.667v21.333z" />
+                          </svg>
+                        </Avatar>
+
+                        <div>
+                          <span className="subtitle1 fw-700">
+                            Change Password
+                          </span>
+                          <p className="text-secondary caption fw-400 mb-0">
+                            Ensure your account is secure.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* {renderPasswordField("Current Password", "oldPassword")}
+                      <Box sx={{ height: 20 }} />
+                      {renderPasswordField("New Password", "newPassword")}
+                      <Box sx={{ height: 20 }} />
+                      {renderPasswordField("Confirm Password", "confirmPassword"
+                      )} */}
+
+                      <div className="mb-4">
+                        <div className="title-text mb-2 subtitle1">
+                          Current Password
+                        </div>
+
+                        <TextField
+                          fullWidth
+                          name="currentPassword"
+                          placeholder="Current Password"
+                          required
+                          className="input-field"
+                          type={
+                            showPassword.currentPassword ? "text" : "password"
+                          }
+                          value={passwordData.currentPassword || ""}
+                          onChange={handlePasswordChange}
+                          InputProps={{
+                            inputProps: {
+                              className: "form-control border",
+                            },
+                            endAdornment: (
+                              <InputAdornment
+                                position="end"
+                                className="pass-eye-icon"
+                              >
+                                <IconButton
+                                  onClick={() =>
+                                    handleClickShowPassword("currentPassword")
+                                  }
+                                  edge="end"
+                                  sx={{ color: "black" }}
+                                >
+                                  <Icon
+                                    icon={
+                                      showPassword.currentPassword
+                                        ? "eva:eye-off-fill"
+                                        : "eva:eye-fill"
+                                    }
+                                    fontSize={18}
+                                    style={{ color: "black" }}
+                                  />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      </div>
+
+                      <div className="mb-4">
+                        <div className="title-text mb-2 subtitle1">
+                          New Password
+                        </div>
+
+                        <TextField
+                          fullWidth
+                          name="newPassword"
+                          placeholder="New Password"
+                          required
+                          className="input-field"
+                          type={showPassword.newPassword ? "text" : "password"}
+                          value={passwordData.newPassword || ""}
+                          onChange={handlePasswordChange}
+                          InputProps={{
+                            inputProps: {
+                              className: "form-control border",
+                            },
+                            endAdornment: (
+                              <InputAdornment
+                                position="end"
+                                className="pass-eye-icon"
+                              >
+                                <IconButton
+                                  onClick={() =>
+                                    handleClickShowPassword("newPassword")
+                                  }
+                                  edge="end"
+                                  sx={{ color: "black" }}
+                                >
+                                  <Icon
+                                    icon={
+                                      showPassword.newPassword
+                                        ? "eva:eye-off-fill"
+                                        : "eva:eye-fill"
+                                    }
+                                    fontSize={18}
+                                    style={{ color: "black" }}
+                                  />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      </div>
+
+                      <div className="mb-4">
+                        <div className="title-text mb-2 subtitle1">
+                          Confirm Password
+                        </div>
+
+                        <TextField
+                          fullWidth
+                          name="confirmPassword"
+                          placeholder="Confirm Password"
+                          required
+                          className="input-field"
+                          type={
+                            showPassword.confirmPassword ? "text" : "password"
+                          }
+                          value={passwordData.confirmPassword || ""}
+                          onChange={handlePasswordChange}
+                          InputProps={{
+                            inputProps: {
+                              className: "form-control border",
+                            },
+                            endAdornment: (
+                              <InputAdornment
+                                position="end"
+                                className="pass-eye-icon"
+                              >
+                                <IconButton
+                                  onClick={() =>
+                                    handleClickShowPassword("confirmPassword")
+                                  }
+                                  edge="end"
+                                  sx={{ color: "black" }}
+                                >
+                                  <Icon
+                                    icon={
+                                      showPassword.confirmPassword
+                                        ? "eva:eye-off-fill"
+                                        : "eva:eye-fill"
+                                    }
+                                    fontSize={18}
+                                    style={{ color: "black" }}
+                                  />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                      >
+                        <span className="upload-icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                          >
+                            <path d="M405.333 179.712v-30.379C405.333 66.859 338.475 0 256 0S106.667 66.859 106.667 149.333v30.379c-38.826 16.945-63.944 55.259-64 97.621v128C42.737 464.214 90.452 511.93 149.333 512h213.333c58.881-.07 106.596-47.786 106.667-106.667v-128c-.055-42.362-25.174-80.676-64-97.621zM277.333 362.667c0 11.782-9.551 21.333-21.333 21.333c-11.782 0-21.333-9.551-21.333-21.333V320c0-11.782 9.551-21.333 21.333-21.333c11.782 0 21.333 9.551 21.333 21.333v42.667zM362.667 170.667H149.333v-21.333C149.333 90.423 197.09 42.667 256 42.667s106.667 47.756 106.667 106.667v21.333z" />
+                          </svg>
+                        </span>
+
+                        <span className="profile-sub-text fw-500">
+                          Change Password
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

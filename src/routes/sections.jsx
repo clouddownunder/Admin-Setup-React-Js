@@ -24,7 +24,7 @@ export const ProfilePage = lazy(() => import("../pages/profile"));
 export const CallLogsPage = lazy(() => import("../pages/call-logs"));
 export const IncomePage = lazy(() => import("../pages/income"));
 export const SubscriptionPage = lazy(() => import("../pages/subscription"));
-export const ProfileEditPage = lazy(() => import("../pages/profile-edit"));
+// export const ProfileEditPage = lazy(() => import("../pages/profile-edit"));
 export const Page404 = lazy(() => import("src/pages/page-not-found"));
 
 // ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ export default function Router() {
         { path: "plans&fess", element: <SubscriptionPage /> },
         { path: "view/:id", element: <ViewPage /> },
         { path: "admin-profile", element: <ProfilePage /> },
-        { path: "admin-profile/edit", element: <ProfileEditPage /> },
+        // { path: "admin-profile/edit", element: <ProfileEditPage /> },
       ],
     },
     {

@@ -1,6 +1,7 @@
 /* =========================================================
    Header 
 ========================================================= */
+
 .sidebar-show-hide-bck {
     transition: background-color 0.3s ease-in-out;
     -webkit-transition: background-color 0.3s ease-in-out;
@@ -477,9 +478,11 @@ body.remove-scroll {
     padding-right: 0 !important;
 }
 
+
 /* =========================================================
    Login Screen Styles 
 ========================================================= */
+
 .parentform .login-cardm1 {
     padding: 30px 30px;
     width: 100%;
@@ -535,7 +538,9 @@ body.remove-scroll {
     background-color: var(--white) !important;
 }
 
+
 /* Input style */
+
 .input-field .form-control.border {
     background: var(--white);
     border-radius: 10px;
@@ -546,7 +551,7 @@ body.remove-scroll {
     color: var(--text-primary);
     -webkit-appearance: none;
     font-weight: 400;
-    padding: 14px 16px;
+    padding: 12px 16px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
@@ -560,7 +565,9 @@ body.remove-scroll {
     box-shadow: 0 0 0 .18rem #e6623940;
 }
 
+
 /* Remove MUI focus input Default Styles */
+
 .MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
     padding: 0;
     border: none;
@@ -589,9 +596,11 @@ body.remove-scroll {
     font-size: 16px;
 }
 
+
 /* =========================================================
    Dashboard 
 ========================================================= */
+
 .page-header {
     display: flex;
     align-items: center;
@@ -621,6 +630,7 @@ body.remove-scroll {
     -ms-border-radius: 14px;
     -o-border-radius: 14px;
 }
+
 
 /* .panel,
 .custom-section-class {
@@ -768,7 +778,9 @@ body.remove-scroll {
     -o-transform: scaleY(-1);
 }
 
+
 /* MUI + HTML datepicker styles */
+
 .main-datepicker .input-field {
     width: 100%;
     position: relative;
@@ -827,4 +839,73 @@ body.remove-scroll {
 
 .MuiCalendarOrClockPicker-root {
     flex-direction: column;
+}
+
+.profile-view {
+    padding: 30px 20px;
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+.profile-security-main {
+    padding: 30px 20px;
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+.profile-view .profile-avatar {
+    width: 90px;
+    height: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+}
+
+.profile-view span.profile-avatar-name {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.profile-view .profile-sub {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.profile-security-wrapper {
+    padding: 30px 0 0;
+}
+
+.profile-security-main .profile-header {
+    border-bottom: 1px solid;
+    border-color: var(--border-color-light);
+}
+
+.border-left {
+    border-left: 1px solid var(--border-color-light);
+}
+
+.sec-header .icon-rounded {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.profile-header .sub-text {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.upload-profile {
+    display: flex;
+    align-items: center;
+}
+
+.upload-profile .profile-avatar {
+    width: 80px;
+    height: 80px;
 }
