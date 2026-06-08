@@ -842,9 +842,11 @@ body.remove-scroll {
     flex-direction: column;
 }
 
+
 /* =========================================================
    Profile page 
 ========================================================= */
+
 .profile-view {
     padding: 30px 20px;
     background-color: #fff;
@@ -873,6 +875,9 @@ body.remove-scroll {
 .profile-view .profile-sub {
     color: var(--text-secondary);
     font-weight: 400;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .profile-security-wrapper {
@@ -914,9 +919,16 @@ body.remove-scroll {
     height: 80px;
 }
 
+span.upload-icon {
+    /* line-height: 1; */
+    margin-top: -2px;
+}
+
+
 /* =========================================================
    Feedback page 
 ========================================================= */
+
 .cm-page-panel .panel {
     border: 1px solid var(--border-color-light);
     border-radius: 14px;
@@ -1000,7 +1012,9 @@ body.remove-scroll {
     font-size: 14px;
 }
 
+
 /* Common Table CSS */
+
 .table thead th {
     font-size: 12px;
     text-transform: uppercase;
@@ -1075,12 +1089,16 @@ body.remove-scroll {
     background-color: var(--border-color-light);
 }
 
+
 /* Hide page count text */
+
 .custom-pagination.remove-buttons .MuiTablePagination-displayedRows {
     display: none;
 }
 
+
 /* Hide prev / next buttons */
+
 .custom-pagination.remove-buttons .MuiTablePagination-actions {
     display: none;
 }
@@ -1166,6 +1184,7 @@ body.remove-scroll {
     border-color: var(--border-color-light);
 }
 
+
 /* .MuiTablePagination-actions button:hover svg {
     fill: var(--primary-main);
     transition: all 0.3s ease;
@@ -1192,5 +1211,6 @@ body.remove-scroll {
 .pagination-buttons .MuiTablePagination-spacer {
     display: none;
 }
+
 
 /* end */

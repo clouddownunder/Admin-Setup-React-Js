@@ -218,7 +218,7 @@ export default function ProfileEditView() {
           className: "form-control border",
         },
         endAdornment: (
-          <InputAdornment position="end" className="pass-eye-icon">
+          <InputAdornment position="end" className="pass-eye-icon"> 
             <IconButton
               onClick={() => handleClickShowPassword(name)}
               edge="end"
@@ -242,7 +242,7 @@ export default function ProfileEditView() {
       {/* OUTER ROW */}
       <div className="row g-3">
         {/* LEFT PROFILE CARD */}
-        <div className="col-12 col-md-3">
+        <div className="col-lg-3">
           <div className="profile-view text-center">
             <Avatar className="profile-avatar" src={preview || ""} />
             <h5 className="profile-avatar-name h4 mb-2">
@@ -260,10 +260,10 @@ export default function ProfileEditView() {
         </div>
 
         {/* RIGHT CONTENT */}
-        <div className="col-12 col-md-9">
+        <div className="col-lg-9">
           <div className="profile-security-main">
             <div className="profile-header">
-              <h2 className="h3">Profile & Security</h2>
+              <h2 className="h4">Profile & Security</h2>
 
               <p className="sub-text caption">
                 Manage your account information and keep it secure.
@@ -395,14 +395,14 @@ export default function ProfileEditView() {
 
                     <button
                       type="submit"
-                      className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                      className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2 lh-base"
                     >
                       <span className="upload-icon">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 512 512"
-                          width="16"
-                          height="16"
+                          width="14"
+                          height="14"
                           fill="currentColor"
                         >
                           <g>
@@ -609,14 +609,14 @@ export default function ProfileEditView() {
 
                       <button
                         type="submit"
-                        className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                        className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2 lh-base"
                       >
                         <span className="upload-icon">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512"
-                            width="16"
-                            height="16"
+                            width="14"
+                            height="14"
                             fill="currentColor"
                           >
                             <path d="M405.333 179.712v-30.379C405.333 66.859 338.475 0 256 0S106.667 66.859 106.667 149.333v30.379c-38.826 16.945-63.944 55.259-64 97.621v128C42.737 464.214 90.452 511.93 149.333 512h213.333c58.881-.07 106.596-47.786 106.667-106.667v-128c-.055-42.362-25.174-80.676-64-97.621zM277.333 362.667c0 11.782-9.551 21.333-21.333 21.333c-11.782 0-21.333-9.551-21.333-21.333V320c0-11.782 9.551-21.333 21.333-21.333c11.782 0 21.333 9.551 21.333 21.333v42.667zM362.667 170.667H149.333v-21.333C149.333 90.423 197.09 42.667 256 42.667s106.667 47.756 106.667 106.667v21.333z" />
