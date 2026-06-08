@@ -359,7 +359,7 @@ export default function FeedbackPage() {
                     { id: "actions", label: "Actions" },
                   ]}
                 />
-                <TableBody>``
+                <TableBody>
                   {loading && <TableSkeletonRows rows={rowsPerPage} />}
 
                   {console.log(dataFiltered, "filter")}
