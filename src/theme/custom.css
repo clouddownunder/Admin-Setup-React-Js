@@ -43,6 +43,7 @@
     padding: 1px;
     border-radius: 50%;
     background: rgba(145, 158, 171, 0.08) !important;
+    color: var(--primary-main);
     position: relative;
     overflow: initial;
 }
@@ -770,7 +771,7 @@ body.remove-scroll {
     fill: var(--text-secondary);
 }
 
-.filter-dropdown .form-control[aria-expanded="true"]~.custom-select-arrow {
+.form-control[aria-expanded="true"]~.custom-select-arrow {
     transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
     -moz-transform: scaleY(-1);
@@ -841,6 +842,9 @@ body.remove-scroll {
     flex-direction: column;
 }
 
+/* =========================================================
+   Profile page 
+========================================================= */
 .profile-view {
     padding: 30px 20px;
     background-color: #fff;
@@ -909,3 +913,284 @@ body.remove-scroll {
     width: 80px;
     height: 80px;
 }
+
+/* =========================================================
+   Feedback page 
+========================================================= */
+.cm-page-panel .panel {
+    border: 1px solid var(--border-color-light);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .04);
+    overflow: hidden;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    -ms-border-radius: 14px;
+    -o-border-radius: 14px;
+}
+
+.cm-page-panel .panel-heading {
+    padding: 16px 20px;
+    background-color: var(--white);
+    border-bottom: 1px solid #e2e2e2;
+    border-radius: 14px 14px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    -webkit-border-radius: 14px 14px 0 0;
+    -moz-border-radius: 14px 14px 0 0;
+    -ms-border-radius: 14px 14px 0 0;
+    -o-border-radius: 14px 14px 0 0;
+}
+
+.cm-page-panel .panel-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+.panel-body.parent-table {
+    padding: 16px 20px;
+    background-color: var(--white);
+}
+
+.table-filter {
+    min-width: 150px;
+}
+
+.table-filter .form-control.border {
+    min-height: auto;
+    font-size: 14px;
+}
+
+.table-filter .custom-select-arrow {
+    width: 16px;
+}
+
+.main-label {
+    font-size: 14px;
+}
+
+.parent-table .dt-search {
+    min-height: auto !important;
+    height: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    min-width: 360px;
+    width: 100%;
+}
+
+.search-field {
+    display: inline-flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+}
+
+.search-icon svg path {
+    fill: var(--text-secondary);
+}
+
+.search-field.input-field .form-control.border {
+    padding-left: 42px;
+    font-size: 14px;
+}
+
+/* Common Table CSS */
+.table thead th {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background-color: var(--bg-light);
+}
+
+.table tbody td,
+.table tbody .MuiTableCell-root {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.table thead th,
+.table tbody td,
+.table tbody .MuiTableCell-root {
+    padding: 10px 14px;
+    border-color: var(--border-color-light);
+    max-width: 200px;
+    word-break: break-word;
+}
+
+.table tbody .MuiAvatar-root {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: var(--theme-background-color);
+}
+
+.dt-not-found p {
+    font-size: 14px;
+}
+
+.table tbody .MuiStack-root>:not(style):not(style) {
+    margin: 0;
+}
+
+.table tbody .MuiStack-root>:not(style)~:not(style) {
+    margin-left: 12px;
+}
+
+.table tbody td.actions-column {
+    text-align: left;
+}
+
+.table tbody td.actions-column svg:last-child {
+    margin-right: 0;
+}
+
+.table .dt-view-btn {
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.table .dt-eye-icon {
+    background-color: var(--border-color-light);
+}
+
+/* Hide page count text */
+.custom-pagination.remove-buttons .MuiTablePagination-displayedRows {
+    display: none;
+}
+
+/* Hide prev / next buttons */
+.custom-pagination.remove-buttons .MuiTablePagination-actions {
+    display: none;
+}
+
+.show-page-row .custom-pagination .MuiToolbar-root {
+    text-align: start;
+    justify-content: start;
+    display: inline-flex;
+    padding-left: 0;
+    min-height: auto;
+}
+
+.show-page-row .custom-pagination .MuiTablePagination-selectLabel {
+    margin-bottom: 0;
+    color: var(--grey-700);
+}
+
+.custom-select-arrow.red {
+    right: 6px;
+    top: auto;
+}
+
+.custom-select-arrow.red path {
+    /* fill: var(--primary-main); */
+}
+
+.custom-pagination .MuiTablePagination-select:focus {
+    border-color: var(--primary-main);
+    background-color: transparent;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.custom-pagination .MuiTablePagination-select {
+    background-color: transparent;
+    border: 1px solid var(--border-color-light);
+    font-size: 13px;
+    border-radius: 6px;
+    text-align: center;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    z-index: 1;
+    text-align-last: center !important;
+    -webkit-text-align-last: start;
+    min-width: 20px !important;
+}
+
+.custom-pagination .MuiTablePagination-displayedRows {
+    margin-bottom: 0;
+    padding: 10px;
+    color: var(--grey-700);
+}
+
+.MuiTablePagination-actions button {
+    width: 32px;
+    height: 32px;
+    background-color: var(--theme-background-color);
+    border: 1px solid var(--border-color-light);
+    margin-right: 6px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.MuiTablePagination-actions button:last-child {
+    margin-right: 0;
+}
+
+.MuiTablePagination-actions button:hover {
+    background-color: var(--border-color-light);
+    border-color: var(--border-color-light);
+}
+
+/* .MuiTablePagination-actions button:hover svg {
+    fill: var(--primary-main);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+} */
+
+.MuiTablePagination-actions button svg {
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.pagination-buttons .MuiToolbar-root.MuiToolbar-gutters {
+    padding: 0;
+    justify-content: space-between;
+    min-height: auto;
+}
+
+.pagination-buttons .MuiTablePagination-spacer {
+    display: none;
+}
+
+/* end */

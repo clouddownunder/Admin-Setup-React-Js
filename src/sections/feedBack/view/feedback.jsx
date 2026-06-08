@@ -2,19 +2,12 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
 import { useNavigate } from "react-router-dom";
-import Container from "@mui/material/Container";
 import TableBody from "@mui/material/TableBody";
-import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-import Button from "@mui/material/Button";
-import { Icon } from "@iconify/react";
-import { MenuItem, Select, FormControl, InputLabel, Box } from "@mui/material";
-import Scrollbar from "src/components/scrollbar";
+import { MenuItem, Select } from "@mui/material";
 import TableNoData from "../table-no-data";
 import FeedbackTableRow from "../feedback-table-row";
 import FeedbackTableHead from "../feedback-table-head";
@@ -230,134 +223,212 @@ export default function FeedbackPage() {
   else if (filterType === "job_poster") queryText = "Job Poster Feedbacks";
   else queryText = "Feedbacks";
 
+  // Select svg icon
+  const CustomSelectIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      className="custom-select-arrow"
+    >
+      <path
+        d="M19.061 7.854a1.5 1.5 0 0 0-2.122 0l-4.586 4.585a.5.5 0 0 1-.707 0L7.061 7.854a1.5 1.5 0 0 0-2.122 2.121l4.586 4.586a3.5 3.5 0 0 0 4.95 0l4.586-4.586a1.5 1.5 0 0 0 0-2.121Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+
+  const CustomRedArrowIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      className="custom-select-arrow red"
+    >
+      <path
+        d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+
   return (
-    <Container maxWidth="xl" sx={{ mt: 3 }}>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={4}
-      >
-        <Typography variant="h4">Feedbacks</Typography>
-        {/* <Button
+    <>
+      <div className="page-header">
+        <h1 className="page-title mb-0">Feedbacks</h1>
+      </div>
+
+      <div className="page-content feedback-page cm-page-panel pt-3">
+        <div className="panel">
+          <div className="panel-heading">
+            <h3 className="panel-title">All Feedbacks</h3>
+          </div>
+
+          <div className="panel-body parent-table">
+            <div className="row justify-content-between align-items-center mb-3">
+              <div className="col-sm-6">
+                <div className="show-page-row">
+                  <TablePagination
+                    className="custom-pagination remove-buttons"
+                    page={page}
+                    component="div"
+                    count={dataFiltered.length}
+                    rowsPerPage={rowsPerPage}
+                    onPageChange={handleChangePage}
+                    rowsPerPageOptions={[5, 10]}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    SelectProps={{
+                      IconComponent: CustomRedArrowIcon,
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="col-sm-6">
+                <div className="d-flex align-items-end">
+                  <div className="table-filter-wrap">
+                    <label htmlFor="filter" className="mb-1 main-label">
+                      Filter
+                    </label>
+
+                    <div className="input-field">
+                      <Select
+                        value={filterType}
+                        // label="Filter"
+                        IconComponent={CustomSelectIcon}
+                        onChange={handleFilterChange}
+                        className="table-filter"
+                        inputProps={{
+                          className: "form-control border",
+                        }}
+                        MenuProps={{
+                          PaperProps: {
+                            className: "filter-menu-list",
+                          },
+                          MenuListProps: {
+                            className: "filter-menu-ul",
+                          },
+                        }}
+                      >
+                        <MenuItem value="all" className="filter-menu-item">
+                          All
+                        </MenuItem>
+                        <MenuItem value="driver" className="filter-menu-item">
+                          Driver
+                        </MenuItem>
+                        <MenuItem
+                          value="job_accepter"
+                          className="filter-menu-item"
+                        >
+                          Job Accepter
+                        </MenuItem>
+                        <MenuItem
+                          value="job_poster"
+                          className="filter-menu-item"
+                        >
+                          Job Poster
+                        </MenuItem>
+                      </Select>
+                    </div>
+                  </div>
+                  <FeedbackTableToolbar
+                    numSelected={selected.length}
+                    filterName={filterName}
+                    onFilterName={handleFilterByName}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* <Scrollbar> */}
+            <TableContainer className="table">
+              <Table>
+                <FeedbackTableHead
+                  // order={order}
+                  // orderBy={orderBy}
+                  rowCount={users.length}
+                  numSelected={selected.length}
+                  // onRequestSort={handleSort}
+                  onSelectAllClick={handleSelectAllClick}
+                  headLabel={[
+                    { id: "name", label: "Name" },
+                    { id: "email", label: "Email" },
+                    { id: "createdAt", label: "Added On" },
+                    { id: "feedback", label: "Total Feedbacks" },
+                    { id: "actions", label: "Actions" },
+                  ]}
+                />
+                <TableBody>``
+                  {loading && <TableSkeletonRows rows={rowsPerPage} />}
+
+                  {console.log(dataFiltered, "filter")}
+                  {!loading &&
+                    dataFiltered
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage,
+                      )
+                      .map((user) => (
+                        <FeedbackTableRow
+                          key={user.userId}
+                          name={`${user.firstName} ${user.lastName}`}
+                          email={user.email}
+                          feedbackCount={user.totalFeedbacks}
+                          addedOn={
+                            user.feedbacks?.length
+                              ? user.feedbacks[0].dateTime
+                              : null
+                          }
+                          profilePicture={user.profilePicture}
+                          userId={user.userId}
+                        />
+                      ))}
+
+                  {!loading && notFound && <TableNoData query={queryText} />}
+
+                  {!loading && (
+                    <TableEmptyRows
+                      height={77}
+                      emptyRows={emptyRows(
+                        page,
+                        rowsPerPage,
+                        dataFiltered.length,
+                      )}
+                    />
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/* </Scrollbar> */}
+
+            <TablePagination
+              className="custom-pagination pagination-buttons"
+              component="div"
+              count={dataFiltered.length}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              // Hide rows per page dropdown
+              rowsPerPageOptions={[]}
+              labelRowsPerPage=""
+              // Custom page text
+              labelDisplayedRows={({ from, to, count }) =>
+                `${from}-${to} of ${count}`
+              }
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* <Button
           variant="contained"
           startIcon={<Icon icon="mdi:download" />}
           onClick={handleExportUsersCSV}
         >
           Export Users
         </Button> */}
-      </Stack>
-
-      <Card sx={{ p: 2, boxShadow: 3 }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingLeft: "24px",
-            paddingRight: "24px",
-          }}
-        >
-          <FeedbackTableToolbar
-            numSelected={selected.length}
-            filterName={filterName}
-            onFilterName={handleFilterByName}
-          />
-          <FormControl
-            sx={{
-              minWidth: 150,
-            }}
-          >
-            <InputLabel shrink>Filter</InputLabel>
-            <Select
-              value={filterType}
-              label="Filter"
-              onChange={handleFilterChange}
-            >
-              <MenuItem value="all">All</MenuItem>
-              {/* <MenuItem value="construction_company_admin">
-                Construction Company Admin
-              </MenuItem>
-              <MenuItem value="truck_operator_admin">
-                Truck Operator Admin
-              </MenuItem> */}
-              <MenuItem value="driver">Driver</MenuItem>
-              <MenuItem value="job_accepter">Job Accepter</MenuItem>
-              <MenuItem value="job_poster">Job Poster</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-
-        {/* <Scrollbar> */}
-        <TableContainer sx={{ px: 2 }}>
-          <Table
-            sx={{
-              minWidth: 800,
-              borderCollapse: "separate",
-              // borderSpacing: "0 10px", // space between rows
-            }}
-          >
-            <FeedbackTableHead
-              // order={order}
-              // orderBy={orderBy}
-              rowCount={users.length}
-              numSelected={selected.length}
-              // onRequestSort={handleSort}
-              onSelectAllClick={handleSelectAllClick}
-              headLabel={[
-                { id: "name", label: "Name" },
-                { id: "email", label: "Email" },
-                { id: "createdAt", label: "Added On" },
-                { id: "feedback", label: "Total Feedbacks" },
-                { id: "actions", label: "Actions" },
-              ]}
-            />
-            <TableBody>
-              {loading && <TableSkeletonRows rows={rowsPerPage} />}
-
-              {console.log(dataFiltered, "filter")}
-              {!loading &&
-                dataFiltered
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((user) => (
-                    <FeedbackTableRow
-                      key={user.userId}
-                      name={`${user.firstName} ${user.lastName}`}
-                      email={user.email}
-                      feedbackCount={user.totalFeedbacks}
-                      addedOn={
-                        user.feedbacks?.length
-                          ? user.feedbacks[0].dateTime
-                          : null
-                      }
-                      profilePicture={user.profilePicture}
-                      userId={user.userId}
-                    />
-                  ))}
-
-              {!loading && notFound && <TableNoData query={queryText} />}
-
-              {!loading && (
-                <TableEmptyRows
-                  height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, dataFiltered.length)}
-                />
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {/* </Scrollbar> */}
-
-        <TablePagination
-          page={page}
-          component="div"
-          count={dataFiltered.length}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10]}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Card>
-    </Container>
+    </>
   );
 }

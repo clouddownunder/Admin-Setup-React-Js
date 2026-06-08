@@ -307,6 +307,16 @@ export default function UserPage() {
 
         {/* <Scrollbar> */}
         <TableContainer sx={{ px: 2 }}>
+          <TablePagination
+            className="custom-pagination1"
+            page={page}
+            component="div"
+            count={dataFiltered.length}
+            rowsPerPage={rowsPerPage}
+            onPageChange={handleChangePage}
+            rowsPerPageOptions={[5, 10]}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
           <Table
             sx={{
               minWidth: 800,
@@ -376,13 +386,20 @@ export default function UserPage() {
         {/* </Scrollbar> */}
 
         <TablePagination
-          page={page}
+          className="custom-pagination2"
           component="div"
           count={dataFiltered.length}
+          page={page}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10]}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          // Hide rows per page dropdown
+          rowsPerPageOptions={[]}
+          labelRowsPerPage=""
+          // Custom page text
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from}-${to} of ${count}`
+          }
         />
       </Card>
     </Container>

@@ -30,6 +30,11 @@ const navConfig = [
     path: "/dashboard/notifications",
     icon: icon("ic_notification"),
   },
+  //  {
+  //   title: "detail",
+  //   path: "/dashboard/detail",
+  //   icon: icon("ic_notification"),
+  // },
   // {
   //   title: 'plans & fees',
   //   path: '/dashboard/plans&fess',

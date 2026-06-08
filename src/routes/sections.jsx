@@ -20,6 +20,7 @@ export const ForgotPasswordPage = lazy(() =>
 );
 export const ResetPasswordPage = lazy(() => import("../pages/reset-password"));
 export const ViewPage = lazy(() => import("../pages/viewUser"));
+export const DetailPage = lazy(() => import("../pages/detail"));
 export const ProfilePage = lazy(() => import("../pages/profile"));
 export const CallLogsPage = lazy(() => import("../pages/call-logs"));
 export const IncomePage = lazy(() => import("../pages/income"));
@@ -46,6 +47,7 @@ export default function Router() {
         { element: <IndexPage />, index: true },
         { path: "company-management", element: <UserPage /> },
         { path: "feedbacks", element: <FeedbackPage /> },
+        { path: "detail", element: <DetailPage /> },
         {
           path: "notifications",
           element: <NotificationsManagementPage />,

@@ -11,7 +11,7 @@ import { visuallyHidden } from "./utils";
 
 // ----------------------------------------------------------------------
 
-export default function FeedbackTableHead({
+export default function DetailTableHead({
   order,
   orderBy,
   rowCount,
@@ -37,9 +37,6 @@ export default function FeedbackTableHead({
 
         {headLabel.map((headCell) => (
           <TableCell
-            classes={{
-              root: "dt-column-ordering",
-            }}
             key={headCell.id}
             align={headCell.align || "left"}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -71,7 +68,7 @@ export default function FeedbackTableHead({
   );
 }
 
-FeedbackTableHead.propTypes = {
+DetailTableHead.propTypes = {
   order: PropTypes.oneOf(["asc", "desc"]),
   orderBy: PropTypes.string,
   rowCount: PropTypes.number,

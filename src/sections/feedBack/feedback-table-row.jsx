@@ -388,7 +388,7 @@ export default function FeedbackTableRow({
             "N/A"
           )}
         </TableCell> */}
-        <TableCell align="left">
+        <TableCell align="left actions-column">
           {/* <MenuItem
           onClick={() => {
             // onViewUser();
@@ -397,6 +397,7 @@ export default function FeedbackTableRow({
           }}
         > */}
           <Iconify
+          className="dt-view-btn dt-eye-icon"
             onClick={() => {
               handleCloseMenu();
               setViewDialogOpen(true);

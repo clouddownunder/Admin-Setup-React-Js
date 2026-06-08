@@ -1,33 +1,22 @@
-import PropTypes from 'prop-types';
-
-import Paper from '@mui/material/Paper';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import Typography from '@mui/material/Typography';
+import PropTypes from "prop-types";
 
 // ----------------------------------------------------------------------
 
 export default function TableNoData({ query }) {
   return (
-    <TableRow>
-      <TableCell align="center" colSpan={12} sx={{ py: 3 }}>
-        <Paper
-          sx={{
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="h6" paragraph>
-            Not found
-          </Typography>
+    <tr>
+      <td colSpan={12} className="text-center py-4">
+        <div className="bg-white rounded p-3 dt-not-found">
+          <h6 className="mb-2">Not found</h6>
 
-          <Typography variant="body2">
-            No results found for &nbsp;
-            <strong>&quot;{query}&quot;</strong>.
-            <br /> Try checking for typos or using complete words.
-          </Typography>
-        </Paper>
-      </TableCell>
-    </TableRow>
+          <p className="mb-0 text-muted">
+            No results found for <strong>&quot;{query}&quot;</strong>.
+            <br />
+            Try checking for typos or using complete words.
+          </p>
+        </div>
+      </td>
+    </tr>
   );
 }
 

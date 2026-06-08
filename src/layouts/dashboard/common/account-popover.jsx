@@ -172,7 +172,7 @@ export default function AccountPopover() {
               className="profile-dropdown-item"
               onClick={() => handleMenuClick(option.label)}
             >
-              <span class="icon">
+              <span className="icon">
                 <svg
                   width="18"
                   height="18"
@@ -199,7 +199,7 @@ export default function AccountPopover() {
             className="profile-dropdown-item logout-item"
             onClick={handleLogout}
           >
-            <span class="icon">
+            <span className="icon">
               <svg
                 width="18"
                 height="18"
