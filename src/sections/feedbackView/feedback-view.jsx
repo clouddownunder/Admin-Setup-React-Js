@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import appleIcon from "../../theme/images/apple.svg";
+import androidIcon from "../../theme/images/android.svg";
 import {
   Container,
   Typography,
@@ -144,14 +146,14 @@ export default function FeedbackView({ userId, onClose }) {
   };
 
   const deviceTypeMap = {
-    1: { label: "iOS", color: "primary" },
-    2: { label: "Android", color: "success" },
+    1: { label: "iOS", icon: appleIcon },
+    2: { label: "Android", icon: androidIcon },
   };
   return (
     <div className="feedback-details">
       {/* ---------------- USER PROFILE SECTION ---------------- */}
       <div className="feedback-user-card">
-        <div className="d-flex">
+        <div className="d-flex flex-wrap align-items-center">
           <Avatar
             className="feedback-user-avtar"
             src={
@@ -163,179 +165,240 @@ export default function FeedbackView({ userId, onClose }) {
           </Avatar>
 
           <div className="fb-user-info">
-            <h6 className="mb-2">
-              {user.firstName} {user.lastName}
-            </h6>
-            <p className="mb-2 fw-400 text_secondary">{user.email}</p>
+            <div className="fb-name-role mb-1">
+              <h6 className="mb-0 h5">
+                {user.firstName} {user.lastName}
+              </h6>
+              <span className="badge badge-light-primary">{roleMap[user.role]}</span>
+            </div>
 
-            <span className="badge primary-badge">{roleMap[user.role]}</span>
+            <p className="mb-0 fw-400 subtitle1 text_secondary">{user.email}</p>
           </div>
-        </div>
-
-        <div className="feedback-count">
-          <h6 className="mb-2">{user.totalFeedbacks}</h6>
-          <p className="text_secondary mb-0 fw-400">Total Feedbacks</p>
         </div>
       </div>
 
       {/* ---------------- FEEDBACK LIST SECTION ---------------- */}
       <div className="feedback-list-wrap">
-        <h6 className="fb-history-title">User Feedback History
-          <span className="badge"></span>
+        <h6 className="fb-history-title mb-sm-3">
+          Total Feedbacks
+          {user.feedbacks?.length > 0 && (
+            <span className="badge fb-history-counter badge-light-primary">
+              {user.feedbacks.length}
+              {/* {user.totalFeedbacks} */}
+            </span>
+          )}
         </h6>
 
-        <Stack spacing={3}>
+        <div className="fb-history-cardwrap">
           {user.feedbacks.map((fb) => (
-            <Card key={fb.id} elevation={2} sx={{ borderRadius: 3 }}>
-              <CardContent>
-                {/* Date */}
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="caption" color="text.secondary">
-                    {new Date(fb.dateTime).toLocaleString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </Typography>
+            <div className="fb-history-card" key={fb.id}>
+              <div
+                className="fb-card-head"
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <div className="fb-card-top text_secondary d-inline-flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 512 512"
+                  >
+                    <g>
+                      <path
+                        d="m347.216 301.211-71.387-53.54V138.609c0-10.966-8.864-19.83-19.83-19.83-10.966 0-19.83 8.864-19.83 19.83v118.978c0 6.246 2.935 12.136 7.932 15.864l79.318 59.489a19.713 19.713 0 0 0 11.878 3.966c6.048 0 11.997-2.717 15.884-7.952 6.585-8.746 4.8-21.179-3.965-27.743z"
+                        fill="currentColor"
+                        opacity="1"
+                        data-original="currentColor"
+                        class=""
+                      ></path>
+                      <path
+                        d="M256 0C114.833 0 0 114.833 0 256s114.833 256 256 256 256-114.833 256-256S397.167 0 256 0zm0 472.341c-119.275 0-216.341-97.066-216.341-216.341S136.725 39.659 256 39.659c119.295 0 216.341 97.066 216.341 216.341S375.275 472.341 256 472.341z"
+                        fill="currentColor"
+                        opacity="1"
+                        data-original="currentColor"
+                        class=""
+                      ></path>
+                    </g>
+                  </svg>
+                  {new Date(fb.dateTime).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </div>
 
-                  <Chip
-                    label={
-                      deviceTypeMap[fb.deviceInfo.deviceType]?.label ||
-                      "Unknown"
+                <span className="device-icon-wrap d-inline-block">
+                  {/* {deviceTypeMap[fb.deviceInfo.deviceType]?.label || "Unknown"} */}
+                  <img
+                    src={deviceTypeMap[fb.deviceInfo.deviceType]?.icon}
+                    alt={
+                      deviceTypeMap[fb.deviceInfo.deviceType]?.label || "device"
                     }
-                    color={
-                      deviceTypeMap[fb.deviceInfo.deviceType]?.color ||
-                      "default"
-                    }
-                    size="small"
+                    width="20"
+                    height="20"
                   />
-                </Box>
+                </span>
+              </div>
 
-                <Divider sx={{ my: 2 }} />
+              {/* <Divider sx={{ my: 2 }} /> */}
 
+              <div className="px20 py16 pt-0">
                 {/* Experience */}
-                <Typography
-                  variant="caption"
-                  sx={{
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    color: "text.secondary",
-                  }}
-                >
-                  Experience
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 0.5, mb: 2 }}>
-                  {fb.experience}
-                </Typography>
-
-                <Divider sx={{ my: 2 }} />
+                <div className="fb-field-group">
+                  <div className="fb-card-top d-inline-flex mb-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      width="15"
+                      height="13"
+                      viewBox="0 0 682.667 682.667"
+                    >
+                      <g>
+                        <defs>
+                          <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                            <path
+                              d="M0 512h512V0H0Z"
+                              fill="currentColor"
+                              opacity="1"
+                            />
+                          </clipPath>
+                        </defs>
+                        <g
+                          clipPath="url(#a)"
+                          transform="matrix(1.33333 0 0 -1.33333 0 682.667)"
+                        >
+                          <path
+                            d="M0 0a32.235 32.235 0 0 0 28.908 17.964A32.233 32.233 0 0 0 57.815 0c17.521-35.5 38.539-78.093 49.508-100.32a32.255 32.255 0 0 1 24.274-17.641c24.532-3.562 71.54-10.388 110.708-16.086a32.223 32.223 0 0 0 26.022-21.937 32.222 32.222 0 0 0-8.156-33.042c-28.343-27.635-62.361-60.79-80.107-78.093a32.241 32.241 0 0 1-9.276-28.529c4.191-24.435 12.226-71.25 18.915-110.265a32.23 32.23 0 0 0-12.822-31.526 32.247 32.247 0 0 0-33.953-2.458c-35.033 18.422-77.077 40.521-99.022 52.062a32.255 32.255 0 0 1-29.996 0c-21.945-11.541-63.99-33.64-99.022-52.062a32.247 32.247 0 0 0-33.953 2.458 32.233 32.233 0 0 0-12.823 31.526c6.69 39.015 14.724 85.83 18.915 110.265a32.241 32.241 0 0 1-9.276 28.529c-17.746 17.303-51.763 50.458-80.107 78.093a32.222 32.222 0 0 0-8.156 33.042 32.226 32.226 0 0 0 26.023 21.937c39.167 5.698 86.176 12.524 110.708 16.086a32.257 32.257 0 0 1 24.274 17.641C-38.539-78.093-17.521-35.5 0 0Z"
+                            transform="translate(227.092 468.817)"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="30"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeMiterlimit="10"
+                            strokeDasharray="none"
+                            strokeOpacity="1"
+                          />
+                        </g>
+                      </g>
+                    </svg>
+                    <p className="fb-field-label mb-0">Experience</p>
+                  </div>
+                  <p className="fb-field-value mb-0">{fb.experience}</p>
+                </div>
 
                 {/* Features */}
-                <Typography
-                  variant="caption"
-                  sx={{
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    color: "text.secondary",
-                  }}
-                >
-                  Features
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 0.5, mb: 2 }}>
-                  {fb.features}
-                </Typography>
-
-                <Divider sx={{ my: 2 }} />
+                <div className="fb-field-group">
+                  <div className="fb-card-top d-inline-flex mb-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 48 48"
+                    >
+                      <g>
+                        <path
+                          d="M46.216 12.186a4.002 4.002 0 0 0-4.001-4.002H17.203a4.002 4.002 0 0 0 0 8.004h25.012a4.002 4.002 0 0 0 4.001-4.002zm-2 0a2 2 0 0 1-2.001 2.001H17.203a2 2 0 0 1 0-4.002h25.012a2 2 0 0 1 2 2.001zM46.216 24.179a4.002 4.002 0 0 0-4.001-4.002H17.203a4.002 4.002 0 0 0 0 8.004h25.012a4.002 4.002 0 0 0 4.001-4.002zm-2 0a2 2 0 0 1-2.001 2H17.203a2 2 0 0 1 0-4.001h25.012a2 2 0 0 1 2 2zM46.216 36.171a4.002 4.002 0 0 0-4.001-4.002H17.203a4.002 4.002 0 0 0 0 8.004h25.012a4.002 4.002 0 0 0 4.001-4.002zm-2 0a2 2 0 0 1-2.001 2.001H17.203a2 2 0 0 1 0-4.002h25.012a2 2 0 0 1 2 2.001zM6.686 7.642a4.502 4.502 0 0 0 0 9.002 4.504 4.504 0 0 0 4.501-4.501 4.503 4.503 0 0 0-4.501-4.501zm0 2a2.502 2.502 0 1 1-.003 5.003 2.502 2.502 0 0 1 .003-5.004zM6.686 19.634a4.502 4.502 0 0 0 0 9.003 4.504 4.504 0 0 0 4.501-4.502 4.503 4.503 0 0 0-4.501-4.5zm0 2a2.502 2.502 0 1 1-.003 5.003 2.502 2.502 0 0 1 .003-5.003zM6.686 31.627a4.502 4.502 0 0 0 0 9.002 4.504 4.504 0 0 0 4.501-4.501 4.503 4.503 0 0 0-4.501-4.501zm0 2a2.502 2.502 0 1 1-.003 5.003 2.502 2.502 0 0 1 .003-5.004z"
+                          fill="currentColor"
+                          opacity="1"
+                          data-original="currentColor"
+                        ></path>
+                      </g>
+                    </svg>
+                    <p className="fb-field-label mb-0">Features</p>
+                  </div>
+                  <p className="fb-field-value mb-0">{fb.features}</p>
+                </div>
 
                 {/* Device Info Section */}
-                {/* Device Info Section */}
-                <Box sx={{ mt: 3 }}>
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      fontWeight: 600,
-                      textTransform: "uppercase",
-                      color: "text.secondary",
-                      display: "block",
-                      mb: 1.5,
-                    }}
-                  >
-                    Device Information
-                  </Typography>
+                <div className="fb-device-info-wrap">
+                  <div className="fb-card-top d-inline-flex mb-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 64 64"
+                    >
+                      <g>
+                        <path
+                          d="M42 1H22a8.009 8.009 0 0 0-8 8v46a8.009 8.009 0 0 0 8 8h20a8.009 8.009 0 0 0 8-8V9a8.009 8.009 0 0 0-8-8zM16 11h32v38H16zm6-8h20a6.006 6.006 0 0 1 6 6H16a6.006 6.006 0 0 1 6-6zm20 58H22a6.006 6.006 0 0 1-6-6v-4h32v4a6.006 6.006 0 0 1-6 6z"
+                          fill="currentColor"
+                          opacity="1"
+                          data-original="currentColor"
+                        ></path>
+                        <path
+                          d="M32 53a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1zM35 5h-6a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"
+                          fill="currentColor"
+                          opacity="1"
+                          data-original="currentColor"
+                        ></path>
+                      </g>
+                    </svg>
+                    <p className="fb-field-label mb-0">Device Information</p>
+                  </div>
+                  <div className="fb-device-info">
+                    <div className="row gx-2">
+                      {/* Device Type */}
+                      <div className="col-lg-3">
+                        <div className="fb-device-col">
+                          <span className="caption text_secondary d-block text-center">
+                            Device
+                          </span>
+                          <span className="subtitle1 d-block text-center">
+                            {deviceTypeMap[fb.deviceInfo.deviceType]?.label ||
+                              "Unknown"}
+                          </span>
+                        </div>
+                      </div>
+                      {/* <Divider orientation="vertical" flexItem /> */}
 
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      border: "1px solid",
-                      borderColor: "divider",
-                      borderRadius: 2,
-                      px: 2,
-                      py: 1.5,
-                      backgroundColor: "background.default",
-                    }}
-                  >
-                    {/* Device Type */}
-                    <Box textAlign="center" flex={1}>
-                      <Typography variant="caption" color="text.secondary">
-                        Device
-                      </Typography>
-                      <Typography variant="body2" fontWeight={600}>
-                        {deviceTypeMap[fb.deviceInfo.deviceType]?.label ||
-                          "Unknown"}
-                      </Typography>
-                    </Box>
+                      {/* App Version */}
+                      <div className="col-lg-3">
+                        <div className="fb-device-col">
+                          <span className="caption text_secondary d-block text-center">
+                            App Version
+                          </span>
+                          <span className="subtitle1 d-block text-center">
+                            {fb.deviceInfo.versionCode}
+                          </span>
+                        </div>
+                      </div>
 
-                    <Divider orientation="vertical" flexItem />
+                      {/* OS Version */}
+                      <div className="col-lg-3">
+                        <div className="fb-device-col">
+                          <span className="caption text_secondary d-block text-center">
+                            OS Version
+                          </span>
+                          <span className="subtitle1 d-block text-center">
+                            {fb.deviceInfo.osVersion}
+                          </span>
+                        </div>
+                      </div>
 
-                    {/* App Version */}
-                    <Box textAlign="center" flex={1}>
-                      <Typography variant="caption" color="text.secondary">
-                        App Version
-                      </Typography>
-                      <Typography variant="body2" fontWeight={600}>
-                        {fb.deviceInfo.versionCode}
-                      </Typography>
-                    </Box>
-
-                    <Divider orientation="vertical" flexItem />
-
-                    {/* OS Version */}
-                    <Box textAlign="center" flex={1}>
-                      <Typography variant="caption" color="text.secondary">
-                        OS Version
-                      </Typography>
-                      <Typography variant="body2" fontWeight={600}>
-                        {fb.deviceInfo.osVersion}
-                      </Typography>
-                    </Box>
-
-                    <Divider orientation="vertical" flexItem />
-
-                    {/* Model */}
-                    <Box textAlign="center" flex={1}>
-                      <Typography variant="caption" color="text.secondary">
-                        Model
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        fontWeight={600}
-                        sx={{ wordBreak: "break-word" }}
-                      >
-                        {fb.deviceInfo.mobileName}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
+                      {/* Model */}
+                      <div className="col-lg-3">
+                        <div className="fb-device-col">
+                          <span className="caption text_secondary d-block text-center">
+                            Model
+                          </span>
+                          <span className="subtitle1 d-block text-center">
+                            {fb.deviceInfo.mobileName}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             // <Card key={fb.id} elevation={1} sx={{ borderRadius: 3 }}>
             //   <CardContent>
@@ -408,7 +471,7 @@ export default function FeedbackView({ userId, onClose }) {
             //   </CardContent>
             // </Card>
           ))}
-        </Stack>
+        </div>
       </div>
     </div>
   );
