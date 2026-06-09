@@ -555,6 +555,10 @@
     .profile-user-name {
         display: none;
     }
+    .sec-header .icon-rounded {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 @media (max-width: 359px) {

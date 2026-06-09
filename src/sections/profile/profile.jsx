@@ -203,38 +203,38 @@ export default function ProfileEditView() {
     }
   };
 
-  const renderPasswordField = (label, name) => (
-    <TextField
-      fullWidth
-      placeholder={label}
-      required
-      className="input-field"
-      name={name}
-      type={showPassword[name] ? "text" : "password"}
-      value={passwordData[name]}
-      onChange={handlePasswordChange}
-      InputProps={{
-        inputProps: {
-          className: "form-control border",
-        },
-        endAdornment: (
-          <InputAdornment position="end" className="pass-eye-icon"> 
-            <IconButton
-              onClick={() => handleClickShowPassword(name)}
-              edge="end"
-              sx={{ color: "black" }}
-            >
-              <Icon
-                icon={showPassword[name] ? "eva:eye-off-fill" : "eva:eye-fill"}
-                fontSize={18}
-                style={{ color: "black" }}
-              />
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
-  );
+  // const renderPasswordField = (label, name) => (
+  //   <TextField
+  //     fullWidth
+  //     placeholder={label}
+  //     required
+  //     className="input-field"
+  //     name={name}
+  //     type={showPassword[name] ? "text" : "password"}
+  //     value={passwordData[name]}
+  //     onChange={handlePasswordChange}
+  //     InputProps={{
+  //       inputProps: {
+  //         className: "form-control border",
+  //       },
+  //       endAdornment: (
+  //         <InputAdornment position="end" className="pass-eye-icon"> 
+  //           <IconButton
+  //             onClick={() => handleClickShowPassword(name)}
+  //             edge="end"
+  //             sx={{ color: "black" }}
+  //           >
+  //             <Icon
+  //               icon={showPassword[name] ? "eva:eye-off-fill" : "eva:eye-fill"}
+  //               fontSize={18}
+  //               style={{ color: "black" }}
+  //             />
+  //           </IconButton>
+  //         </InputAdornment>
+  //       ),
+  //     }}
+  //   />
+  // );
 
   // -------------------- UI --------------------
   return (
@@ -245,7 +245,7 @@ export default function ProfileEditView() {
         <div className="col-lg-3">
           <div className="profile-view text-center">
             <Avatar className="profile-avatar" src={preview || ""} />
-            <h5 className="profile-avatar-name h4 mb-2">
+            <h5 className="profile-avatar-name">
               {formData.fullName}
             </h5>
             <p className="profile-sub mb-0">{formData.email}</p>
@@ -290,11 +290,11 @@ export default function ProfileEditView() {
                           </svg>
                         </Avatar>
 
-                        <div>
+                        <div className="header-title">
                           <span className="subtitle1 fw-700">
                             Profile Information
                           </span>
-                          <p className="text-secondary caption fw-400 mb-0">
+                          <p className="sub-header mb-0">
                             Update your personal information.
                           </p>
                         </div>
@@ -448,11 +448,11 @@ export default function ProfileEditView() {
                           </svg>
                         </Avatar>
 
-                        <div>
+                        <div className="header-title">
                           <span className="subtitle1 fw-700">
                             Change Password
                           </span>
-                          <p className="text-secondary caption fw-400 mb-0">
+                          <p className="sub-header mb-0">
                             Ensure your account is secure.
                           </p>
                         </div>

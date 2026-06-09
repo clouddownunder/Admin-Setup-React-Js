@@ -873,11 +873,12 @@ body.remove-scroll {
 }
 
 .profile-view .profile-sub {
-    color: var(--text-secondary);
+    color: var(--grey-500);
     font-weight: 400;
     min-width: 0;
     overflow-wrap: break-word;
     word-break: break-word;
+    font-size: 14px;
 }
 
 .profile-security-wrapper {
@@ -919,9 +920,21 @@ body.remove-scroll {
     height: 80px;
 }
 
-span.upload-icon {
+.upload-icon {
     /* line-height: 1; */
-    margin-top: -2px;
+    margin-top: -3px;
+}
+
+.profile-view .profile-avatar-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.header-title .sub-header {
+    font-size: 12px;
+    color: var(--grey-600);
+    font-weight: 400;
 }
 
 
