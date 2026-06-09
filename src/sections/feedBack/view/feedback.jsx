@@ -281,6 +281,14 @@ export default function FeedbackPage() {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     SelectProps={{
                       IconComponent: CustomRedArrowIcon,
+                      MenuProps: {
+                        PaperProps: {
+                          className: "rows-per-page-menu",
+                        },
+                        MenuListProps: {
+                          className: "rows-per-page-menu-list",
+                        },
+                      },
                     }}
                   />
                 </div>

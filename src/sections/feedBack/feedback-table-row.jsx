@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
@@ -18,7 +19,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/material";
 import Iconify from "src/components/iconify";
-import axios from "axios";
+// import axios from "axios";
 import Tooltip from "@mui/material/Tooltip";
 import Swal from "sweetalert2";
 import { FeedbackView } from "../feedbackView";
@@ -164,56 +165,33 @@ export default function FeedbackTableRow({
 
   return (
     <>
-      {/* Delete Dialog */}
-      <Dialog
-        open={viewDialogOpen}
-        onClose={() => setViewDialogOpen(false)}
-        fullWidth
-        maxWidth="md"
-        PaperProps={{
-          sx: {
-            boxShadow: "0px 8px 24px rgba(255, 255, 255, 0.25)", // softer shadow
-            borderRadius: 2,
-          },
-        }}
-        BackdropProps={{
-          sx: {
-            backgroundColor: "rgba(0,0,0,0.4)", // no blur
-            backdropFilter: "none",
-          },
-        }}
-        // sx={{
-        //   maxWidth: {
-        //     xs: "md", // for screen < 900px
-        //     md: "md", // for screen ≥ 900px
-        //   },
-        // }}
-      >
-        <Box sx={{ justifyContent: "space-between", display: "flex" }}>
-          <DialogTitle>Feedback Details</DialogTitle>
-          <Button
-            onClick={() => setViewDialogOpen(false)}
-            sx={{
-              fontSize: "larger",
-              "&:hover": {
-                backgroundColor: "transparent",
-              },
-            }}
-            disableTouchRipple
-          >
-            x
-          </Button>
-        </Box>
-        <DialogContent dividers>
-          <FeedbackView
-            userId={userId}
+      {viewDialogOpen && (
+        <>
+          <Dialog
+            className="custom-modal feedback-modal"
+            open={viewDialogOpen}
             onClose={() => setViewDialogOpen(false)}
-          />
-        </DialogContent>
-        {/* <DialogActions>
+            PaperProps={{}}
+          >
+            <div className="modal-header">
+              <h3 className="mb-0 modal-title">Feedback Details</h3>
+              <button
+                onClick={() => setViewDialogOpen(false)}
+                className="btn-close in-close"
+              ></button>
+            </div>
+            <div className="modal-body p-0" dividers>
+              <FeedbackView 
+                userId={userId}
+                onClose={() => setViewDialogOpen(false)}
+              />
+            </div>
+          </Dialog>
+        </>
+      )}
+      {/* <DialogActions>
           <Button onClick={() => setViewDialogOpen(false)}>Close</Button>
         </DialogActions> */}
-      </Dialog>
 
       {/* <Dialog
         open={deleteDialogOpen}
@@ -388,7 +366,7 @@ export default function FeedbackTableRow({
             "N/A"
           )}
         </TableCell> */}
-        <TableCell align="left actions-column">
+        <TableCell align="center" className="actions-column">
           {/* <MenuItem
           onClick={() => {
             // onViewUser();
@@ -397,7 +375,7 @@ export default function FeedbackTableRow({
           }}
         > */}
           <Iconify
-          className="dt-view-btn dt-eye-icon"
+            className="dt-view-btn dt-eye-icon"
             onClick={() => {
               handleCloseMenu();
               setViewDialogOpen(true);

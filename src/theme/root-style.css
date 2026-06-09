@@ -135,28 +135,28 @@ h2,
 h3,
 .h3 {
     font-size: 32px;
-    line-height: 1.2;
+    line-height: 1;
     font-weight: 700;
 }
 
 h4,
 .h4 {
     font-size: 24px;
-    line-height: 1.2;
+    line-height: 1;
     font-weight: 700;
 }
 
 h5,
 .h5 {
     font-size: 20px;
-    line-height: 1.2;
+    line-height: 1;
     font-weight: 700;
 }
 
 h6,
 .h6 {
     font-size: 18px;
-    line-height: 1.5;
+    line-height: 1;
     font-weight: 700;
 }
 
@@ -213,6 +213,10 @@ p,
 
 .text_primary {
     color: var(--primary-main);
+}
+
+.text_secondary {
+    color: var(--text-secondary);
 }
 
 a {
@@ -400,4 +404,10 @@ ul {
 .submit-btn {
     background-color: var(--primary-main);
     color: var(--white);
+}
+
+.btn-close:focus,
+.btn-close:focus-visible {
+    outline: 0;
+    box-shadow: none;
 }

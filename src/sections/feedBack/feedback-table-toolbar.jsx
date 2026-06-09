@@ -39,7 +39,7 @@ export default function FeedbackTableToolbar({
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <Iconify icon="eva:trash-2-fill" />
+            <Iconify className="dt-view-btn dt-delete-icon" icon="eva:trash-2-fill" />
           </IconButton>
         </Tooltip>
       ) : (
