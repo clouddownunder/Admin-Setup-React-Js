@@ -552,6 +552,11 @@
     .sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link .site-menu-title {
         font-size: 14px;
     }
+    /* profile css  */
+    .profile-view,
+    .profile-security-main {
+        padding: 20px 14px;
+    }
     .profile-user-name {
         display: none;
     }
@@ -559,10 +564,27 @@
         width: 40px;
         height: 40px;
     }
+    .profile-title-main {
+        font-size: 18px;
+    }
+    .profile-view .profile-avatar-name {
+        margin-bottom: 4px;
+    }
+    .upload-profile .profile-avatar {
+        width: 75px;
+        height: 75px;
+    }
 }
 
 @media (max-width: 359px) {
     .login-container {
         padding: 12px;
+    }
+    /* profile css */
+    .profile-view .profile-avatar-name {
+        font-size: 22px;
+    }
+    .profile-title-main {
+        font-size: 18px;
     }
 }

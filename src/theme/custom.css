@@ -908,6 +908,7 @@ body.remove-scroll {
 .profile-header .sub-text {
     color: var(--text-secondary);
     font-weight: 500;
+    font-size: 14px;
 }
 
 .upload-profile {
@@ -935,6 +936,11 @@ body.remove-scroll {
     font-size: 12px;
     color: var(--grey-600);
     font-weight: 400;
+}
+
+.profile-title-main {
+    font-size: 24px;
+    font-weight: 700;
 }
 
 
@@ -1025,7 +1031,9 @@ body.remove-scroll {
     font-size: 14px;
 }
 
+
 /* Common Table CSS */
+
 .table {
     border-color: var(--border-color-light);
 }

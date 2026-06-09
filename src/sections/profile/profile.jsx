@@ -4,6 +4,7 @@ import {
   IconButton,
   InputAdornment,
   Avatar,
+  Button,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { deleteCookie, getCookie, setCookie } from "../../utils/format-user";
@@ -30,22 +31,22 @@ export default function ProfileEditView() {
     newPassword: "",
     confirmPassword: "",
   });
-  
+
   const [showPassword, setShowPassword] = useState({
     currentPassword: false,
     newPassword: false,
     confirmPassword: false,
   });
-  
+
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
-  
+
     setPasswordData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-  
+
   const handleClickShowPassword = (field) => {
     setShowPassword((prev) => ({
       ...prev,
@@ -203,38 +204,6 @@ export default function ProfileEditView() {
     }
   };
 
-  // const renderPasswordField = (label, name) => (
-  //   <TextField
-  //     fullWidth
-  //     placeholder={label}
-  //     required
-  //     className="input-field"
-  //     name={name}
-  //     type={showPassword[name] ? "text" : "password"}
-  //     value={passwordData[name]}
-  //     onChange={handlePasswordChange}
-  //     InputProps={{
-  //       inputProps: {
-  //         className: "form-control border",
-  //       },
-  //       endAdornment: (
-  //         <InputAdornment position="end" className="pass-eye-icon"> 
-  //           <IconButton
-  //             onClick={() => handleClickShowPassword(name)}
-  //             edge="end"
-  //             sx={{ color: "black" }}
-  //           >
-  //             <Icon
-  //               icon={showPassword[name] ? "eva:eye-off-fill" : "eva:eye-fill"}
-  //               fontSize={18}
-  //               style={{ color: "black" }}
-  //             />
-  //           </IconButton>
-  //         </InputAdornment>
-  //       ),
-  //     }}
-  //   />
-  // );
 
   // -------------------- UI --------------------
   return (
@@ -245,17 +214,9 @@ export default function ProfileEditView() {
         <div className="col-lg-3">
           <div className="profile-view text-center">
             <Avatar className="profile-avatar" src={preview || ""} />
-            <h5 className="profile-avatar-name">
-              {formData.fullName}
-            </h5>
-            <p className="profile-sub mb-0">{formData.email}</p>
-
-            {/* <Typography variant="h5" fontWeight={700} sx={{ mb: 1 }}>
-          
-        </Typography>
-
-        <Typography variant="body2" color="text.secondary">
-        </Typography> */}
+            <h5 className="profile-avatar-name">{formData.fullName}</h5>
+            <p className="profile-sub mb-1">{formData.email}</p>
+            <p className="profile-sub mb-0">+61 {formatPhoneForDisplay(formData.mobileNo)}</p>
           </div>
         </div>
 
@@ -263,9 +224,9 @@ export default function ProfileEditView() {
         <div className="col-lg-9">
           <div className="profile-security-main">
             <div className="profile-header">
-              <h2 className="h4">Profile & Security</h2>
+              <h2 className="profile-title-main mb-1">Profile & Security</h2>
 
-              <p className="sub-text caption">
+              <p className="sub-text">
                 Manage your account information and keep it secure.
               </p>
             </div>
@@ -308,8 +269,10 @@ export default function ProfileEditView() {
                       <TextField
                         fullWidth
                         name="fullName"
+                        // placeholder="Full Name"
                         value={formData.fullName || ""}
                         onChange={handleProfileChange}
+                        required
                         className="input-field"
                         InputProps={{
                           inputProps: {
@@ -319,16 +282,36 @@ export default function ProfileEditView() {
                       />
                     </div>
 
+                    {/* EMAIL */}
+                    <div className="mb-4">
+                      <div className="title-text mb-2 subtitle1">Email</div>
+
+                      <TextField
+                        fullWidth
+                        name="email"
+                        // placeholder="Email"
+                        value={formData.email || ""}
+                        onChange={handleProfileChange}
+                        required
+                        className="input-field"
+                        InputProps={{
+                          inputProps: {
+                            className: "form-control border",
+                          },
+                        }}
+                      />
+                    </div>
 
                     {/* MOBILE ROW */}
                     <div className="row g-2 mb-4">
-                      <div className="col-4">
+                      <div className="col-3">
                         <div className="title-text mb-2 subtitle1">Code*</div>
 
                         <TextField
                           name="countryCode"
                           value={formData.countryCode}
                           onChange={handleCountryCodeChange}
+                          required
                           className="input-field"
                           InputProps={{
                             inputProps: {
@@ -338,7 +321,7 @@ export default function ProfileEditView() {
                         />
                       </div>
 
-                      <div className="col-8">
+                      <div className="col-9">
                         <div className="title-text mb-2 subtitle1">Mobile*</div>
 
                         <TextField
@@ -346,6 +329,7 @@ export default function ProfileEditView() {
                           name="mobileNo"
                           value={formData.mobileNo}
                           onChange={handleProfileChange}
+                          required
                           className="input-field"
                           InputProps={{
                             inputProps: {
@@ -362,14 +346,17 @@ export default function ProfileEditView() {
                         Profile Picture
                       </div>
 
-                      <div
-                        className="upload-profile"
-                      >
-                        <Avatar className="profile-avatar img-fluid rounded-circle me-2"
+                      <div className="upload-profile">
+                        <Avatar
+                          className="profile-avatar img-fluid rounded-circle me-2"
                           src={preview || ""}
                         />
 
-                        <button className="btn btn-light">
+                        <Button
+                          className="btn btn-upload d-flex align-items-center justify-content-center gap-1 lh-base"
+                          variant="outlined"
+                          component="label"
+                        >
                           <span className="upload-icon">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -381,15 +368,15 @@ export default function ProfileEditView() {
                               <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" />
                             </svg>
                           </span>
-                          <span className="fw-500">Upload Image</span>
+                          <span className="fw-500 caption">Upload Image</span>
                           <input
-                            hidden
                             type="file"
                             name="adminProfilePic"
                             accept="image/*"
+                            hidden
                             onChange={handleProfileChange}
                           />
-                        </button>
+                        </Button>
                       </div>
                     </div>
 
@@ -423,7 +410,10 @@ export default function ProfileEditView() {
                         </svg>
                       </span>
 
-                      <span className="profile-sub-text fw-500">
+                      <span
+                        className="profile-sub-text fw-500"
+                        onClick={handleProfileSubmit}
+                      >
                         Save Profile
                       </span>
                     </button>
@@ -623,7 +613,10 @@ export default function ProfileEditView() {
                           </svg>
                         </span>
 
-                        <span className="profile-sub-text fw-500">
+                        <span
+                          className="profile-sub-text fw-500"
+                          onClick={handlePasswordSubmit}
+                        >
                           Change Password
                         </span>
                       </button>

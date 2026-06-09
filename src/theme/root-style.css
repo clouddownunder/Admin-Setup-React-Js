@@ -339,7 +339,6 @@ ul {
     box-shadow: none !important;
     outline: none !important;
     background-color: var(--primary-main);
-
 }
 
 .btn-check:checked+.btn,
@@ -410,4 +409,18 @@ ul {
 .btn-close:focus-visible {
     outline: 0;
     box-shadow: none;
+}
+
+.upload-profile .btn-upload {
+    background-color: var(--grey-300);
+    color: var(--black);
+    border: 1px solid transparent;
+    padding: 10px 16px;
+}
+
+.upload-profile .btn-upload:hover,
+.upload-profile .btn-upload:active {
+    background-color: var(--grey-300);
+    color: var(--text-primary);
+    border: 1px solid transparent;
 }
