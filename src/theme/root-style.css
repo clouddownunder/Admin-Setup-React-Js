@@ -423,3 +423,14 @@ ul {
     color: var(--text-primary);
     border: 1px solid transparent;
 }
+
+.btn-lighter-grey {
+    background: var(--grey-600);
+    color: var(--white);
+}
+
+.btn-lighter-grey:hover,
+.btn-lighter-grey:active {
+    background: var(--grey-500);
+    color: var(--white);
+}

@@ -57,7 +57,7 @@ export default function AccountPopover() {
     const res = await axios.post(
       `${import.meta.env.VITE_API_BASEURL}/auth/adminLogout`,
       {},
-      { headers: { Authorization: `Bearer ${token}` } },
+      { headers: { Authorization: `Bearer ${token}` } }
     );
     if (res?.data?.status === 1) {
       localStorage.clear();
@@ -83,6 +83,14 @@ export default function AccountPopover() {
       background: theme.palette.background.paper,
       color: theme.palette.text.primary,
 
+      customClass: {
+        container: "logout-swal-container", // parent wrapper
+        popup: "logout-swal-popup", // main modal
+        title: "logout-swal-title",
+        htmlContainer: "logout-swal-text",
+        confirmButton: "logout-swal-confirm btn btn-primary",
+        cancelButton: "logout-swal-cancel btn btn-lighter-grey",
+      },
       didOpen: () => {
         document.querySelector(".swal2-container").style.zIndex = 9999;
       },
@@ -110,7 +118,7 @@ export default function AccountPopover() {
 
   return (
     <>
-      <Dialog open={openLogoutDialog} onClose={handleCancelLogout}>
+      {/* <Dialog open={openLogoutDialog} onClose={handleCancelLogout}>
         <DialogTitle>Confirm Logout</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -123,7 +131,7 @@ export default function AccountPopover() {
             Yes
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
       <div
         onClick={handleOpen}
         className={`profile-avtar-btn d-flex align-items-center ${

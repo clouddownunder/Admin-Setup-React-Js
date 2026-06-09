@@ -1114,11 +1114,14 @@ body.remove-scroll {
 
 
 /* Hide page count text */
+
 .custom-pagination.remove-buttons .MuiTablePagination-displayedRows {
     display: none;
 }
 
+
 /* Hide prev / next buttons */
+
 .custom-pagination.remove-buttons .MuiTablePagination-actions {
     display: none;
 }
@@ -1229,6 +1232,7 @@ body.remove-scroll {
 .pagination-buttons .MuiTablePagination-spacer {
     display: none;
 }
+
 
 /* Feedback Modal or common modal CSS */
 
@@ -1426,5 +1430,28 @@ body.remove-scroll {
     padding: 10px 12px;
     border: 1px solid var(--border-color-light);
 }
+
+
+/* end */
+
+
+/* =========================================================
+   Logout-pop up 
+========================================================= */
+
+.logout-swal-container .logout-swal-popup {
+    border-radius: 15px;
+}
+
+.logout-swal-container .logout-swal-text {
+    padding: 12px 20px 5px;
+    font-size: 16px;
+}
+
+.logout-swal-container .logout-swal-confirm,
+.logout-swal-container .logout-swal-cancel {
+    width: 130px;
+}
+
 
 /* end */
