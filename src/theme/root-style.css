@@ -26,6 +26,7 @@ html {
     --btn-bg-secondary: #808080;
     --text-disabled: #9CA3AF;
     --border-color-light: #e2e2e2;
+    --btn-focus-box-shadow: 0 0 0 0.2rem rgba(215, 67, 21, .4);
     /* ===== GREY ===== */
     --grey-100: #F9FAFB;
     --grey-200: #F4F6F8;
@@ -333,6 +334,25 @@ ul {
     border-color: transparent !important;
     box-shadow: none !important;
     outline: none !important;
+    background-color: var(--primary-main);
+
+}
+
+.btn-check:checked+.btn,
+:not(.btn-check)+.btn:active,
+.btn:first-child:active,
+.btn.active,
+.btn.show {
+    color: var(--white);
+    background-color: var(--primary-dark);
+}
+
+.btn-check:checked+.btn:focus-visible,
+:not(.btn-check)+.btn:active:focus-visible,
+.btn:first-child:active:focus-visible,
+.btn.active:focus-visible,
+.btn.show:focus-visible {
+    box-shadow: var(--btn-focus-box-shadow) !important;
 }
 
 .btn-primary {
@@ -342,7 +362,7 @@ ul {
 
 .btn-primary:hover,
 .btn-primary:active {
-    background: var(--primary-main);
+    background: var(--primary-dark);
     /* box-shadow: 0 0 16px rgba(215, 67, 21, 0.5); */
 }
 

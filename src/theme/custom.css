@@ -1012,8 +1012,10 @@ span.upload-icon {
     font-size: 14px;
 }
 
-
 /* Common Table CSS */
+.table {
+    border-color: var(--border-color-light);
+}
 
 .table thead th {
     font-size: 12px;
