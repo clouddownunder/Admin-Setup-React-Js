@@ -88,6 +88,7 @@ export default function AccountPopover() {
         popup: "logout-swal-popup", // main modal
         title: "logout-swal-title",
         htmlContainer: "logout-swal-text",
+        icon: "logout-swal-icon",
         confirmButton: "logout-swal-confirm btn btn-primary",
         cancelButton: "logout-swal-cancel btn btn-lighter-grey",
       },

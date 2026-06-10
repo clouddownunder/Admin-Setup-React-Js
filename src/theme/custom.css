@@ -930,6 +930,9 @@ body.remove-scroll {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 10px;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .header-title .sub-header {
@@ -1471,6 +1474,10 @@ body.remove-scroll {
 .logout-swal-container .logout-swal-confirm,
 .logout-swal-container .logout-swal-cancel {
     width: 130px;
+}
+
+.logout-swal-popup .logout-swal-icon {
+    margin: 30px auto 10px auto;
 }
 
 

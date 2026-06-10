@@ -323,6 +323,43 @@
     .profile-avtar-btn {
         padding-right: 18px;
     }
+    .profile-view .profile-avatar-name {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    .profile-view .profile-sub {
+        font-size: 12px;
+    }
+    .sec-header .icon-rounded {
+        width: 40px;
+        height: 40px;
+    }
+    .sec-header .icon-rounded .main-icon {
+        width: 16px;
+        height: 16px;
+    }
+    /* =========================================================
+        Date Picker
+    ========================================================= */
+    .date-cal-wrapper .MuiPickersDay-root.Mui-selected,
+    .date-cal-wrapper .PrivatePickersYear-yearButton.Mui-selected {
+        width: 34px;
+        height: 34px;
+    }
+    .date-cal-wrapper .MuiPickersDay-root,
+    .date-cal-wrapper .PrivatePickersYear-yearButton {
+        width: 34px;
+        height: 34px;
+    }
+    .date-cal-wrapper .MuiDayPicker-weekDayLabel {
+        width: 34px;
+        height: 30px;
+    }
+    .main-datepicker .MuiInputAdornment-root svg {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 @media (max-width: 1024px) {}
@@ -559,10 +596,6 @@
     }
     .profile-user-name {
         display: none;
-    }
-    .sec-header .icon-rounded {
-        width: 40px;
-        height: 40px;
     }
     .profile-title-main {
         font-size: 18px;

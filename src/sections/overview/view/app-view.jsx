@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { MenuItem, TextField } from "@mui/material";
 
-import { DatePicker } from "@mui/x-date-pickers";
+// import { DatePicker } from "@mui/x-date-pickers";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -356,18 +357,15 @@ export default function AppView() {
                             End Date
                           </label>
                         </div>
-                        <DatePicker
+                        <DesktopDatePicker
                           className="input-field"
-                          // label=""
                           value={toDateEndDate}
                           maxDate={dayjs()}
                           minDate={dayjs("2025-01-01T00:00:00Z")}
                           onChange={(newValue) => setToDateEndDate(newValue)}
+                          inputFormat="DD MMM YYYY"
                           PopperProps={{
                             className: "date-cal-wrapper",
-                          }}
-                          components={{
-                            SwitchViewIcon: CustomSwitchIcon,
                           }}
                           renderInput={(params) => (
                             <TextField
@@ -382,7 +380,6 @@ export default function AppView() {
                               }}
                             />
                           )}
-                          inputFormat="DD MMM YYYY"
                         />
                       </div>
                     </div>
@@ -397,7 +394,7 @@ export default function AppView() {
                               Start Date
                             </label>
                           </div>
-                          <DatePicker
+                          <DesktopDatePicker
                             className="input-field"
                             // label=""
                             value={customStartDate}
@@ -435,7 +432,7 @@ export default function AppView() {
                               End Date
                             </label>
                           </div>
-                          <DatePicker
+                          <DesktopDatePicker
                             className="input-field"
                             // label=""
                             value={customEndDate}
