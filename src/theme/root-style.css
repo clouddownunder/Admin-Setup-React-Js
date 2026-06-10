@@ -214,6 +214,10 @@ p,
     color: var(--primary-main);
 }
 
+.text_theme {
+    color: var(--text-primary);
+}
+
 .text_secondary {
     color: var(--text-secondary);
 }

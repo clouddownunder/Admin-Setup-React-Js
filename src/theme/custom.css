@@ -1112,6 +1112,9 @@ body.remove-scroll {
     background-color: var(--border-color-light);
 }
 
+.table .dt-eye-icon:hover {
+    box-shadow: 0 0 6px 1px rgba(75, 85, 99, 0.4);
+}
 
 /* Hide page count text */
 
@@ -1369,6 +1372,8 @@ body.remove-scroll {
     border-bottom: 1px solid var(--border-color-light);
     background-color: var(--theme-background-color);
     margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .fb-history-card {
@@ -1404,15 +1409,15 @@ body.remove-scroll {
 }
 
 .fb-field-label {
-    font-weight: 400;
-    color: var(--text-secondary);
+    font-weight: 600;
+    color: var(--text-primary);
     font-size: 14px;
 }
 
 .fb-field-value {
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-size: 13px;
 }
 
 .fb-field-group {
@@ -1422,7 +1427,9 @@ body.remove-scroll {
 .fb-device-col {
     height: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    /* flex-direction: column; */
     justify-content: center;
     text-align: center;
     background-color: var(--theme-background-color);
@@ -1431,6 +1438,19 @@ body.remove-scroll {
     border: 1px solid var(--border-color-light);
 }
 
+.fb-user-model-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fb-user-model-icon .subtitle1 {
+    line-height: normal;
+}
+
+.device-icon-wrap {
+    margin-top: -2px;
+}
 
 /* end */
 

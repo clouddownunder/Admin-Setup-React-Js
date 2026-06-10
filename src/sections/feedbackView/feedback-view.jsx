@@ -169,7 +169,9 @@ export default function FeedbackView({ userId, onClose }) {
               <h6 className="mb-0 h5">
                 {user.firstName} {user.lastName}
               </h6>
-              <span className="badge badge-light-primary">{roleMap[user.role]}</span>
+              <span className="badge badge-light-primary">
+                {roleMap[user.role]}
+              </span>
             </div>
 
             <p className="mb-0 fw-400 subtitle1 text_secondary">{user.email}</p>
@@ -180,7 +182,7 @@ export default function FeedbackView({ userId, onClose }) {
       {/* ---------------- FEEDBACK LIST SECTION ---------------- */}
       <div className="feedback-list-wrap">
         <h6 className="fb-history-title mb-sm-3">
-          Total Feedbacks
+          Feedback Submissions
           {user.feedbacks?.length > 0 && (
             <span className="badge fb-history-counter badge-light-primary">
               {user.feedbacks.length}
@@ -192,12 +194,26 @@ export default function FeedbackView({ userId, onClose }) {
         <div className="fb-history-cardwrap">
           {user.feedbacks.map((fb) => (
             <div className="fb-history-card" key={fb.id}>
-              <div
-                className="fb-card-head"
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
+              <div className="fb-card-head">
+                {/* Model Name and Icon */}
+                <div className="fb-user-model-icon">
+                  <span className="device-icon-wrap d-inline-block">
+                    {/* {deviceTypeMap[fb.deviceInfo.deviceType]?.label || "Unknown"} */}
+                    <img
+                      src={deviceTypeMap[fb.deviceInfo.deviceType]?.icon}
+                      alt={
+                        deviceTypeMap[fb.deviceInfo.deviceType]?.label ||
+                        "device"
+                      }
+                      width="20"
+                      height="20"
+                    />
+                  </span>
+                  <span className="subtitle1 d-block text-center">
+                    {fb.deviceInfo.mobileName}
+                  </span>
+                </div>
+                {/* Date and Time */}
                 <div className="fb-card-top text_secondary d-inline-flex">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -231,18 +247,6 @@ export default function FeedbackView({ userId, onClose }) {
                     minute: "2-digit",
                   })}
                 </div>
-
-                <span className="device-icon-wrap d-inline-block">
-                  {/* {deviceTypeMap[fb.deviceInfo.deviceType]?.label || "Unknown"} */}
-                  <img
-                    src={deviceTypeMap[fb.deviceInfo.deviceType]?.icon}
-                    alt={
-                      deviceTypeMap[fb.deviceInfo.deviceType]?.label || "device"
-                    }
-                    width="20"
-                    height="20"
-                  />
-                </span>
               </div>
 
               {/* <Divider sx={{ my: 2 }} /> */}
@@ -263,7 +267,7 @@ export default function FeedbackView({ userId, onClose }) {
                           <clipPath id="a" clipPathUnits="userSpaceOnUse">
                             <path
                               d="M0 512h512V0H0Z"
-                              fill="currentColor"
+                              fill="#111827"
                               opacity="1"
                             />
                           </clipPath>
@@ -276,8 +280,8 @@ export default function FeedbackView({ userId, onClose }) {
                             d="M0 0a32.235 32.235 0 0 0 28.908 17.964A32.233 32.233 0 0 0 57.815 0c17.521-35.5 38.539-78.093 49.508-100.32a32.255 32.255 0 0 1 24.274-17.641c24.532-3.562 71.54-10.388 110.708-16.086a32.223 32.223 0 0 0 26.022-21.937 32.222 32.222 0 0 0-8.156-33.042c-28.343-27.635-62.361-60.79-80.107-78.093a32.241 32.241 0 0 1-9.276-28.529c4.191-24.435 12.226-71.25 18.915-110.265a32.23 32.23 0 0 0-12.822-31.526 32.247 32.247 0 0 0-33.953-2.458c-35.033 18.422-77.077 40.521-99.022 52.062a32.255 32.255 0 0 1-29.996 0c-21.945-11.541-63.99-33.64-99.022-52.062a32.247 32.247 0 0 0-33.953 2.458 32.233 32.233 0 0 0-12.823 31.526c6.69 39.015 14.724 85.83 18.915 110.265a32.241 32.241 0 0 1-9.276 28.529c-17.746 17.303-51.763 50.458-80.107 78.093a32.222 32.222 0 0 0-8.156 33.042 32.226 32.226 0 0 0 26.023 21.937c39.167 5.698 86.176 12.524 110.708 16.086a32.257 32.257 0 0 1 24.274 17.641C-38.539-78.093-17.521-35.5 0 0Z"
                             transform="translate(227.092 468.817)"
                             fill="none"
-                            stroke="currentColor"
-                            strokeWidth="30"
+                            stroke="#111827"
+                            strokeWidth="40"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeMiterlimit="10"
@@ -289,7 +293,16 @@ export default function FeedbackView({ userId, onClose }) {
                     </svg>
                     <p className="fb-field-label mb-0">Experience</p>
                   </div>
-                  <p className="fb-field-value mb-0">{fb.experience}</p>
+                  <p className="fb-field-value mb-0">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since 1966, when designers at
+                    Letraset and James Mosley, the librarian at St Bride
+                    Printing Library, took a 1914 Cicero translation and
+                    scrambled it to make dummy text for Letraset's Body Type
+                    sheets.
+                  </p>
+                  {/* {fb.experience} */}
                 </div>
 
                 {/* Features */}
@@ -305,20 +318,27 @@ export default function FeedbackView({ userId, onClose }) {
                       <g>
                         <path
                           d="M46.216 12.186a4.002 4.002 0 0 0-4.001-4.002H17.203a4.002 4.002 0 0 0 0 8.004h25.012a4.002 4.002 0 0 0 4.001-4.002zm-2 0a2 2 0 0 1-2.001 2.001H17.203a2 2 0 0 1 0-4.002h25.012a2 2 0 0 1 2 2.001zM46.216 24.179a4.002 4.002 0 0 0-4.001-4.002H17.203a4.002 4.002 0 0 0 0 8.004h25.012a4.002 4.002 0 0 0 4.001-4.002zm-2 0a2 2 0 0 1-2.001 2H17.203a2 2 0 0 1 0-4.001h25.012a2 2 0 0 1 2 2zM46.216 36.171a4.002 4.002 0 0 0-4.001-4.002H17.203a4.002 4.002 0 0 0 0 8.004h25.012a4.002 4.002 0 0 0 4.001-4.002zm-2 0a2 2 0 0 1-2.001 2.001H17.203a2 2 0 0 1 0-4.002h25.012a2 2 0 0 1 2 2.001zM6.686 7.642a4.502 4.502 0 0 0 0 9.002 4.504 4.504 0 0 0 4.501-4.501 4.503 4.503 0 0 0-4.501-4.501zm0 2a2.502 2.502 0 1 1-.003 5.003 2.502 2.502 0 0 1 .003-5.004zM6.686 19.634a4.502 4.502 0 0 0 0 9.003 4.504 4.504 0 0 0 4.501-4.502 4.503 4.503 0 0 0-4.501-4.5zm0 2a2.502 2.502 0 1 1-.003 5.003 2.502 2.502 0 0 1 .003-5.003zM6.686 31.627a4.502 4.502 0 0 0 0 9.002 4.504 4.504 0 0 0 4.501-4.501 4.503 4.503 0 0 0-4.501-4.501zm0 2a2.502 2.502 0 1 1-.003 5.003 2.502 2.502 0 0 1 .003-5.004z"
-                          fill="currentColor"
+                          fill="#111827"
                           opacity="1"
-                          data-original="currentColor"
+                          data-original="#111827"
                         ></path>
                       </g>
                     </svg>
                     <p className="fb-field-label mb-0">Features</p>
                   </div>
-                  <p className="fb-field-value mb-0">{fb.features}</p>
+                  <p className="fb-field-value mb-0">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since 1966, when designers at
+                    Letraset and James Mosley, the librarian at St Bride
+                    Printing Library.
+                  </p>
+                  {/* {fb.features} */}
                 </div>
 
                 {/* Device Info Section */}
                 <div className="fb-device-info-wrap">
-                  <div className="fb-card-top d-inline-flex mb-2">
+                  {/* <div className="fb-card-top d-inline-flex mb-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       version="1.1"
@@ -342,16 +362,16 @@ export default function FeedbackView({ userId, onClose }) {
                       </g>
                     </svg>
                     <p className="fb-field-label mb-0">Device Information</p>
-                  </div>
+                  </div> */}
                   <div className="fb-device-info">
-                    <div className="row gx-2">
+                    <div className="row gx-2 gy-2">
                       {/* Device Type */}
-                      <div className="col-lg-3">
+                      <div className="col-sm-4">
                         <div className="fb-device-col">
                           <span className="caption text_secondary d-block text-center">
                             Device
                           </span>
-                          <span className="subtitle1 d-block text-center">
+                          <span className="caption fw-600 d-block text-center">
                             {deviceTypeMap[fb.deviceInfo.deviceType]?.label ||
                               "Unknown"}
                           </span>
@@ -360,40 +380,40 @@ export default function FeedbackView({ userId, onClose }) {
                       {/* <Divider orientation="vertical" flexItem /> */}
 
                       {/* App Version */}
-                      <div className="col-lg-3">
+                      <div className="col-sm-4">
                         <div className="fb-device-col">
                           <span className="caption text_secondary d-block text-center">
                             App Version
                           </span>
-                          <span className="subtitle1 d-block text-center">
+                          <span className="caption fw-600  d-block text-center">
                             {fb.deviceInfo.versionCode}
                           </span>
                         </div>
                       </div>
 
                       {/* OS Version */}
-                      <div className="col-lg-3">
+                      <div className="col-sm-4">
                         <div className="fb-device-col">
                           <span className="caption text_secondary d-block text-center">
                             OS Version
                           </span>
-                          <span className="subtitle1 d-block text-center">
+                          <span className="caption fw-600  d-block text-center">
                             {fb.deviceInfo.osVersion}
                           </span>
                         </div>
                       </div>
 
                       {/* Model */}
-                      <div className="col-lg-3">
+                      {/* <div className="col-lg-3">
                         <div className="fb-device-col">
                           <span className="caption text_secondary d-block text-center">
                             Model
                           </span>
-                          <span className="subtitle1 d-block text-center">
+                          <span className="caption fw-600  d-block text-center">
                             {fb.deviceInfo.mobileName}
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
