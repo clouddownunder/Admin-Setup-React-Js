@@ -791,7 +791,7 @@ body.remove-scroll {
     position: absolute;
     right: 16px;
     height: auto;
-    padding-top: 4px;
+    /* padding-top: 4px; */
     visibility: visible !important;
     opacity: 1 !important;
     flex-shrink: 0 !important;
@@ -840,6 +840,11 @@ body.remove-scroll {
 
 .MuiCalendarOrClockPicker-root {
     flex-direction: column;
+}
+
+.date-cal-wrapper .MuiPickersCalendarHeader-root {
+    padding-left: 36px;
+    padding-right: 24px;
 }
 
 
@@ -1118,6 +1123,7 @@ body.remove-scroll {
 .table .dt-eye-icon:hover {
     box-shadow: 0 0 6px 1px rgba(75, 85, 99, 0.4);
 }
+
 
 /* Hide page count text */
 
@@ -1454,6 +1460,7 @@ body.remove-scroll {
 .device-icon-wrap {
     margin-top: -2px;
 }
+
 
 /* end */
 

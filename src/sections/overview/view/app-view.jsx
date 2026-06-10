@@ -405,9 +405,7 @@ export default function AppView() {
                             PopperProps={{
                               className: "date-cal-wrapper",
                             }}
-                            components={{
-                              SwitchViewIcon: CustomSwitchIcon,
-                            }}
+                            
                             renderInput={(params) => (
                               <TextField
                                 {...params}
@@ -421,7 +419,7 @@ export default function AppView() {
                                 }}
                               />
                             )}
-                            inputFormat="DD MMM YYYY"
+                            
                           />
                         </div>
                       </div>
@@ -442,9 +440,7 @@ export default function AppView() {
                             PopperProps={{
                               className: "date-cal-wrapper",
                             }}
-                            components={{
-                              SwitchViewIcon: CustomSwitchIcon,
-                            }}
+                            
                             renderInput={(params) => (
                               <TextField
                                 {...params}
@@ -458,7 +454,7 @@ export default function AppView() {
                                 }}
                               />
                             )}
-                            inputFormat="DD MMM YYYY"
+                            
                           />
                         </div>
                       </div>

@@ -342,13 +342,11 @@
     /* =========================================================
         Date Picker
     ========================================================= */
-    .date-cal-wrapper .MuiPickersDay-root.Mui-selected,
-    .date-cal-wrapper .PrivatePickersYear-yearButton.Mui-selected {
+    .date-cal-wrapper .MuiPickersDay-root.Mui-selected {
         width: 34px;
         height: 34px;
     }
-    .date-cal-wrapper .MuiPickersDay-root,
-    .date-cal-wrapper .PrivatePickersYear-yearButton {
+    .date-cal-wrapper .MuiPickersDay-root {
         width: 34px;
         height: 34px;
     }
