@@ -102,7 +102,7 @@ export default function UserTableRow({
         `${import.meta.env.VITE_API_BASEURL}/auth/deleteAdmin/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
 
       showAlert(res.data.status, res.data.message);
@@ -242,15 +242,15 @@ export default function UserTableRow({
         <div className="modal-header">
           <h3 className="mb-0 modal-title">User Details</h3>
           <button
-            onClick={() => onClose()}
+            onClick={() => setViewDialogOpen(false)}
             className="btn-close in-close"
           ></button>
         </div>
 
         {/* User Details */}
-        <Box sx={{ p: 2 }}>
+        <div className="modal-body">
           <UserView userId={userId} onClose={() => setViewDialogOpen(false)} />
-        </Box>
+        </div>
       </SwipeableDrawer>
       {/* Delete Dialog */}
       {/* <Dialog
@@ -446,10 +446,9 @@ export default function UserTableRow({
             }}
             icon="eva:eye-fill"
             sx={{ mr: 2 }}
-            style={{ cursor: "pointer" }}
           />
           <Iconify
-            style={{ cursor: "pointer" }}
+            className="dt-view-btn dt-delet-icon"
             onClick={() => {
               handleCloseMenu();
               handleDeleteConfirmation(userId, name);

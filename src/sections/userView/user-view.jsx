@@ -57,7 +57,7 @@ export default function UserView({ userId, onClose }) {
 
   if (!user) {
     return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container>
         <Grid container spacing={2} alignItems="flex-start">
           {/* Avatar column */}
           <Grid
@@ -222,10 +222,10 @@ export default function UserView({ userId, onClose }) {
   );
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <div className="parent-table">
-        <div className="table">
-          <table className="user-details-table">
+    <Container maxWidth="lg" className="p-0">
+      <div className="parent-table p-0">
+        <div className="user-details-table table">
+          <table>
             <tbody>
               {/* Profile Image */}
               <tr>

@@ -1532,20 +1532,6 @@ body.remove-scroll {
 
 /* end */
 
-
-/* =========================================================
-   Logout-pop up 
-========================================================= */
-
-.delete-user-popup .logout-swal-confirm,
-.delete-user-popup .logout-swal-cancel {
-    width: 130px;
-}
-
-
-/* end */
-
-
 /* =========================================================
    Notification pop-up 
 ========================================================= */
@@ -1732,5 +1718,17 @@ body.remove-scroll {
     margin-top: 2px;
 }
 
-
 /* end */
+
+
+/* =========================================================
+   Dialog Sidebar CSS
+========================================================= */
+.dialog-sidebar .MuiDrawer-paperAnchorRight {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.user-details-table.table table {
+    min-width: 100%;
+}
