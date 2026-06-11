@@ -465,7 +465,7 @@ export default function ProfileEditView() {
                         <TextField
                           fullWidth
                           name="currentPassword"
-                          placeholder="Current Password"
+                          placeholder="Enter current password"
                           required
                           className="input-field"
                           type={
@@ -513,7 +513,7 @@ export default function ProfileEditView() {
                         <TextField
                           fullWidth
                           name="newPassword"
-                          placeholder="New Password"
+                          placeholder="Enter new password"
                           required
                           className="input-field"
                           type={showPassword.newPassword ? "text" : "password"}
@@ -553,13 +553,13 @@ export default function ProfileEditView() {
 
                       <div className="mb-4">
                         <div className="title-text mb-2 subtitle1">
-                          Confirm Password
+                          Confirm New Password
                         </div>
 
                         <TextField
                           fullWidth
                           name="confirmPassword"
-                          placeholder="Confirm Password"
+                          placeholder="Confirm new password"
                           required
                           className="input-field"
                           type={
