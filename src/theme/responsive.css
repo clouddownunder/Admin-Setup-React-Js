@@ -232,7 +232,8 @@
         font-size: 14px;
     }
 
-    .notification-menu-list .notification-menu-item {
+    .notification-menu-list .notification-menu-item,
+    .select-type-menu-wrap .select-type-item {
         font-size: 14px;
         min-height: auto;
     }

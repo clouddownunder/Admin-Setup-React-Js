@@ -37,7 +37,7 @@ export default function UserTableToolbar({
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" arrow>
           <IconButton>
             <Iconify
               className="dt-view-btn dt-delete-icon"

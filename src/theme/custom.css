@@ -1145,6 +1145,7 @@ body.remove-scroll {
 
 .table .dt-delet-icon {
     background-color: var(--primary-lighter);
+    padding: 6px;
 }
 
 .table .dt-delet-icon path {
@@ -1547,7 +1548,8 @@ body.remove-scroll {
     background-color: var(--white);
 }
 
-.notification-form-wrap .input-field .form-control.border {
+.notification-form-wrap .input-field .form-control.border,
+.input-field .form-control.border.selectinput {
     line-height: 1.5;
 }
 
@@ -1563,12 +1565,19 @@ body.remove-scroll {
     max-width: 50%;
 }
 
-.notification-menu-list .notification-menu-ul {
+.notification-menu-list .notification-menu-ul,
+.select-type-menu-wrap .select-type-menu {
     padding: 0;
 }
 
-.notification-form-wrap .field-group {
+.notification-form-wrap .field-group,
+.add-user-form .field-group {
     margin-bottom: 16px;
+}
+
+.notification-form-wrap .field-group:last-child,
+.add-user-form .field-group:last-child {
+    margin-bottom: 0;
 }
 
 .emoji-box {
@@ -1690,6 +1699,20 @@ body.remove-scroll {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
+}
+
+.Mui-error {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.error-mesg {
+    color: #FF5630;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.66;
+    text-align: left;
+    margin-top: 2px;
 }
 
 /* end */

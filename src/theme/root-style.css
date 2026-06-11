@@ -407,6 +407,38 @@ ul {
     pointer-events: none;
 }
 
+.btn.disabled,
+.btn:disabled,
+fieldset:disabled .btn {
+    color: var(--white);
+    background-color: var(--primary-main);
+    border-color: var(--primary-main);
+}
+
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    margin-left: 8px;
+    display: inline-block;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: btnSpin 0.7s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes btnSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .submit-btn {
     background-color: var(--primary-main);
     color: var(--white);

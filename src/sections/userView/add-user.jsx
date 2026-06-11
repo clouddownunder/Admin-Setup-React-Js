@@ -26,8 +26,8 @@ export default function AddUserDialog({ open, onClose, onSuccess }) {
   const initialFormState = {
     fullName: "",
     email: "",
-    companyType: "",
-    role: "",
+    companyType: "construction_admin",
+    role: "construction_admin",
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -96,74 +96,111 @@ export default function AddUserDialog({ open, onClose, onSuccess }) {
 
   return (
     <Dialog
+      className="custom-modal add-user-modal"
       open={open}
       onClose={handleClose}
       fullWidth
       maxWidth="sm"
-      PaperProps={{
-        sx: {
-          borderRadius: 2,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
-          overflow: "hidden",
-        },
-      }}
-      BackdropProps={{
-        sx: {
-          backdropFilter: "none",
-          backgroundColor: "rgba(0,0,0,0.35)",
-        },
-      }}
+      PaperProps={{}}
     >
-      <DialogTitle>Add User</DialogTitle>
+      {/* Header */}
+      <div className="modal-header">
+        <h3 className="mb-0 modal-title">Add Company</h3>
+      </div>
 
-      <DialogContent>
-        <Box mt={2}>
-          <TextField
-            fullWidth
-            label="Full Name"
-            required
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            margin="normal"
-          />
+      {/* Main content */}
+      <div className="modal-body pb-0" dividers>
+        <div className="add-user-form">
+          <div className="field-group input-field">
+            <label htmlFor="fullName" className="main-label mb-1">
+              Full Name
+            </label>
+            <TextField
+              fullWidth
+              placeholder="Enter full name"
+              required
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              inputProps={{
+                className: "form-control border",
+              }}
+            />
+          </div>
+          <div className="field-group input-field">
+            <label htmlFor="email" className="main-label mb-1">
+              Email
+            </label>
+            <TextField
+              fullWidth
+              placeholder="Enter email"
+              required
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              inputProps={{
+                className: "form-control border",
+              }}
+            />
+          </div>
 
-          <TextField
-            fullWidth
-            label="Email"
-            required
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            margin="normal"
-          />
+          <div className="field-group input-field">
+            <label htmlFor="companyType" className="main-label mb-1">
+              Company Type
+            </label>
+            <TextField
+              select
+              fullWidth
+              required
+              name="companyType"
+              value={formData.companyType}
+              onChange={handleChange}
+              inputProps={{
+                className: "form-control border selectinput",
+              }}
+              SelectProps={{
+                MenuProps: {
+                  PaperProps: {
+                    className: "select-type-menu-wrap",
+                  },
+                  MenuListProps: {
+                    className: "select-type-menu",
+                  },
+                },
+              }}
+            >
+              <MenuItem value="construction_admin" className="select-type-item">
+                Construction Admin
+              </MenuItem>
+              <MenuItem
+                value="truck_operator_admin"
+                className="select-type-item"
+              >
+                Truck Operator Admin
+              </MenuItem>
+            </TextField>
+          </div>
+        </div>
+      </div>
+      
+      {/* Footer */}
+      <div className="modal-footer">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleClose}
+        >
+          Cancel
+        </button>
 
-          <TextField
-            select
-            fullWidth
-            label="Company Type"
-            required
-            name="companyType"
-            value={formData.companyType}
-            onChange={handleChange}
-            margin="normal"
-          >
-            <MenuItem value="construction_admin">Construction Admin</MenuItem>
-            <MenuItem value="truck_operator_admin">
-              Truck Operator Admin
-            </MenuItem>
-          </TextField>
-        </Box>
-
-        <DialogActions sx={{ pr: 0 }}>
-          <Button variant="outlined" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="contained" onClick={handleSubmit}>
-            Save
-          </Button>
-        </DialogActions>
-      </DialogContent>
+        <button
+          type="button"
+          className="btn btn-primary ms-2"
+          onClick={handleSubmit}
+        >
+          Save
+        </button>
+      </div>
     </Dialog>
   );
 }

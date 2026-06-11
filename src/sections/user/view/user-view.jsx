@@ -280,7 +280,7 @@ export default function UserPage() {
         <h1 className="page-title mb-0">Company Management</h1>
         <button
           className="btn btn-primary"
-          onClick={() => setAddUserDialogOpen()}
+          onClick={() => setAddUserDialogOpen(true)}
         >
           Add Company
         </button>

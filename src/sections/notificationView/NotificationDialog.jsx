@@ -258,7 +258,7 @@ export default function NotificationDialog({
                 value={sendTo}
                 onChange={(e) => {
                   setSendTo(e.target.value);
-                  setRole("");
+                  setRole("construction_admin");
                   setErrors({ ...errors, sendTo: "" });
                   setSelectedUser([]);
                 }}
@@ -375,7 +375,6 @@ export default function NotificationDialog({
                 </label>
                 <div className="autocomplete-input position-relative">
                   <Autocomplete
-                    // popupIcon={<CustomRedArrowIcon />}
                     multiple
                     options={users}
                     // open={sendTo === "individual"} // For temp
@@ -445,17 +444,21 @@ export default function NotificationDialog({
                       );
                     }}
                     renderInput={(params) => (
-                      <TextField
-                        className="form-control border"
-                        {...params}
-                        error={!!errors.userId}
-                        helperText={errors.userId}
-                        inputProps={{
-                          ...params.inputProps,
-                          placeholder:
-                            selectedUser?.length > 0 ? "" : "Select User",
-                        }}
-                      />
+                      <>
+                        <TextField
+                          className="form-control border"
+                          {...params}
+                          error={!!errors.userId}
+                          inputProps={{
+                            ...params.inputProps,
+                            placeholder:
+                              selectedUser?.length > 0 ? "" : "Select User",
+                          }}
+                        />
+                        {errors.userId && (
+                          <div className="Mui-error error-mesg">{errors.userId}</div>
+                        )}
+                      </>
                     )}
                     fullWidth
                   />
@@ -557,7 +560,7 @@ export default function NotificationDialog({
 
         <button
           type="button"
-          className="btn btn-primary ms-2"
+          className={`btn btn-primary ms-2 ${loading ? "btn-loading" : ""}`}
           disabled={loading}
           onClick={handleSubmit}
         >
