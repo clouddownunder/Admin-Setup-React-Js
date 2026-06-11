@@ -399,9 +399,8 @@ export default function AppView() {
                             // label=""
                             value={customStartDate}
                             maxDate={customEndDate || dayjs()}
-                            onChange={(newValue) =>
-                              setCustomStartDate(newValue)
-                            }
+                            onChange={(newValue) => setCustomStartDate(newValue)}
+                            inputFormat="DD MMM YYYY"
                             PopperProps={{
                               className: "date-cal-wrapper",
                             }}
@@ -437,6 +436,7 @@ export default function AppView() {
                             minDate={customStartDate}
                             maxDate={dayjs()}
                             onChange={(newValue) => setCustomEndDate(newValue)}
+                            inputFormat="DD MMM YYYY"
                             PopperProps={{
                               className: "date-cal-wrapper",
                             }}

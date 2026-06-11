@@ -170,7 +170,7 @@
 }
 
 .profile-dropdown-item.logout-item {
-    color: var(--primary-main);
+    color: var(--danger);
 }
 
 .profile-dropdown-item.logout-item:hover {
