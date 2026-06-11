@@ -315,6 +315,7 @@ export default function ProfileEditView() {
                           required
                           className="input-field"
                           InputProps={{
+                            readOnly:true,
                             inputProps: {
                               className: "form-control border",
                             },

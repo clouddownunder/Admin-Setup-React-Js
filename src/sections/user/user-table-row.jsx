@@ -21,6 +21,7 @@ import Iconify from "src/components/iconify";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { UserView } from "../userView";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 export default function UserTableRow({
   selected,
   name,
@@ -54,6 +55,7 @@ export default function UserTableRow({
   const [blockUserId, setBlockUserId] = useState(null);
   const [blockReason, setBlockReason] = useState("");
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   useEffect(() => {
     setIsChecked(suspended);
@@ -82,7 +84,7 @@ export default function UserTableRow({
         `${import.meta.env.VITE_API_BASEURL}/auth/deleteAdmin/${deleteUserId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        },
+        }
       );
 
       showAlert(res.data.status, res.data.message);
@@ -175,58 +177,38 @@ export default function UserTableRow({
 
   return (
     <>
-      <Dialog
+      <SwipeableDrawer
+        className="custom-modal"
+        anchor="right"
         open={viewDialogOpen}
         onClose={() => setViewDialogOpen(false)}
-        fullWidth
-        maxWidth="md"
+        onOpen={() => setViewDialogOpen(true)}
+        disableSwipeToOpen
         PaperProps={{
           sx: {
-            boxShadow: "0px 8px 24px rgba(255, 255, 255, 0.25)", // softer shadow
-            borderRadius: 2,
-          },
-        }}
-        BackdropProps={{
-          sx: {
-            backgroundColor: "rgba(0,0,0,0.4)", // no blur
-            backdropFilter: "none",
+            width: {
+              xs: "100%",
+              sm: 400,
+              md: 600,
+            },
+            overflowX: "hidden",
           },
         }}
       >
-        {/* <Dialog
-        open={viewDialogOpen}
-        onClose={() => setViewDialogOpen(false)}
-        fullWidth
-        maxWidth="md"
-        // sx={{
-        //   maxWidth: {
-        //     xs: "md", // for screen < 900px
-        //     md: "md", // for screen ≥ 900px
-        //   },
-        // }}
-      > */}
-        <Box sx={{ justifyContent: "space-between", display: "flex" }}>
-          <DialogTitle>User Details</DialogTitle>
-          <Button
-            onClick={() => setViewDialogOpen(false)}
-            sx={{
-              fontSize: "larger",
-              "&:hover": {
-                backgroundColor: "transparent",
-              },
-            }}
-            disableTouchRipple
-          >
-            x
-          </Button>
-        </Box>
-        <DialogContent dividers>
+        {/* Header */}
+        <div className="modal-header">
+          <h3 className="mb-0 modal-title">User Details</h3>
+          <button
+            onClick={() => onClose()}
+            className="btn-close in-close"
+          ></button>
+        </div>
+
+        {/* User Details */}
+        <Box sx={{ p: 2 }}>
           <UserView userId={userId} onClose={() => setViewDialogOpen(false)} />
-        </DialogContent>
-        {/* <DialogActions>
-          <Button onClick={() => setViewDialogOpen(false)}>Close</Button>
-        </DialogActions> */}
-      </Dialog>
+        </Box>
+      </SwipeableDrawer>
       {/* Delete Dialog */}
       <Dialog
         open={deleteDialogOpen}
