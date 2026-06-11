@@ -1299,6 +1299,7 @@ body.remove-scroll {
 
 .custom-modal .modal-footer {
     padding: 16px 25px;
+    row-gap: 6px;
 }
 
 .custom-modal .modal-title {
@@ -1549,8 +1550,12 @@ body.remove-scroll {
     max-width: 50%;
 }
 
-.notification-form-wrap .MuiAutocomplete-popupIndicatorOpen {
-    /* right: 34px; */
+.notification-menu-list .notification-menu-ul {
+    padding: 0;
+}
+
+.notification-form-wrap .field-group {
+    margin-bottom: 16px;
 }
 
 .emoji-box {

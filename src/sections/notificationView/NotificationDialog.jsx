@@ -35,7 +35,7 @@ export default function NotificationDialog({
   const [loading, setLoading] = useState(false);
   const [notificationText, setNotificationText] = useState("");
   const [sendTo, setSendTo] = useState("all");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("construction_admin");
   const [selectedUser, setSelectedUser] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [users, setUsers] = useState([]);
@@ -78,8 +78,8 @@ export default function NotificationDialog({
 
   const resetForm = () => {
     setNotificationText("");
-    setSendTo("");
-    setRole("");
+    setSendTo("all");
+    setRole("construction_admin");
     setNotificationType("general");
     setErrors({});
     setSelectedUser(null);
@@ -229,9 +229,13 @@ export default function NotificationDialog({
                 </MenuItem>
               </Select>
             </div>
-            <FormHelperText className="error-mesg">
-              {errors.notificationType || " "}
-            </FormHelperText>
+            {errors.notificationType && (
+              <>
+                <FormHelperText className="error-mesg">
+                  {errors.notificationType || " "}
+                </FormHelperText>
+              </>
+            )}
           </FormControl>
 
           {/* Send To */}
@@ -278,9 +282,13 @@ export default function NotificationDialog({
                 </MenuItem>
               </Select>
             </div>
-            <FormHelperText className="error-mesg">
-              {errors.sendTo || " "}
-            </FormHelperText>
+            {errors.sendTo && (
+              <>
+                <FormHelperText className="error-mesg">
+                  {errors.sendTo || " "}
+                </FormHelperText>
+              </>
+            )}
           </FormControl>
 
           {/* Role */}
@@ -295,7 +303,6 @@ export default function NotificationDialog({
                   Role
                 </label>
                 <Select
-                  style={{ marginBottom: "20px" }}
                   labelId="role-label"
                   id="role-label"
                   value={role}
@@ -345,9 +352,13 @@ export default function NotificationDialog({
                   </MenuItem>
                 </Select>
               </div>
-              <FormHelperText className="error-mesg">
-                {errors.role}
-              </FormHelperText>
+              {errors.role && (
+                <>
+                  <FormHelperText className="error-mesg">
+                    {errors.role}
+                  </FormHelperText>
+                </>
+              )}
             </FormControl>
           )}
 
@@ -361,8 +372,8 @@ export default function NotificationDialog({
 
                 <Autocomplete
                   options={users}
-                  popupIcon={<CustomRedArrowIcon />}
-                  forcePopupIcon={true}
+                  // popupIcon={<CustomRedArrowIcon />}
+                  // forcePopupIcon={true}
                   getOptionLabel={(option) =>
                     option?.fullName
                       ? `${option.fullName} (${option.email})`
@@ -375,7 +386,6 @@ export default function NotificationDialog({
                   }}
                   renderInput={(params) => (
                     <TextField
-                      style={{ marginBottom: "20px" }}
                       {...params}
                       placeholder="Select User"
                       // label="Select User"
