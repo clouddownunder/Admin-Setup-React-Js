@@ -47,7 +47,7 @@ export default function FaqTableToolbar({
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <span className="d-inline-block" />
+          {/* <span className="d-inline-block" /> */}
         </Tooltip>
       )}
     </Toolbar>

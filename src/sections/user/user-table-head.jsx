@@ -37,6 +37,9 @@ export default function UserTableHead({
 
         {headLabel.map((headCell) => (
           <TableCell
+            classes={{
+              root: "dt-column-ordering",
+            }}
             key={headCell.id}
             align={headCell.align || "left"}
             sortDirection={orderBy === headCell.id ? order : false}

@@ -591,6 +591,7 @@ body.remove-scroll {
     height: 108px;
 }
 
+.autocomplete-input input::placeholder,
 .input-field .form-control:-webkit-autofill,
 .input-field .form-control:-webkit-autofill:hover,
 .input-field .form-control:-webkit-autofill:focus,
@@ -1063,6 +1064,7 @@ body.remove-scroll {
 
 .table thead th {
     font-size: 12px;
+    line-height: 1.1;
     text-transform: uppercase;
     font-weight: 600;
     color: var(--text-secondary);
@@ -1579,13 +1581,104 @@ body.remove-scroll {
 .emojibutton button {
     background-color: var(--white);
     padding: 5px;
-
 }
 
 .emojibutton button:hover {
     background-color: var(--primary-lighter);
 }
 
-.Mui-error {}
+.notification-form-wrap .individual .MuiAutocomplete-clearIndicator {
+    display: none;
+}
+
+.notification-form-wrap .individual .MuiAutocomplete-popupIndicator {
+    right: -7px;
+}
+
+.notification-form-wrap .individual .MuiAutocomplete-endAdornment {
+    right: 0 !important;
+}
+
+.notification-form-wrap .individual .MuiAutocomplete-input {
+    padding: 0 !important;
+}
+
+.notification-form-wrap .individual.input-field .form-control.border {
+    padding: 11px 14px;
+}
+
+.notification-form-wrap .individual .custom-user-tag {
+    font-size: 12px;
+    height: auto;
+    padding: 4px 0px;
+    margin: 4px;
+}
+
+.notification-form-wrap .individual .custom-user-tag .MuiChip-deleteIcon {
+    width: 18px;
+}
+
+.more-tag .MuiAutocomplete-tag {
+    padding: 4px 12px;
+    font-size: 14px;
+}
+
+.more-tag .MuiAutocomplete-tag,
+.notification-form-wrap .individual .custom-user-tag {
+    color: var(--text-primary);
+    background-color: rgba(145, 158, 171, 0.16);
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}
+
+.custom-popup-indicator {
+    padding: 0 !important;
+}
+
+.custom-user-listbox {
+    padding: 0 !important;
+}
+
+.custom-user-listbox li.MuiAutocomplete-option {
+    padding: 8px 16px;
+}
+
+.custom-user-listbox .n-user-img {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-color: var(--primary-main);
+    color: var(--white);
+    object-fit: cover;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.custom-user-listbox .n-user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.custom-user-listbox .n-user-email {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
 
 /* end */

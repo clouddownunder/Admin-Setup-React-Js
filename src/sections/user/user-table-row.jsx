@@ -412,16 +412,7 @@ export default function UserTableRow({
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton> */}
           <Iconify
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              // onViewUser();
-              handleCloseMenu();
-              setDeleteUserId(userId);
-              setDeleteDialogOpen(true);
-            }}
-            icon="eva:trash-2-fill"
-          />
-          <Iconify
+            className="dt-view-btn dt-eye-icon"
             onClick={() => {
               // onViewUser();
               handleCloseMenu();
@@ -430,6 +421,16 @@ export default function UserTableRow({
             icon="eva:eye-fill"
             sx={{ mr: 2 }}
             style={{ cursor: "pointer" }}
+          />
+          <Iconify
+            className="dt-view-btn dt-delet-icon"
+            onClick={() => {
+              // onViewUser();
+              handleCloseMenu();
+              setDeleteUserId(userId);
+              setDeleteDialogOpen(true);
+            }}
+            icon="eva:trash-2-fill"
           />
         </TableCell>
       </TableRow>

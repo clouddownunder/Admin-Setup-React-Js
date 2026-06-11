@@ -224,6 +224,7 @@
         font-size: 14px;
     }
 
+    .autocomplete-input input::placeholder,
     .input-field .form-control:-webkit-autofill,
     .input-field .form-control:-webkit-autofill:hover,
     .input-field .form-control:-webkit-autofill:focus,
@@ -516,6 +517,21 @@
 }
 
 @media (max-width: 1199px) {
+    .custom-user-listbox .n-user-email {
+        font-size: 11px;
+    }
+
+    .custom-user-listbox .n-user-name {
+        font-size: 13px;
+        line-height: normal;
+    }
+
+    .custom-user-listbox .n-user-img {
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+
     .notification-page .parent-table .dt-search {
         max-width: 100%;
     }
@@ -870,6 +886,10 @@
 }
 
 @media (max-width: 575px) {
+    .custom-user-listbox li.MuiAutocomplete-option {
+        padding: 8px 14px;
+    }
+
     .parentform .login-cardm1 {
         padding: 20px 18px;
     }
@@ -1088,8 +1108,13 @@
     }
 }
 
-@media (max-width: 359px) {
-    .page .btn {
+@media (max-width: 360px) {
+    .page-title {
+        font-size: 18px;
+    }
+
+    .btn {
+        padding: 8px 12px;
         font-size: 13px;
     }
 

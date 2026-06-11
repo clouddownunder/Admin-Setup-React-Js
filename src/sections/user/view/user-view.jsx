@@ -243,165 +243,198 @@ export default function UserPage() {
   else if (filterType === "driver") queryText = "Truck Driver";
   else queryText = "Users";
 
+  // Select svg icon
+  const CustomSelectIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      className="custom-select-arrow"
+    >
+      <path
+        d="M19.061 7.854a1.5 1.5 0 0 0-2.122 0l-4.586 4.585a.5.5 0 0 1-.707 0L7.061 7.854a1.5 1.5 0 0 0-2.122 2.121l4.586 4.586a3.5 3.5 0 0 0 4.95 0l4.586-4.586a1.5 1.5 0 0 0 0-2.121Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+
+  const CustomRedArrowIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      className="custom-select-arrow red"
+    >
+      <path
+        d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+
   return (
-    <Container maxWidth="xl" sx={{ mt: 3 }}>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={4}
-      >
-        <Typography variant="h4">Company Management</Typography>
-        <Button
-          variant="contained"
-          startIcon={<Icon icon="mdi:plus" />}
-          onClick={() => setAddUserDialogOpen(true)}
+    <>
+      <div className="page-header">
+        <h1 className="page-title mb-0">Company Management</h1>
+        <button
+          className="btn btn-primary"
+          onClick={() => setAddUserDialogOpen()}
         >
           Add Company
-        </Button>
-      </Stack>
+        </button>
+      </div>
+      <div className="page-content notification-page cm-page-panel pt-3">
+        <div className="panel">
+          <div className="panel-heading">
+            <h3 className="panel-title">Company Management List</h3>
+          </div>
 
-      <AddUserDialog
-        open={addUserDialogOpen}
-        onClose={() => setAddUserDialogOpen(false)}
-        onSuccess={fetchUsers}
-      />
+          <div className="panel-body parent-table">
+            <div className="row customrow mb-3 gy-2">
+              <div className="col1">
+                <div className="show-page-row">
+                  <TablePagination
+                    className="custom-pagination remove-buttons"
+                    page={page}
+                    component="div"
+                    count={dataFiltered.length}
+                    rowsPerPage={rowsPerPage}
+                    onPageChange={handleChangePage}
+                    rowsPerPageOptions={[5, 10]}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    SelectProps={{
+                      IconComponent: CustomRedArrowIcon,
+                      MenuProps: {
+                        PaperProps: {
+                          className: "rows-per-page-menu",
+                        },
+                        MenuListProps: {
+                          className: "rows-per-page-menu-list",
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="col1">
+                <div className="rows-serach-wrap d-flex align-items-end justify-content-md-end">
+                  <UserTableToolbar
+                    numSelected={selected.length}
+                    filterName={filterName}
+                    onFilterName={handleFilterByName}
+                  />
+                </div>
+              </div>
+            </div>
 
-      <Card sx={{ p: 2, boxShadow: 3 }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingLeft: "24px",
-            paddingRight: "24px",
-          }}
-        >
-          <UserTableToolbar
-            numSelected={selected.length}
-            filterName={filterName}
-            onFilterName={handleFilterByName}
-          />
-          <FormControl
-            sx={{
-              minWidth: 150,
-            }}
-          >
-            <InputLabel shrink>Filter</InputLabel>
-            <Select
-              value={filterType}
-              label="Filter"
-              onChange={handleFilterChange}
-            >
-              <MenuItem value="all">All</MenuItem>
-              <MenuItem value="construction_admin">Construction Admin</MenuItem>
-              <MenuItem value="truck_operator_admin">
-                Truck Operator Admin
-              </MenuItem>
-              <MenuItem value="job_poster">Job Poster</MenuItem>
-              <MenuItem value="job_accepter">Job Accepter</MenuItem>
-              <MenuItem value="driver">Truck Driver</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-
-        {/* <Scrollbar> */}
-        <TableContainer sx={{ px: 2 }}>
-          <TablePagination
-            className="custom-pagination1"
-            page={page}
-            component="div"
-            count={dataFiltered.length}
-            rowsPerPage={rowsPerPage}
-            onPageChange={handleChangePage}
-            rowsPerPageOptions={[5, 10]}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-          <Table
-            sx={{
-              minWidth: 800,
-              borderCollapse: "separate",
-              // borderSpacing: "0 10px", // space between rows
-            }}
-          >
-            <UserTableHead
-              // order={order}
-              // orderBy={orderBy}
-              rowCount={users.length}
-              numSelected={selected.length}
-              // onRequestSort={handleSort}
-              onSelectAllClick={handleSelectAllClick}
-              headLabel={[
-                { id: "name", label: "Name" },
-                { id: "email", label: "Email" },
-                { id: "createdBy", label: "Created By" },
-                { id: "mobile", label: "Mobile" },
-                { id: "userType", label: "User Type" },
-                { id: "profileSetup", label: "Profile Setup" },
-                // { id: "isActive", label: "Status" },
-                // { id: "suspended", label: "Suspend" },
-                // { id: "isBlocked", label: "Block" },
-                { id: "actions", label: "Actions" },
-              ]}
-            />
-            <TableBody>
-              {loading && <TableSkeletonRows rows={rowsPerPage} />}
-
-              {!loading &&
-                dataFiltered
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <UserTableRow
-                      key={row._id}
-                      name={!row?.fullName ? "N/A" : `${row.fullName}`.trim()}
-                      email={row?.email}
-                      isActive={row?.status}
-                      countryCode={row?.countryCode}
-                      createdBy={row?.createdBy?.fullName}
-                      profileSetup={row?.isProfileSetUp}
-                      mobile={row?.mobile}
-                      userId={row._id}
-                      avatarUrl={row?.profileImage}
-                      userType={row.userType}
-                      suspended={row.suspended}
-                      block={row.isBlocked}
-                      handleClick={(event) => handleClick(event, row.name)}
-                      onViewUser={() => handleViewUser(row._id)}
-                      onUserDeleted={() => fetchUsers()}
-                      onSuspendedUser={() => fetchUsers()}
-                      onUserStatusUpdated={() => fetchUsers()}
-                    />
-                  ))}
-              {!loading && notFound && <TableNoData query={queryText} />}
-
-              {!loading && (
-                <TableEmptyRows
-                  height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, dataFiltered.length)}
+            {/* <Scrollbar> */}
+            <TableContainer className="table">
+              <Table>
+                <UserTableHead
+                  // order={order}
+                  // orderBy={orderBy}
+                  rowCount={users.length}
+                  numSelected={selected.length}
+                  // onRequestSort={handleSort}
+                  onSelectAllClick={handleSelectAllClick}
+                  headLabel={[
+                    { id: "name", label: "Name" },
+                    { id: "email", label: "Email" },
+                    { id: "createdBy", label: "Created By" },
+                    { id: "mobile", label: "Mobile" },
+                    { id: "userType", label: "User Type" },
+                    { id: "profileSetup", label: "Profile Setup" },
+                    // { id: "isActive", label: "Status" },
+                    // { id: "suspended", label: "Suspend" },
+                    // { id: "isBlocked", label: "Block" },
+                    { id: "actions", label: "Actions" },
+                  ]}
                 />
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {/* </Scrollbar> */}
+                <TableBody>
+                  {loading && <TableSkeletonRows rows={rowsPerPage} />}
 
-        <TablePagination
-          className="custom-pagination2"
-          component="div"
-          count={dataFiltered.length}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          // Hide rows per page dropdown
-          rowsPerPageOptions={[]}
-          labelRowsPerPage=""
-          // Custom page text
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} of ${count}`
-          }
-        />
-      </Card>
-    </Container>
+                  {!loading &&
+                    dataFiltered
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage,
+                      )
+                      .map((row) => (
+                        <UserTableRow
+                          key={row._id}
+                          name={
+                            !row?.fullName ? "N/A" : `${row.fullName}`.trim()
+                          }
+                          email={row?.email}
+                          isActive={row?.status}
+                          countryCode={row?.countryCode}
+                          createdBy={row?.createdBy?.fullName}
+                          profileSetup={row?.isProfileSetUp}
+                          mobile={row?.mobile}
+                          userId={row._id}
+                          avatarUrl={row?.profileImage}
+                          userType={row.userType}
+                          suspended={row.suspended}
+                          block={row.isBlocked}
+                          handleClick={(event) => handleClick(event, row.name)}
+                          onViewUser={() => handleViewUser(row._id)}
+                          onUserDeleted={() => fetchUsers()}
+                          onSuspendedUser={() => fetchUsers()}
+                          onUserStatusUpdated={() => fetchUsers()}
+                        />
+                      ))}
+
+                  {!loading && notFound && <TableNoData query={queryText} />}
+
+                  {!loading && (
+                    <TableEmptyRows
+                      height={77}
+                      emptyRows={emptyRows(
+                        page,
+                        rowsPerPage,
+                        dataFiltered.length,
+                      )}
+                    />
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/* </Scrollbar> */}
+
+            <TablePagination
+              className="custom-pagination pagination-buttons"
+              component="div"
+              count={dataFiltered.length}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              // Hide rows per page dropdown
+              rowsPerPageOptions={[]}
+              labelRowsPerPage=""
+              // Custom page text
+              labelDisplayedRows={({ from, to, count }) =>
+                `${from}-${to} of ${count}`
+              }
+            />
+
+            {addUserDialogOpen && (
+              <>
+                <AddUserDialog
+                  open={addUserDialogOpen}
+                  onClose={() => setAddUserDialogOpen(false)}
+                  onSuccess={() => {
+                    setAddUserDialogOpen(false);
+                    fetchUsers();
+                  }}
+                />
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

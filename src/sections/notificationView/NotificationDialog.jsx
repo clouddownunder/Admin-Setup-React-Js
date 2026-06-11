@@ -23,6 +23,7 @@ import { showSuccess, showError } from "../../utils/swalTheme";
 import { useTheme } from "@mui/material/styles";
 import EmojiPicker from "emoji-picker-react";
 import { Icon } from "@iconify/react";
+import { Chip } from "@mui/material";
 export default function NotificationDialog({
   open,
   onClose,
@@ -36,7 +37,7 @@ export default function NotificationDialog({
   const [notificationText, setNotificationText] = useState("");
   const [sendTo, setSendTo] = useState("all");
   const [role, setRole] = useState("construction_admin");
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState([]);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [users, setUsers] = useState([]);
   const [notificationType, setNotificationType] = useState("general");
@@ -82,7 +83,7 @@ export default function NotificationDialog({
     setRole("construction_admin");
     setNotificationType("general");
     setErrors({});
-    setSelectedUser(null);
+    setSelectedUser([]);
   };
   useEffect(() => {
     if (open) {
@@ -104,7 +105,7 @@ export default function NotificationDialog({
       newErrors.role = "Role is required";
     }
 
-    if (sendTo === "individual" && !selectedUser) {
+    if (sendTo === "individual" && selectedUser?.length === 0) {
       newErrors.userId = "User is required";
     }
 
@@ -129,7 +130,10 @@ export default function NotificationDialog({
           text: notificationText,
           sendTo,
           role: sendTo === "role" ? role : undefined,
-          userId: sendTo === "individual" ? selectedUser?._id : undefined,
+          userIds:
+            sendTo === "individual"
+              ? selectedUser.map((item) => item._id)
+              : undefined,
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -205,7 +209,7 @@ export default function NotificationDialog({
                   setNotificationType(e.target.value);
                   setErrors({ ...errors, notificationType: "" });
                 }}
-                IconComponent={CustomRedArrowIcon}
+                // IconComponent={CustomRedArrowIcon}
                 inputProps={{
                   className: "form-control border w-100",
                 }}
@@ -256,9 +260,9 @@ export default function NotificationDialog({
                   setSendTo(e.target.value);
                   setRole("");
                   setErrors({ ...errors, sendTo: "" });
-                  setSelectedUser(null);
+                  setSelectedUser([]);
                 }}
-                IconComponent={CustomRedArrowIcon}
+                // IconComponent={CustomRedArrowIcon}
                 inputProps={{
                   className: "form-control border w-100",
                 }}
@@ -310,7 +314,7 @@ export default function NotificationDialog({
                     setRole(e.target.value);
                     setErrors({ ...errors, role: "" });
                   }}
-                  IconComponent={CustomRedArrowIcon}
+                  // IconComponent={CustomRedArrowIcon}
                   inputProps={{
                     className: "form-control border w-100",
                   }}
@@ -369,42 +373,93 @@ export default function NotificationDialog({
                 <label htmlFor="select-user" className="main-label mb-1">
                   Select User
                 </label>
-
-                <Autocomplete
-                  options={users}
-                  // popupIcon={<CustomRedArrowIcon />}
-                  // forcePopupIcon={true}
-                  getOptionLabel={(option) =>
-                    option?.fullName
-                      ? `${option.fullName} (${option.email})`
-                      : ""
-                  }
-                  value={selectedUser}
-                  onChange={(event, newValue) => {
-                    setSelectedUser(newValue);
-                    setErrors({ ...errors, userId: "" });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      placeholder="Select User"
-                      // label="Select User"
-                      error={!!errors.userId}
-                      helperText={errors.userId}
-                      InputProps={{
-                        ...params.InputProps,
-                      }}
-                      inputProps={{
-                        ...params.inputProps,
-                        className: "form-control border",
-                      }}
-                    />
-                  )}
-                  isOptionEqualToValue={(option, value) =>
-                    option.id === value.id
-                  }
-                  fullWidth
-                />
+                <div className="autocomplete-input position-relative">
+                  <Autocomplete
+                    // popupIcon={<CustomRedArrowIcon />}
+                    multiple
+                    options={users}
+                    // open={sendTo === "individual"} // For temp
+                    // disableCloseOnSelect
+                    ListboxProps={{
+                      className: "custom-user-listbox",
+                    }}
+                    limitTags={3}
+                    className="more-tag"
+                    getOptionLabel={(option) => option?.fullName ?? ""}
+                    value={selectedUser}
+                    onChange={(event, newValue) => {
+                      setSelectedUser(newValue);
+                      setErrors({ ...errors, userId: "" });
+                    }}
+                    // For custom classname add in tags
+                    renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip
+                          {...getTagProps({ index })}
+                          label={option.fullName}
+                          className="custom-user-tag"
+                        />
+                      ))
+                    }
+                    // end
+                    isOptionEqualToValue={(option, value) =>
+                      option._id === value._id
+                    }
+                    renderOption={(props, option) => {
+                      const initials =
+                        option.fullName
+                          ?.split(" ")
+                          .slice(0, 2)
+                          .map((w) => w[0])
+                          .join("")
+                          .toUpperCase() ?? "?";
+                      return (
+                        <li {...props} key={option._id}>
+                          <Box
+                            className="n-user-img-box"
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1.5,
+                            }}
+                          >
+                            {option.profileImage ? (
+                              <img
+                                className="n-user-img"
+                                src={`${
+                                  import.meta.env.VITE_IMAGE_NOTIFICATION_URL
+                                }${option.profileImage}`}
+                                alt={option.fullName}
+                              />
+                            ) : (
+                              <Box className="n-user-img">{initials}</Box>
+                            )}
+                            <Box>
+                              <Box className="n-user-name">
+                                {option.fullName}
+                              </Box>
+                              <Box className="n-user-email">{option.email}</Box>
+                            </Box>
+                          </Box>
+                        </li>
+                      );
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        className="form-control border"
+                        {...params}
+                        error={!!errors.userId}
+                        helperText={errors.userId}
+                        inputProps={{
+                          ...params.inputProps,
+                          placeholder:
+                            selectedUser?.length > 0 ? "" : "Select User",
+                        }}
+                      />
+                    )}
+                    fullWidth
+                  />
+                </div>
               </div>
             </FormControl>
           )}
