@@ -899,10 +899,6 @@
         padding: 0;
     }
 
-    .table table {
-        min-width: 480px;
-    }
-
     .table thead th,
     .table tbody td,
     .table tbody .MuiTableCell-root {
