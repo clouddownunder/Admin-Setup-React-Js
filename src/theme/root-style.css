@@ -314,7 +314,7 @@ ul {
 .btn {
     font-size: 14px;
     line-height: normal;
-    font-weight: 700;
+    font-weight: 600;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -344,11 +344,11 @@ ul {
     background-color: var(--primary-main);
 }
 
-.btn-check:checked+.btn,
-:not(.btn-check)+.btn:active,
-.btn:first-child:active,
-.btn.active,
-.btn.show {
+.btn-check:checked+.btn-primary,
+:not(.btn-check)+.btn-primary:active,
+.btn-primary:first-child:active,
+.btn-primary.active,
+.btn-primary.show {
     color: var(--white);
     background-color: var(--primary-dark);
 }
@@ -379,7 +379,9 @@ ul {
 }
 
 .btn-secondary:hover,
-.btn-secondary:active {
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:focus-visible {
     background: var(--grey-700);
     color: var(--white);
 }
@@ -391,7 +393,9 @@ ul {
 }
 
 .btn-light:hover,
-.btn-light:active {
+.btn-light:active,
+.btn-light:focus,
+.btn-light:focus-visible {
     background: var(--grey-700);
     color: var(--white);
 }

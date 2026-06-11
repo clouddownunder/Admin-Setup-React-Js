@@ -1,62 +1,53 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Tooltip from '@mui/material/Tooltip';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
+import Tooltip from "@mui/material/Tooltip";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 
-import Iconify from 'src/components/iconify';
+import Iconify from "src/components/iconify";
 
 // ----------------------------------------------------------------------
 
-export default function FaqTableToolbar({ numSelected, filterName, onFilterName }) {
+export default function FaqTableToolbar({
+  numSelected,
+  filterName,
+  onFilterName,
+}) {
   return (
-    <Toolbar
-      sx={{
-        height: 96,
-        display: 'flex',
-        justifyContent: 'space-between',
-        // p: (theme) => theme.spacing(0, 1, 0, 3),
-        padding:"0px !important",
-        ...(numSelected > 0 && {
-          color: 'primary.main',
-          bgcolor: 'primary.lighter',
-        }),
-      }}
-    >
+    <Toolbar className="dt-search">
       {numSelected > 0 ? (
         <Typography component="div" variant="subtitle1">
           {numSelected} selected
         </Typography>
       ) : (
-        <OutlinedInput
-          value={filterName}
-          onChange={onFilterName}
-          placeholder="Search here..."
-          startAdornment={
-            <InputAdornment position="start">
-              <Iconify
-                icon="eva:search-fill"
-                sx={{ color: 'text.disabled', width: 20, height: 20 }}
-              />
-            </InputAdornment>
-          }
-        />
+        <div className="search-field input-field position-relative w-100">
+          <span className="search-icon">
+            <Iconify icon="eva:search-fill" width={18} height={18} />
+          </span>
+
+          <input
+            type="text"
+            className="form-control border"
+            placeholder="Search here..."
+            value={filterName}
+            onChange={onFilterName}
+          />
+        </div>
       )}
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <Iconify icon="eva:trash-2-fill" />
+            <Iconify
+              className="dt-view-btn dt-delete-icon"
+              icon="eva:trash-2-fill"
+            />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          {/* <IconButton>
-            <Iconify icon="ic:round-filter-list" />
-          </IconButton> */}
+          <span className="d-inline-block" />
         </Tooltip>
       )}
     </Toolbar>

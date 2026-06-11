@@ -1,30 +1,168 @@
 @media (max-width: 1800px) {}
 
 @media (max-width: 1600px) {
+
+    /* root CSS */
+    h3,
+    .h3 {
+        font-size: 28px;
+    }
+
+    h5,
+    .h5 {
+        font-size: 18px;
+    }
+
+    p,
+    .p {
+        font-size: 14px;
+    }
+
+    /* Feedback CSS */
+    .fb-device-col {
+        border-radius: 6px;
+        padding: 8px 12px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -ms-border-radius: 6px;
+        -o-border-radius: 6px;
+    }
+
+    .fb-history-card {
+        border-radius: 12px;
+        margin-bottom: 14px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+    }
+
+    .fb-card-head {
+        padding: 12px 16px 12px;
+    }
+
+    .px20 {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .device-icon-wrap img {
+        height: 18px;
+    }
+
+    .custom-modal .modal-header,
+    .feedback-user-card,
+    .feedback-list-wrap,
+    .custom-modal .modal-body,
+    .custom-modal .modal-footer {
+        padding: 16px 20px;
+    }
+
+    .badge {
+        font-size: 11px;
+    }
+
+    .feedback-details .feedback-user-avtar {
+        max-width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin: 0 14px 0 0;
+    }
+
+    .fb-user-info .subtitle1 {
+        font-size: 13px;
+    }
+
+    .fb-history-title {
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .parent-table .dt-search {
+        min-width: 320px;
+    }
+
+    .search-icon svg {
+        width: 16px;
+        height: 16px;
+        margin-bottom: 2px;
+    }
+
+    .search-icon {
+        left: 12px;
+    }
+
+    .search-field.input-field .form-control.border {
+        padding-left: 36px;
+    }
+
+    .custom-pagination .MuiTablePagination-select {
+        line-height: 1.5;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .table tbody .MuiAvatar-root {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
+    }
+
+    .table thead th,
+    .table tbody td,
+    .table tbody .MuiTableCell-root {
+        padding: 8px 12px;
+    }
+
+    .custom-pagination .MuiTablePagination-displayedRows {
+        padding: 6px;
+    }
+
+    .cm-page-panel .panel-title {
+        font-size: 14px;
+    }
+
+    .panel-body.parent-table,
+    .cm-page-panel .panel-heading {
+        padding: 14px 16px;
+    }
+
+    .cm-page-panel .main-label {
+        font-size: 12px;
+    }
+
     /* Dashboard CSS */
     .page-header {
         padding: 25px 20px 8px;
     }
+
     .dashboard-main .main-label {
         font-size: 14px;
+        line-height: normal;
     }
+
     .page-content {
         padding: 25px 20px;
     }
+
     /* Footer */
     .site-footer {
         padding: 16px 20px;
     }
+
     .site-footer-legal {
         font-size: 13px;
     }
+
     .custom-section-class {
         padding: 10px 0 0;
     }
+
     .stat-icon svg {
         width: 20px;
         height: 20px;
     }
+
     .stat-icon {
         width: 42px;
         height: 42px;
@@ -34,16 +172,20 @@
         -ms-border-radius: 8px;
         -o-border-radius: 8px;
     }
+
     .custom-section-class .card .counter-label {
         font-size: 11px;
         letter-spacing: .4px;
     }
+
     .counter-number.user-counter {
         font-size: 22px;
     }
+
     .custom-section-class .card .counter-main {
         gap: 14px;
     }
+
     .custom-section-class .card {
         padding: 16px 16px;
         border-radius: 12px;
@@ -54,6 +196,7 @@
         margin-bottom: 18px;
         height: calc(100% - 18px);
     }
+
     .section-header {
         padding: 16px 16px;
         border-radius: 12px;
@@ -62,6 +205,7 @@
         -ms-border-radius: 12px;
         -o-border-radius: 12px;
     }
+
     .input-field .form-control.border {
         font-size: 14px;
         padding: 12px 14px;
@@ -71,6 +215,7 @@
         -ms-border-radius: 8px;
         -o-border-radius: 8px;
     }
+
     .input-field .form-control.border::placeholder,
     .input-field .form-control.border::-moz-placeholder,
     .input-field .form-control.border:-ms-input-placeholder,
@@ -78,89 +223,111 @@
     .input-field .form-control.border::-o-input-placeholder {
         font-size: 14px;
     }
+
     .input-field .form-control:-webkit-autofill,
     .input-field .form-control:-webkit-autofill:hover,
     .input-field .form-control:-webkit-autofill:focus,
     .input-field .form-control:-webkit-autofill:active {
         font-size: 14px;
     }
+
     .custom-select-arrow {
         right: 10px;
         height: 16px;
     }
+
     .filter-menu-list .filter-menu-item {
         font-size: 14px;
         padding: 6px 16px;
     }
+
     /* header or sidebar CSS */
     .profile-modal-main .h-profile-dropdown {
         right: 1rem !important;
         max-width: 180px;
     }
+
     .profile-dropdown-item {
         font-size: 13px;
         padding: 10px 14px;
     }
+
     .h-profile-menu-item .icon {
         margin-right: 6px;
     }
+
     .sidebar-show-hide .page,
     .sidebar-show-hide .site-footer {
         width: calc(100% - 70px);
     }
+
     .sidebar-show-hide .main-sidebar {
         width: 70px;
     }
+
     .sidebar-show-hide .headera-logo-wrap {
         width: 85px;
     }
+
     .headera-logo-wrap .logo {
         max-width: 160px;
         max-height: 36px;
         height: 36px;
     }
+
     .headera-mlogo svg,
     .headera-mlogo img {
         height: 24px;
         width: 24px;
     }
+
     .headera-logo {
         margin-left: -24px;
     }
+
     .main-sidebar,
     .headera-logo-wrap {
         width: 250px;
     }
+
     .main-header .sidebar-toggle {
         width: 35px;
         height: 35px;
         right: 5px;
         padding: 6px;
     }
+
     .page,
     .site-footer {
         width: calc(100% - 250px);
     }
+
     .sidebar.sidebar-menu-main {
         padding: 20px 16px;
         margin-top: 60px;
         height: calc(100vh - 60px);
     }
+
     .header-height {
         padding-top: 60px;
     }
+
     .main-header {
         padding: 12px 20px;
     }
+
     .profile-user-name {
         font-size: 13px;
     }
+
     .profile-avtar-btn::after {
         width: 10px;
     }
+
     .profile-avtar-btn {
         padding-right: 22px;
     }
+
     .main-sidebar .sb-nav-item .sb-nav-link {
         padding: 10px 10px;
         border-radius: 6px;
@@ -169,92 +336,163 @@
         -ms-border-radius: 6px;
         -o-border-radius: 6px;
     }
+
     .sidebar-menu .admin-icon-wrap,
     .sidebar-menu .svg-color {
         width: 18px;
         height: 18px;
     }
+
     .sidebar-menu .site-menu-title {
         padding-left: 10px;
         font-size: 14px;
     }
+
     .sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link {
         margin-left: 0;
     }
 }
 
 @media (max-width: 1500px) {
+
     /* Dashboard CSS */
     .stat-icon {
         width: 38px;
         height: 38px;
     }
+
     .custom-section-class .card .counter-label {
         font-size: 10px;
         letter-spacing: .3px;
     }
+
     .counter-number.user-counter {
         font-size: 20px;
     }
+
     .custom-section-class .card .counter-main {
         gap: 12px;
     }
+
     .custom-section-class .card {
         padding: 14px 14px;
     }
+
     .section-header {
         padding: 14px 14px;
     }
 }
 
 @media (max-width: 1350px) {
+
+    /* Feedback CSS */
+    .in-close,
+    .btn-close.in-close {
+        background-size: 16px;
+        width: 16px;
+        height: 16px;
+        padding: 4px;
+    }
+
+    .custom-modal .MuiDialog-paper {
+        max-width: 800px;
+        border-radius: 16px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        -ms-border-radius: 16px;
+        -o-border-radius: 16px;
+    }
+
+    .table-filter-wrap .input-field .form-control.border,
+    .dt-search .input-field .form-control.border {
+        padding: 10px 12px;
+    }
+
+    .search-field.input-field .form-control.border {
+        padding-left: 32px;
+    }
+
+    .table thead th {
+        font-size: 11px;
+    }
+
+    .table thead th,
+    .table tbody td,
+    .table tbody .MuiTableCell-root {
+        max-width: 180px;
+    }
+
+    .table tbody td,
+    .table tbody .MuiTableCell-root,
+    .table tbody .MuiTableCell-root .MuiTypography-subtitle2,
+    .table tbody td p {
+        font-size: 12px;
+    }
+
+    .show-page-row .custom-pagination .MuiTablePagination-selectLabel,
+    .custom-pagination .MuiTablePagination-displayedRows {
+        font-size: 13px;
+    }
+
     /* Dashboard */
     .title-sub-text {
         font-size: 13px;
     }
+
     .dashboard-main .main-label {
         font-size: 13px;
     }
+
     /* header or sidebar CSS */
     .page,
     .site-footer {
         width: calc(100% - 220px);
     }
+
     .main-sidebar,
     .headera-logo-wrap {
         width: 220px;
     }
+
     .sidebar-show-hide .page,
     .sidebar-show-hide .site-footer {
         width: calc(100% - 60px);
     }
+
     .sidebar-show-hide .main-sidebar {
         width: 60px;
     }
+
     .sidebar.sidebar-menu-main {
         margin-top: 60px;
         padding: 20px 14px;
     }
+
     .header-height {
         padding-top: 60px;
     }
+
     .headera-logo-wrap .logo {
         max-width: 140px;
         max-height: 30px;
         height: 30px;
     }
+
     .headera-logo {
         margin-left: -22px;
     }
+
     .headera-mlogo svg,
     .headera-mlogo img {
         height: 22px;
         width: 22px;
     }
+
     .main-sidebar li.sb-nav-item .sb-nav-link .site-menu-title {
         font-size: 13px;
         padding-left: 8px;
     }
+
     .main-sidebar .sb-nav-item .sb-nav-link {
         padding: 8px 8px;
         border-radius: 6px;
@@ -267,78 +505,115 @@
 }
 
 @media (max-width: 1199px) {
+    .notification-page .parent-table .dt-search {
+        max-width: 100%;
+    }
+
+    .col1 {
+        max-width: 100%;
+    }
+
+    .rows-serach-wrap {
+        justify-content: start !important;
+    }
+
+    .parent-table .dt-search {
+        min-width: auto;
+        width: 100%;
+        max-width: 300px;
+    }
+
     /* header or sidebar CSS */
     .sidebar-show-hide .headera-logo-wrap {
         width: 76px;
     }
+
     .main-sidebar,
     .headera-logo-wrap {
         width: 190px;
     }
+
     .page,
     .site-footer {
         width: calc(100% - 190px);
     }
+
     .main-sidebar li.sb-nav-item .sb-nav-link .site-menu-title {
         font-size: 12px;
         padding-left: 6px;
     }
+
     .admin-icon-wrap .site-menu-icon,
     .admin-icon-wrap .site-menu-icon::before {
         font-size: 16px;
     }
+
     .main-sidebar li.sb-nav-item {
         margin-bottom: 8px;
     }
+
     .main-header {
         padding: 12px 16px;
     }
+
     .sidebar.sidebar-menu-main {
         margin-top: 56px;
         height: calc(100vh - 56px);
         padding: 20px 10px;
     }
+
     .header-height {
         padding-top: 56px;
     }
+
     .headera-logo-wrap .logo {
         max-width: 130px;
     }
+
     .headera-logo {
         margin-left: -20px;
     }
+
     .main-header .sidebar-toggle {
         width: 32px;
         height: 32px;
         right: 0;
     }
+
     .main-header .profile-avtar-img::before {
         width: 9px;
         height: 9px;
     }
+
     .main-header .profile-avtar-img {
         width: 32px;
         height: 32px;
     }
+
     .profile-avtar-btn {
         padding-right: 18px;
     }
+
     .profile-view .profile-avatar-name {
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 10px;
     }
+
     .profile-view .profile-sub {
         font-size: 12px;
     }
+
     .sec-header .icon-rounded {
         width: 40px;
         height: 40px;
     }
+
     .sec-header .icon-rounded .main-icon {
         width: 16px;
         height: 16px;
     }
+
     /* =========================================================
         Date Picker
     ========================================================= */
@@ -346,14 +621,17 @@
         width: 34px;
         height: 34px;
     }
+
     .date-cal-wrapper .MuiPickersDay-root {
         width: 34px;
         height: 34px;
     }
+
     .date-cal-wrapper .MuiDayPicker-weekDayLabel {
         width: 34px;
         height: 30px;
     }
+
     .main-datepicker .MuiInputAdornment-root svg {
         width: 18px;
         height: 18px;
@@ -363,48 +641,106 @@
 @media (max-width: 1024px) {}
 
 @media (max-width: 991px) {
-    .input-field .form-control.border {
-        font-size: 14px;
+
+    /* Feedback page CSS */
+    .table thead th,
+    .table tbody td,
+    .table tbody .MuiTableCell-root {
+        max-width: 140px;
     }
+
+    .search-field.input-field .form-control.border {
+        font-size: 12px;
+    }
+
+    .parent-table .dt-search {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .feedback-details .feedback-user-avtar {
+        max-width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .fb-history-title {
+        letter-spacing: 0.01em;
+    }
+
+    .fb-card-head .fb-card-top svg {
+        height: 13px;
+    }
+
+    .device-icon-wrap img {
+        height: 16px;
+    }
+
+    .device-icon-wrap {
+        margin-top: 0;
+        line-height: 1;
+    }
+
+    .fb-card-head .fb-card-top {
+        font-size: 13px;
+    }
+
+    .input-field .form-control.border {
+        font-size: 12px;
+    }
+
     .input-field .form-control.border::placeholder,
     .input-field .form-control.border::-moz-placeholder,
     .input-field .form-control.border:-ms-input-placeholder,
     .input-field .form-control.border::-webkit-input-placeholder,
     .input-field .form-control.border::-o-input-placeholder {
-        font-size: 14px;
+        font-size: 12px;
     }
+
     .input-field .form-control:-webkit-autofill,
     .input-field .form-control:-webkit-autofill:hover,
     .input-field .form-control:-webkit-autofill:focus,
     .input-field .form-control:-webkit-autofill:active {
-        font-size: 14px;
+        font-size: 12px;
     }
-    .login-container .forgotpass {
-        font-size: 14px;
-    }
+
     .floating-label label {
         font-size: 14px;
     }
+
     .parentform .login-cardm1 {
         padding: 24px 24px;
     }
+
     .login-container {
         padding: 16px;
     }
+
     /* Dashboard CSS */
     .stat-icon svg {
         width: 16px;
         height: 16px;
     }
+
     .stat-icon {
         width: 39px;
         height: 39px;
     }
+
     .custom-section-class .card {
         margin-bottom: 14px;
         height: calc(100% - 14px);
     }
+
     /* header or sidebar CSS */
+    .page-header {
+        padding: 25px 16px 6px;
+    }
+
+    .page-content {
+        padding: 20px 16px;
+    }
+
     .sidebar-show-hide .sidebar-show-hide-bck {
         background-color: rgba(0, 0, 0, 0.6);
         left: 0;
@@ -414,9 +750,11 @@
         position: fixed;
         z-index: 99;
     }
+
     body.sidebar-show-hide {
         overflow: hidden;
     }
+
     .main-sidebar {
         width: 260px !important;
         z-index: 999;
@@ -427,6 +765,7 @@
         -o-transform: translateX(-100%);
         transition: width .3s ease, transform .3s ease;
     }
+
     .sidebar-show-hide .main-sidebar {
         transform: translateX(0);
         -webkit-transform: translateX(0);
@@ -434,16 +773,19 @@
         -ms-transform: translateX(0);
         -o-transform: translateX(0);
     }
+
     .page,
     .site-footer,
     .sidebar-show-hide .page,
     .sidebar-show-hide .site-footer {
         width: 100%;
     }
+
     .headera-logo-wrap,
     .sidebar-show-hide .headera-logo-wrap {
         width: 85px;
     }
+
     .main-sidebar li.sb-nav-item .sb-nav-link .site-menu-title,
     .sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link .site-menu-title {
         opacity: 1;
@@ -454,6 +796,7 @@
         padding-left: 10px;
         font-size: 15px;
     }
+
     .sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link,
     .main-sidebar .sb-nav-item .sb-nav-link {
         max-width: unset;
@@ -465,36 +808,44 @@
         -o-border-radius: 8px;
         padding: 10px 10px;
     }
+
     .main-sidebar .sb-nav-item .sb-nav-link:hover,
     .main-sidebar .sb-nav-item.active .sb-nav-link {
         box-shadow: 0px 6px 10px 0px rgba(196, 196, 196, 60%);
     }
+
     .sidebar.sidebar-menu-main {
         padding: 20px 14px;
     }
+
     .sidebar-show-hide .sidebar.sidebar-menu-main {
         box-shadow: 2px 0px 10px 0 rgba(0, 0, 0, 40%);
     }
+
     .headera-mlogo {
         opacity: 1;
         visibility: visible;
     }
+
     .headera-logo {
         opacity: 0;
         visibility: hidden;
         margin-left: 0;
     }
+
     .headera-mlogo svg,
     .headera-mlogo img {
         height: 26px;
         width: 26px;
     }
+
     .main-header .sidebar-toggle {
         width: 36px;
         height: 36px;
         padding: 6px;
         background-color: var(--primary-lighter3);
     }
+
     .main-header {
         border-radius: 0;
         -webkit-border-radius: 0;
@@ -518,25 +869,129 @@
     .parentform .login-cardm1 {
         padding: 20px 18px;
     }
+
+    .notification-page .customrow .col1 {
+        max-width: 100%;
+    }
+
+    /* Root CSS */
+    .page .btn {
+        padding: 8px 14px;
+    }
+
+    .px20 {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    h5,
+    .h5 {
+        font-size: 16px;
+    }
+
+    /* Feedback page CSS */
+    .rows-serach-wrap {
+        flex-direction: column;
+        align-items: start !important;
+    }
+
+    .parent-table .dt-search {
+        padding: 0;
+    }
+
+    .table table {
+        min-width: 480px;
+    }
+
+    .table thead th,
+    .table tbody td,
+    .table tbody .MuiTableCell-root {
+        max-width: 120px;
+    }
+
+    .parent-table .dt-search {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .MuiTablePagination-actions button {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -ms-border-radius: 6px;
+        -o-border-radius: 6px;
+    }
+
+    .search-icon svg {
+        margin-bottom: 0px;
+    }
+
+    .device-icon-wrap img {
+        height: 15px;
+        width: 15px;
+    }
+
+    .fb-card-head .fb-card-top {
+        font-size: 11px;
+        gap: 2px;
+    }
+
+    .fb-card-head .fb-card-top svg {
+        height: 12px;
+    }
+
+    .custom-modal .modal-header,
+    .feedback-user-card,
+    .feedback-list-wrap,
+    .custom-modal .modal-body,
+    .custom-modal .modal-footer {
+        padding: 16px 16px;
+    }
+
+    .custom-modal .modal-title {
+        font-size: 18px;
+    }
+
+    .feedback-details .feedback-user-avtar {
+        margin: 0 12px 0 0;
+        font-size: 18px;
+    }
+
+    .custom-modal .MuiDialog-paper {
+        margin: 30px 12px;
+    }
+
+    .fb-card-head {
+        padding: 12px 14px 12px;
+        gap: 6px;
+    }
+
     /* Dashboard CSS */
     .page-header {
         padding: 20px 16px 0px;
         flex-wrap: wrap;
-        gap: 0px 6px;
+        gap: 6px;
     }
+
     .page-title {
         font-size: 20px;
     }
+
     .title-sub-text {
         font-size: 12px;
     }
+
     .page-content {
         padding: 20px 16px;
     }
+
     .site-footer {
         padding: 12px 16px;
         text-align: center;
     }
+
     .custom-section-class .card {
         border-radius: 10px;
         padding: 18px 15px;
@@ -546,6 +1001,7 @@
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
     }
+
     .section-header {
         padding: 18px 15px;
         border-radius: 10px;
@@ -554,53 +1010,72 @@
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
     }
+
     .custom-section-class .card .counter-label {
         font-size: 12px;
     }
+
     .counter-number.user-counter {
         font-size: 18px;
     }
+
     .dashboard-main .main-label {
         font-size: 13px;
     }
+
     /* header or sidebar css */
     .profile-dropdown-item {
         font-size: 14px;
         padding: 10px 12px;
     }
+
     .profile-modal-main .h-profile-dropdown {
         max-width: 160px;
     }
+
     .sidebar.sidebar-menu-main {
         padding: 20px 10px;
     }
+
     .headera-logo-wrap,
     .sidebar-show-hide .headera-logo-wrap {
         width: 75px;
     }
+
     .main-header .sidebar-toggle {
         width: 34px;
         height: 34px;
         padding: 5px;
     }
+
     .main-sidebar li.sb-nav-item .sb-nav-link .site-menu-title,
     .sidebar-show-hide .main-sidebar .sb-nav-item .sb-nav-link .site-menu-title {
         font-size: 14px;
     }
+
     /* profile css  */
     .profile-view,
     .profile-security-main {
         padding: 20px 14px;
     }
+
     .profile-user-name {
         display: none;
     }
+
+    .sec-header .icon-rounded {
+        width: 40px;
+        height: 40px;
+    }
+
     .profile-title-main {
         font-size: 18px;
     }
+
     .profile-view .profile-avatar-name {
         margin-bottom: 4px;
     }
+
     .upload-profile .profile-avatar {
         width: 75px;
         height: 75px;
@@ -608,13 +1083,34 @@
 }
 
 @media (max-width: 359px) {
+    .page .btn {
+        font-size: 13px;
+    }
+
+    /* Feedback page CSS */
+    .feedback-details .feedback-user-avtar {
+        max-width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .badge {
+        padding: 4px 8px;
+    }
+
+    .fb-device-col {
+        padding: 6px 10px;
+    }
+
     .login-container {
         padding: 12px;
     }
+
     /* profile css */
     .profile-view .profile-avatar-name {
         font-size: 22px;
     }
+
     .profile-title-main {
         font-size: 18px;
     }

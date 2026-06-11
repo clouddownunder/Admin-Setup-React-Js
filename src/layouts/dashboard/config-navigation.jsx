@@ -26,7 +26,7 @@ const navConfig = [
     icon: icon("ic_feedback"),
   },
   {
-    title: "notification",
+    title: "notifications",
     path: "/dashboard/notifications",
     icon: icon("ic_notification"),
   },

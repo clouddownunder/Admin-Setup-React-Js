@@ -34,7 +34,8 @@
 }
 
 .main-header .profile-avtar-img.active {
-    background: var(--primary-main) !important;
+    /* background: var(--primary-main) !important; */
+    border: 1px solid var(--primary-main);
 }
 
 .main-header .profile-avtar-img {
@@ -44,6 +45,7 @@
     border-radius: 50%;
     background: rgba(145, 158, 171, 0.08) !important;
     color: var(--primary-main);
+    border: 1px solid transparent;
     position: relative;
     overflow: initial;
 }
@@ -994,17 +996,15 @@ body.remove-scroll {
     background-color: var(--white);
 }
 
-.table-filter {
-    min-width: 150px;
-}
-
 .table-filter .form-control.border {
     min-height: auto;
     font-size: 14px;
+    padding-right: 30px !important;
 }
 
 .table-filter .custom-select-arrow {
     width: 16px;
+    background-color: var(--white);
 }
 
 .main-label {
@@ -1014,10 +1014,13 @@ body.remove-scroll {
 .parent-table .dt-search {
     min-height: auto !important;
     height: auto;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 0;
+    padding-right: 0;
     min-width: 360px;
-    width: 100%;
+}
+
+.rows-serach-wrap {
+    gap: 6px;
 }
 
 .search-field {
@@ -1039,11 +1042,23 @@ body.remove-scroll {
     font-size: 14px;
 }
 
+.customrow {
+    align-items: center;
+}
+
+.col1 {
+    max-width: 50%;
+}
 
 /* Common Table CSS */
 
 .table {
     border-color: var(--border-color-light);
+    padding-bottom: 3px;
+}
+
+.table table {
+    min-width: 800px;
 }
 
 .table thead th {
@@ -1055,7 +1070,8 @@ body.remove-scroll {
 }
 
 .table tbody td,
-.table tbody .MuiTableCell-root {
+.table tbody .MuiTableCell-root,
+.table tbody .MuiTableCell-root .MuiTypography-subtitle2 {
     font-size: 13px;
     font-weight: 400;
     color: var(--text-primary);
@@ -1076,6 +1092,7 @@ body.remove-scroll {
     font-size: 14px;
     font-weight: 500;
     background-color: var(--theme-background-color);
+    color: var(--text-primary);
 }
 
 .dt-not-found p {
@@ -1192,6 +1209,8 @@ body.remove-scroll {
     text-align-last: center !important;
     -webkit-text-align-last: start;
     min-width: 20px !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .custom-pagination .MuiTablePagination-displayedRows {
@@ -1278,7 +1297,12 @@ body.remove-scroll {
     padding: 16px 25px;
 }
 
+.custom-modal .modal-footer {
+    padding: 16px 25px;
+}
+
 .custom-modal .modal-title {
+    padding-top: 3px;
     font-size: 20px;
     line-height: 1;
     font-weight: 600;
@@ -1341,6 +1365,7 @@ body.remove-scroll {
     background-color: var(--primary-lighter2);
     color: var(--primary-main);
     font-weight: 600;
+    font-size: 24px;
     margin: 0 16px 0 0;
 }
 
@@ -1487,5 +1512,75 @@ body.remove-scroll {
     margin: 30px auto 10px auto;
 }
 
+
+/* end */
+
+/* =========================================================
+   Notification pop-up 
+========================================================= */
+.custom-modal.notification-modal .MuiDialog-paper {
+    max-width: 660px;
+}
+
+.notification-form-wrap .input-field .MuiInputBase-formControl {
+    width: 100%;
+}
+
+.notification-form-wrap .custom-select-arrow {
+    right: 12px;
+    width: 22px;
+    height: 22px;
+    background-color: var(--white);
+}
+
+.notification-form-wrap .input-field .form-control.border {
+    line-height: 1.5;
+}
+
+.notification-form-wrap .input-field.individual .MuiAutocomplete-inputRoot {
+    padding: 0;
+}
+
+.notification-form-wrap .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1kkal6p-MuiAutocomplete-root .MuiOutlinedInput-root {
+    padding-right: 0;
+}
+
+.notification-page .customrow .col1 {
+    max-width: 50%;
+}
+
+.notification-form-wrap .MuiAutocomplete-popupIndicatorOpen {
+    /* right: 34px; */
+}
+
+.emoji-box {
+    position: absolute;
+    right: 0;
+    top: 14%;
+    z-index: 1300;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.emojibutton {
+    position: absolute;
+    right: 20px;
+    top: 24px;
+}
+
+.emojibutton button {
+    background-color: var(--white);
+    padding: 5px;
+
+}
+
+.emojibutton button:hover {
+    background-color: var(--primary-lighter);
+}
+
+.Mui-error {}
 
 /* end */

@@ -34,7 +34,7 @@ export default function NotificationDialog({
   const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const [notificationText, setNotificationText] = useState("");
-  const [sendTo, setSendTo] = useState("");
+  const [sendTo, setSendTo] = useState("all");
   const [role, setRole] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -149,205 +149,360 @@ export default function NotificationDialog({
     }
   };
   const MAX_CHAR = 240;
+  // Select dropdown arrow
+  const CustomRedArrowIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      className="custom-select-arrow red"
+    >
+      <path
+        d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+
   return (
     <Dialog
+      className="custom-modal notification-modal"
       open={open}
       onClose={() => {
         resetForm();
         onClose();
       }}
-      fullWidth
-      maxWidth="sm"
-      PaperProps={{
-        sx: {
-          overflowX: "hidden",
-        },
-      }}
+      PaperProps={{}}
     >
-      <DialogTitle>Send Notification</DialogTitle>
+      {/* Header */}
+      <div className="modal-header">
+        <h3 className="mb-0 modal-title">Send Notification</h3>
+        <button
+          onClick={() => onClose()}
+          className="btn-close in-close"
+        ></button>
+      </div>
 
-      <DialogContent dividers>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      {/* Main content */}
+      <div className="modal-body" dividers>
+        <div className="notification-form-wrap">
           {/* Notification Type */}
           <FormControl
             fullWidth
-            variant="outlined"
             error={!!errors.notificationType}
+            className="field-group"
           >
-            <InputLabel>Notification Type</InputLabel>
-            <Select
-              labelId="notification-type-label"
-              id="notification-type"
-              value={notificationType}
-              label="Notification Type"
-              onChange={(e) => {
-                setNotificationType(e.target.value);
-                setErrors({ ...errors, notificationType: "" });
-              }}
-            >
-              <MenuItem value="general">General</MenuItem>
-              <MenuItem value="alert">Alert</MenuItem>
-              <MenuItem value="update">Update</MenuItem>
-            </Select>
-            <FormHelperText>{errors.notificationType || " "}</FormHelperText>
+            <div className="input-field">
+              <label htmlFor="notification-type" className="main-label mb-1">
+                Notification Type
+              </label>
+              <Select
+                labelId="notification-type-label"
+                id="notification-type"
+                value={notificationType}
+                onChange={(e) => {
+                  setNotificationType(e.target.value);
+                  setErrors({ ...errors, notificationType: "" });
+                }}
+                IconComponent={CustomRedArrowIcon}
+                inputProps={{
+                  className: "form-control border w-100",
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    className: "notification-menu-list",
+                  },
+                  MenuListProps: {
+                    className: "notification-menu-ul",
+                  },
+                }}
+              >
+                <MenuItem value="general" className="notification-menu-item">
+                  General
+                </MenuItem>
+                <MenuItem value="alert" className="notification-menu-item">
+                  Alert
+                </MenuItem>
+                <MenuItem value="update" className="notification-menu-item">
+                  Update
+                </MenuItem>
+              </Select>
+            </div>
+            <FormHelperText className="error-mesg">
+              {errors.notificationType || " "}
+            </FormHelperText>
           </FormControl>
 
           {/* Send To */}
-          <FormControl fullWidth variant="outlined" error={!!errors.sendTo}>
-            <InputLabel id="send-to-label">Send To</InputLabel>
-            <Select
-              labelId="send-to-label"
-              id="send-to"
-              value={sendTo}
-              label="Send To"
-              onChange={(e) => {
-                setSendTo(e.target.value);
-                setRole("");
-                setErrors({ ...errors, sendTo: "" });
-                setSelectedUser(null);
-              }}
-            >
-              <MenuItem value="all">All Users</MenuItem>
-              <MenuItem value="role">By Role</MenuItem>
-              <MenuItem value="individual">Individual</MenuItem>
-            </Select>
-            <FormHelperText>{errors.sendTo || " "}</FormHelperText>
+          <FormControl
+            fullWidth
+            error={!!errors.sendTo}
+            className="field-group"
+          >
+            <div className="input-field">
+              <label htmlFor="send-to" className="main-label mb-1">
+                Send To
+              </label>
+              <Select
+                labelId="send-to-label"
+                id="send-to"
+                value={sendTo}
+                onChange={(e) => {
+                  setSendTo(e.target.value);
+                  setRole("");
+                  setErrors({ ...errors, sendTo: "" });
+                  setSelectedUser(null);
+                }}
+                IconComponent={CustomRedArrowIcon}
+                inputProps={{
+                  className: "form-control border w-100",
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    className: "notification-menu-list",
+                  },
+                  MenuListProps: {
+                    className: "notification-menu-ul",
+                  },
+                }}
+              >
+                <MenuItem value="all" className="notification-menu-item">
+                  All Users
+                </MenuItem>
+                <MenuItem value="role" className="notification-menu-item">
+                  By Role
+                </MenuItem>
+                <MenuItem value="individual" className="notification-menu-item">
+                  Individual
+                </MenuItem>
+              </Select>
+            </div>
+            <FormHelperText className="error-mesg">
+              {errors.sendTo || " "}
+            </FormHelperText>
           </FormControl>
 
           {/* Role */}
           {sendTo === "role" && (
-            <FormControl fullWidth error={!!errors.role}>
-              <InputLabel id="role-label">Role</InputLabel>
-              <Select
-                labelId="role-label"
-                value={role}
-                label="Role"
-                onChange={(e) => {
-                  setRole(e.target.value);
-                  setErrors({ ...errors, role: "" });
-                }}
-              >
-                <MenuItem value="construction_admin">
-                  Construction Admin
-                </MenuItem>
-                <MenuItem value="truck_operator_admin">
-                  Truck Operator Admin
-                </MenuItem>
-                <MenuItem value="job_poster">Job Poster</MenuItem>
-                <MenuItem value="job_accepter">Job Accepter</MenuItem>
-                <MenuItem value="driver">Driver</MenuItem>
-              </Select>
-              <FormHelperText>{errors.role}</FormHelperText>
+            <FormControl
+              fullWidth
+              error={!!errors.role}
+              className="field-group"
+            >
+              <div className="input-field">
+                <label htmlFor="role-label" className="main-label mb-1">
+                  Role
+                </label>
+                <Select
+                  style={{ marginBottom: "20px" }}
+                  labelId="role-label"
+                  id="role-label"
+                  value={role}
+                  onChange={(e) => {
+                    setRole(e.target.value);
+                    setErrors({ ...errors, role: "" });
+                  }}
+                  IconComponent={CustomRedArrowIcon}
+                  inputProps={{
+                    className: "form-control border w-100",
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      className: "notification-menu-list",
+                    },
+                    MenuListProps: {
+                      className: "notification-menu-ul",
+                    },
+                  }}
+                >
+                  <MenuItem
+                    value="construction_admin"
+                    className="notification-menu-item"
+                  >
+                    Construction Admin
+                  </MenuItem>
+                  <MenuItem
+                    value="truck_operator_admin"
+                    className="notification-menu-item"
+                  >
+                    Truck Operator Admin
+                  </MenuItem>
+                  <MenuItem
+                    value="job_poster"
+                    className="notification-menu-item"
+                  >
+                    Job Poster
+                  </MenuItem>
+                  <MenuItem
+                    value="job_accepter"
+                    className="notification-menu-item"
+                  >
+                    Job Accepter
+                  </MenuItem>
+                  <MenuItem value="driver" className="notification-menu-item">
+                    Driver
+                  </MenuItem>
+                </Select>
+              </div>
+              <FormHelperText className="error-mesg">
+                {errors.role}
+              </FormHelperText>
             </FormControl>
           )}
 
           {/* Individual */}
           {sendTo === "individual" && (
-            <Autocomplete
-              options={users}
-              getOptionLabel={(option) =>
-                option?.fullName ? `${option.fullName} (${option.email})` : ""
-              }
-              value={selectedUser}
-              onChange={(event, newValue) => {
-                setSelectedUser(newValue);
-                setErrors({ ...errors, userId: "" });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  style={{ marginBottom: "20px" }}
-                  {...params}
-                  label="Select User"
-                  error={!!errors.userId}
-                  helperText={errors.userId}
+            <FormControl fullWidth className="field-group">
+              <div className="input-field individual">
+                <label htmlFor="select-user" className="main-label mb-1">
+                  Select User
+                </label>
+
+                <Autocomplete
+                  options={users}
+                  popupIcon={<CustomRedArrowIcon />}
+                  forcePopupIcon={true}
+                  getOptionLabel={(option) =>
+                    option?.fullName
+                      ? `${option.fullName} (${option.email})`
+                      : ""
+                  }
+                  value={selectedUser}
+                  onChange={(event, newValue) => {
+                    setSelectedUser(newValue);
+                    setErrors({ ...errors, userId: "" });
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      style={{ marginBottom: "20px" }}
+                      {...params}
+                      placeholder="Select User"
+                      // label="Select User"
+                      error={!!errors.userId}
+                      helperText={errors.userId}
+                      InputProps={{
+                        ...params.InputProps,
+                      }}
+                      inputProps={{
+                        ...params.inputProps,
+                        className: "form-control border",
+                      }}
+                    />
+                  )}
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
+                  }
+                  fullWidth
                 />
-              )}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              fullWidth
-            />
+              </div>
+            </FormControl>
           )}
 
           {/* Notification Text */}
-          <Box sx={{ position: "relative" }}>
-            <TextField
-              label="Notification Text"
-              multiline
-              rows={4}
-              fullWidth
-              value={notificationText}
-              error={!!errors.notificationText}
-              inputProps={{ maxLength: MAX_CHAR }}
-              helperText={
-                <Box
+          <div className="textmesg-box position-relative">
+            <div className="input-field">
+              <label htmlFor="" className="main-label mb-1">
+                Notification Text
+              </label>
+              <TextField
+                // label="Notification Text"
+                multiline
+                rows={3}
+                fullWidth
+                placeholder="Enter notification text..."
+                value={notificationText}
+                error={!!errors.notificationText}
+                inputProps={{
+                  className: "form-control border notification-textarea",
+                }}
+                helperText={
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <span>{errors.notificationText || ""}</span>
+                    <span>{MAX_CHAR - notificationText.length}</span>
+                  </Box>
+                }
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= MAX_CHAR) {
+                    setNotificationText(value);
+                    setErrors({ ...errors, notificationText: "" });
+                  }
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end" className="emojibutton">
+                      <IconButton
+                        onClick={() => setShowEmojiPicker((prev) => !prev)}
+                        edge="end"
+                      >
+                        <Icon icon="mdi:emoticon-outline" width={22} />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              {showEmojiPicker && (
+                <div
+                  className="emoji-box"
+                  ref={pickerRef}
                   sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
+                    position: "absolute",
+                    bottom: 80,
+                    right: 0,
+                    zIndex: 1300,
                   }}
                 >
-                  <span>{errors.notificationText || ""}</span>
-                  <span>{MAX_CHAR - notificationText.length}</span>
-                </Box>
-              }
-              onChange={(e) => {
-                const value = e.target.value;
-                if (value.length <= MAX_CHAR) {
-                  setNotificationText(value);
-                  setErrors({ ...errors, notificationText: "" });
-                }
-              }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowEmojiPicker((prev) => !prev)}
-                      edge="end"
-                    >
-                      <Icon icon="mdi:emoticon-outline" width={22} />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
+                  <EmojiPicker
+                    onEmojiClick={(emojiData) => {
+                      if (
+                        notificationText.length + emojiData.emoji.length <=
+                        MAX_CHAR
+                      ) {
+                        setNotificationText((prev) => prev + emojiData.emoji);
+                      }
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
 
-            {showEmojiPicker && (
-              <Box
-                ref={pickerRef}
-                sx={{
-                  position: "absolute",
-                  bottom: 80,
-                  right: 0,
-                  zIndex: 1300,
-                }}
-              >
-                <EmojiPicker
-                  onEmojiClick={(emojiData) => {
-                    if (
-                      notificationText.length + emojiData.emoji.length <=
-                      MAX_CHAR
-                    ) {
-                      setNotificationText((prev) => prev + emojiData.emoji);
-                    }
-                  }}
-                />
-              </Box>
-            )}
-          </Box>
-        </Box>
-      </DialogContent>
+      {/* Footer */}
 
-      <DialogActions>
-        <Button
+      <div className="modal-footer">
+        <button
+          type="button"
+          className="btn btn-secondary"
           onClick={() => {
             resetForm();
             onClose();
           }}
         >
           Cancel
-        </Button>
-        <Button variant="contained" onClick={handleSubmit} disabled={loading}>
-          {editData ? "Update" : "Send"}
-        </Button>
-      </DialogActions>
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-primary ms-2"
+          disabled={loading}
+          onClick={handleSubmit}
+        >
+          {loading
+            ? "Sending..."
+            : editData
+            ? "Update Notification"
+            : "Send Notification"}
+        </button>
+      </div>
     </Dialog>
   );
 }

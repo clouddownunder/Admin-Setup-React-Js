@@ -267,8 +267,8 @@ export default function FeedbackPage() {
           </div>
 
           <div className="panel-body parent-table">
-            <div className="row justify-content-between align-items-center mb-3">
-              <div className="col-sm-6">
+            <div className="row customrow mb-3">
+              <div className="col1">
                 <div className="show-page-row">
                   <TablePagination
                     className="custom-pagination remove-buttons"
@@ -293,8 +293,8 @@ export default function FeedbackPage() {
                   />
                 </div>
               </div>
-              <div className="col-sm-6">
-                <div className="d-flex align-items-end">
+              <div className="col1">
+                <div className="rows-serach-wrap d-flex align-items-end justify-content-md-end">
                   <div className="table-filter-wrap">
                     <label htmlFor="filter" className="mb-1 main-label">
                       Filter
@@ -350,65 +350,67 @@ export default function FeedbackPage() {
             </div>
 
             {/* <Scrollbar> */}
-            <TableContainer className="table">
-              <Table>
-                <FeedbackTableHead
-                  // order={order}
-                  // orderBy={orderBy}
-                  rowCount={users.length}
-                  numSelected={selected.length}
-                  // onRequestSort={handleSort}
-                  onSelectAllClick={handleSelectAllClick}
-                  headLabel={[
-                    { id: "name", label: "Name" },
-                    { id: "email", label: "Email" },
-                    { id: "createdAt", label: "Added On" },
-                    { id: "feedback", label: "Total Feedbacks" },
-                    { id: "actions", label: "Actions" },
-                  ]}
-                />
-                <TableBody>
-                  {loading && <TableSkeletonRows rows={rowsPerPage} />}
+            <div className="table-responsive">
+              <TableContainer className="table">
+                <Table>
+                  <FeedbackTableHead
+                    // order={order}
+                    // orderBy={orderBy}
+                    rowCount={users.length}
+                    numSelected={selected.length}
+                    // onRequestSort={handleSort}
+                    onSelectAllClick={handleSelectAllClick}
+                    headLabel={[
+                      { id: "name", label: "Name" },
+                      { id: "email", label: "Email" },
+                      { id: "createdAt", label: "Added On" },
+                      { id: "feedback", label: "Total Feedbacks" },
+                      { id: "actions", label: "Actions" },
+                    ]}
+                  />
+                  <TableBody>
+                    {loading && <TableSkeletonRows rows={rowsPerPage} />}
 
-                  {console.log(dataFiltered, "filter")}
-                  {!loading &&
-                    dataFiltered
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage,
-                      )
-                      .map((user) => (
-                        <FeedbackTableRow
-                          key={user.userId}
-                          name={`${user.firstName} ${user.lastName}`}
-                          email={user.email}
-                          feedbackCount={user.totalFeedbacks}
-                          addedOn={
-                            user.feedbacks?.length
-                              ? user.feedbacks[0].dateTime
-                              : null
-                          }
-                          profilePicture={user.profilePicture}
-                          userId={user.userId}
-                        />
-                      ))}
+                    {console.log(dataFiltered, "filter")}
+                    {!loading &&
+                      dataFiltered
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage,
+                        )
+                        .map((user) => (
+                          <FeedbackTableRow
+                            key={user.userId}
+                            name={`${user.firstName} ${user.lastName}`}
+                            email={user.email}
+                            feedbackCount={user.totalFeedbacks}
+                            addedOn={
+                              user.feedbacks?.length
+                                ? user.feedbacks[0].dateTime
+                                : null
+                            }
+                            profilePicture={user.profilePicture}
+                            userId={user.userId}
+                          />
+                        ))}
 
-                  {!loading && notFound && <TableNoData query={queryText} />}
+                    {!loading && notFound && <TableNoData query={queryText} />}
 
-                  {!loading && (
-                    <TableEmptyRows
-                      height={77}
-                      emptyRows={emptyRows(
-                        page,
-                        rowsPerPage,
-                        dataFiltered.length,
-                      )}
-                    />
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            {/* </Scrollbar> */}
+                    {!loading && (
+                      <TableEmptyRows
+                        height={77}
+                        emptyRows={emptyRows(
+                          page,
+                          rowsPerPage,
+                          dataFiltered.length,
+                        )}
+                      />
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {/* </Scrollbar> */}
+            </div>
 
             <TablePagination
               className="custom-pagination pagination-buttons"

@@ -153,7 +153,7 @@ export default function FeedbackView({ userId, onClose }) {
     <div className="feedback-details">
       {/* ---------------- USER PROFILE SECTION ---------------- */}
       <div className="feedback-user-card">
-        <div className="d-flex flex-wrap align-items-center">
+        <div className="d-flex align-items-center">
           <Avatar
             className="feedback-user-avtar"
             src={

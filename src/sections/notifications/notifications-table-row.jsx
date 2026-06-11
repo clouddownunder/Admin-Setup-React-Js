@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
@@ -21,7 +22,7 @@ import Iconify from "src/components/iconify";
 import axios from "axios";
 import Tooltip from "@mui/material/Tooltip";
 import Swal from "sweetalert2";
-import { FAQSView } from "../notificationView";
+// import { FAQSView } from "../notificationView";
 import { useTheme } from "@mui/material/styles";
 import { useContext } from "react";
 import { ColorModeContext } from "../../theme";
@@ -192,52 +193,6 @@ export default function FaqTableRow({
           onUserDeleted?.(); // refresh FAQ list
         }}
       />
-      <Dialog
-        open={viewDialogOpen}
-        onClose={() => setViewDialogOpen(false)}
-        fullWidth
-        maxWidth="md"
-        PaperProps={{
-          sx: {
-            boxShadow: "0px 8px 24px rgba(255, 255, 255, 0.25)", // softer shadow
-            borderRadius: 2,
-          },
-        }}
-        BackdropProps={{
-          sx: {
-            backgroundColor: "rgba(0,0,0,0.4)", // no blur
-            backdropFilter: "none",
-          },
-        }}
-        // sx={{
-        //   maxWidth: {
-        //     xs: "md", // for screen < 900px
-        //     md: "md", // for screen ≥ 900px
-        //   },
-        // }}
-      >
-        <Box sx={{ justifyContent: "space-between", display: "flex" }}>
-          <DialogTitle>FAQ's Detail</DialogTitle>
-          <Button
-            onClick={() => setViewDialogOpen(false)}
-            sx={{
-              fontSize: "larger",
-              "&:hover": {
-                backgroundColor: "transparent",
-              },
-            }}
-            disableTouchRipple
-          >
-            x
-          </Button>
-        </Box>
-        <DialogContent dividers>
-          <FAQSView userId={userId} onClose={() => setViewDialogOpen(false)} />
-        </DialogContent>
-        {/* <DialogActions>
-          <Button onClick={() => setViewDialogOpen(false)}>Close</Button>
-        </DialogActions> */}
-      </Dialog>
 
       {/* Table Row */}
       <TableRow
@@ -261,13 +216,13 @@ export default function FaqTableRow({
         {/* <TableCell>{question || "N/A"}</TableCell> */}
         {/* <TableCell sx={{ maxWidth: 250 }}>{fullName}</TableCell> */}
         {/*wrap this text as it will be till letters and if more than letters then show it below*/}
-        <TableCell sx={{ maxWidth: 250 }}>
+        <TableCell>
           {capitalizeFirstLetter(notificationType)}
         </TableCell>
-        <TableCell sx={{ maxWidth: 250 }}>
+        <TableCell>
           <Typography
             variant="body2"
-            sx={{
+            sx={{ 
               whiteSpace: "normal",
               wordBreak: "break-word",
             }}

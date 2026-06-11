@@ -173,6 +173,7 @@ export default function FeedbackTableRow({
             onClose={() => setViewDialogOpen(false)}
             PaperProps={{}}
           >
+            {/* Header */}
             <div className="modal-header">
               <h3 className="mb-0 modal-title">Feedback Details</h3>
               <button
@@ -180,8 +181,10 @@ export default function FeedbackTableRow({
                 className="btn-close in-close"
               ></button>
             </div>
+
+            {/* Main Content */}
             <div className="modal-body p-0" dividers>
-              <FeedbackView 
+              <FeedbackView
                 userId={userId}
                 onClose={() => setViewDialogOpen(false)}
               />
