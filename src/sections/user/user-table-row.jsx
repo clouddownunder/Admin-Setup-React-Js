@@ -78,23 +78,41 @@ export default function UserTableRow({
     });
   };
 
-  const handleDeleteUserConfirm = async () => {
+  // const handleDeleteUserConfirm = async () => {
+  //   try {
+  //     const res = await axios.delete(
+  //       `${import.meta.env.VITE_API_BASEURL}/auth/deleteAdmin/${deleteUserId}`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+
+  //     showAlert(res.data.status, res.data.message);
+  //     if (res.data.status === 1) onUserDeleted?.();
+  //   } catch (error) {
+  //     showAlert(0, error?.response?.data?.message || error.message);
+  //   }
+
+  //   setDeleteDialogOpen(false);
+  //   setDeleteUserId(null);
+  // };
+  const handleDeleteUserConfirm = async (userId) => {
     try {
       const res = await axios.delete(
-        `${import.meta.env.VITE_API_BASEURL}/auth/deleteAdmin/${deleteUserId}`,
+        `${import.meta.env.VITE_API_BASEURL}/auth/deleteAdmin/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       showAlert(res.data.status, res.data.message);
-      if (res.data.status === 1) onUserDeleted?.();
+
+      if (res.data.status === 1) {
+        onUserDeleted?.();
+      }
     } catch (error) {
       showAlert(0, error?.response?.data?.message || error.message);
     }
-
-    setDeleteDialogOpen(false);
-    setDeleteUserId(null);
   };
 
   // const handleBlockConfirm = async () => {
@@ -175,10 +193,35 @@ export default function UserTableRow({
     return digits; // fallback
   };
 
+  const handleDeleteConfirmation = async (userId, userName) => {
+    const result = await Swal.fire({
+      title: "Confirm Delete",
+      html: `Are you sure you want to delete <strong>${userName}</strong>?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "No",
+      reverseButtons: true,
+      customClass: {
+        container: "logout-swal-container", // parent wrapper
+        popup: "logout-swal-popup", // main modal
+        title: "logout-swal-title",
+        htmlContainer: "logout-swal-text",
+        icon: "logout-swal-icon",
+        confirmButton: "logout-swal-confirm btn btn-primary",
+        cancelButton: "logout-swal-cancel btn btn-lighter-grey",
+      },
+    });
+
+    if (result.isConfirmed) {
+      handleDeleteUserConfirm(userId);
+    }
+  };
+
   return (
     <>
       <SwipeableDrawer
-        className="custom-modal"
+        className="custom-modal dialog-sidebar"
         anchor="right"
         open={viewDialogOpen}
         onClose={() => setViewDialogOpen(false)}
@@ -210,7 +253,7 @@ export default function UserTableRow({
         </Box>
       </SwipeableDrawer>
       {/* Delete Dialog */}
-      <Dialog
+      {/* <Dialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
       >
@@ -220,6 +263,7 @@ export default function UserTableRow({
         </DialogContent>
         <DialogActions>
           <Button
+          className="btn btn-lighter-grey"
             variant="outlined"
             onClick={() => {
               setDeleteDialogOpen(false);
@@ -229,14 +273,14 @@ export default function UserTableRow({
             No
           </Button>
           <Button
+          className="btn btn-primary"
             variant="contained"
-            color="error"
             onClick={handleDeleteUserConfirm}
           >
             Yes, Delete
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
 
       {/* Block Dialog */}
       {/* <Dialog
@@ -405,12 +449,10 @@ export default function UserTableRow({
             style={{ cursor: "pointer" }}
           />
           <Iconify
-            className="dt-view-btn dt-delet-icon"
+            style={{ cursor: "pointer" }}
             onClick={() => {
-              // onViewUser();
               handleCloseMenu();
-              setDeleteUserId(userId);
-              setDeleteDialogOpen(true);
+              handleDeleteConfirmation(userId, name);
             }}
             icon="eva:trash-2-fill"
           />

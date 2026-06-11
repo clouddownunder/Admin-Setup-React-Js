@@ -223,135 +223,90 @@ export default function UserView({ userId, onClose }) {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      {/* <Card elevation={3} sx={{ borderRadius: 3 }}>
-        <CardContent> */}
-      {/* Top section: Profile summary */}
-      <Grid container spacing={2} alignItems="flex-start">
-        {/* Left: Profile Image and Name */}
-        <Grid
-          item
-          xs={12}
-          md={4}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "auto",
-            padding: "0px 0px 0px 0px !important",
-            marginTop: isMedium ? "5%" : "auto",
-          }}
-        >
-          {/* <Stack alignItems="center" spacing={2}> */}
-          <Avatar
-            sx={{ width: 120, height: 120 }}
-            src={
-              user.profilePicture
-                ? `${import.meta.env.VITE_IMAGE_URL}${user.profilePicture}`
-                : ""
-            }
-          />
-          {/* <Typography variant="h6" textAlign="center">
-                  {user.first_name || "N/A"} {user.last_name || "N/A"}
-                </Typography> */}
-          {/* </Stack> */}
-        </Grid>
+      <div className="parent-table">
+        <div className="table">
+          <table className="user-details-table">
+            <tbody>
+              {/* Profile Image */}
+              <tr>
+                <td className="table-label">Profile Image</td>
+                <td>
+                  <Avatar
+                    sx={{ width: 120, height: 120 }}
+                    src={
+                      user.profilePicture
+                        ? `${import.meta.env.VITE_IMAGE_URL}${
+                            user.profilePicture
+                          }`
+                        : ""
+                    }
+                  />
+                </td>
+              </tr>
 
-        {/* Right: Email, Mobile, Created Date */}
-        <Grid item xs={12} md={4}>
-          <Grid item spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="subtitle1">Name</Typography>
-              <Typography variant="body1">
-                {!user.fullName ? "N/A" : `${user.fullName || ""}`.trim()}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} mt={2}>
-              <Typography variant="subtitle1">Email</Typography>
-              <Typography variant="body1" style={{ wordBreak: "break-word" }}>
-                {user.email || "N/A"}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} mt={2}>
-              <Typography variant="subtitle1">Mobile</Typography>
-              <Typography variant="body1">
-                {formatMobileNumber(user.mobileNo)}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} mt={2}>
-              <Typography variant="subtitle1">Registered On</Typography>
-              <Typography variant="body1">
-                {user.createdAt
-                  ? new Date(user.createdAt).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })
-                  : "N/A"}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Grid item>
-            <>
-              <Grid item xs={12}>
-                <Typography variant="subtitle1">
-                  Business Registration No.
-                </Typography>
-                {user.bussinessRegistrationNo ? (
-                  <Typography variant="body1">
-                    {formatABN(user.bussinessRegistrationNo)}
-                  </Typography>
-                ) : (
-                  <Typography variant="body1">N/A</Typography>
-                )}
-                {/* {
-                  // user.suspended === true ||
-                  user.isBlocked === true && (
-                    <>
-                      {user.suspended === true && (
-                        <Box mt={2}>
-                          <Typography variant="subtitle1">
-                            Suspend Reason
-                          </Typography>
-                          <Typography variant="body1">
-                            {user.suspend_reason ? user.suspend_reason : "No reason provided"}
-                          </Typography>
-                        </Box>
-                      )}
-                      {user.isBlocked === true && (
-                        <Box mt={2}>
-                          <Typography variant="subtitle1">
-                            Block Reason
-                          </Typography>
-                          <Typography variant="body1">
-                            {user.blockReason
-                              ? user.blockReason
-                              : "No Reason Provided"}
-                          </Typography>
-                        </Box>
-                      )}
-                    </>
-                  )
-                } */}
-                <Typography
-                  variant="body1"
-                  sx={{ fontWeight: "bolder", mt: 2 }}
-                >
-                  Account Status
-                </Typography>
-                <Typography variant="body1">
+              {/* Name */}
+              <tr>
+                <td className="table-label">Name</td>
+                <td>
+                  {!user.fullName ? "N/A" : `${user.fullName || ""}`.trim()}
+                </td>
+              </tr>
+
+              {/* Email */}
+              <tr>
+                <td className="table-label">Email</td>
+                <td style={{ wordBreak: "break-word" }}>
+                  {user.email || "N/A"}
+                </td>
+              </tr>
+
+              {/* Mobile */}
+              <tr>
+                <td className="table-label">Mobile</td>
+                <td>{formatMobileNumber(user.mobileNo)}</td>
+              </tr>
+
+              {/* Registered On */}
+              <tr>
+                <td className="table-label">Registered On</td>
+                <td>
+                  {user.createdAt
+                    ? new Date(user.createdAt).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    : "N/A"}
+                </td>
+              </tr>
+
+              {/* Business Registration No */}
+              <tr>
+                <td className="table-label">Business Registration No.</td>
+                <td>
+                  {user.bussinessRegistrationNo
+                    ? formatABN(user.bussinessRegistrationNo)
+                    : "N/A"}
+                </td>
+              </tr>
+
+              {/* Account Status */}
+              <tr>
+                <td className="table-label">Account Status</td>
+                <td>
                   {user.isProfileSetUp === 1 ? "Completed" : "Incomplete"}
-                </Typography>
+                </td>
+              </tr>
 
-                {renderCreators()}
-                {/* {renderDocuments()} */}
-              </Grid>
-            </>
-          </Grid>
-        </Grid>
-      </Grid>
-      {/* </CardContent>
-      </Card> */}
+              {/* Created By */}
+              <tr>
+                <td className="table-label">Created By</td>
+                <td>{renderCreators()}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </Container>
   );
 }

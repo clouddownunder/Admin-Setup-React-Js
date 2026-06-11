@@ -1051,6 +1051,7 @@ body.remove-scroll {
     max-width: 50%;
 }
 
+
 /* Common Table CSS */
 
 .table {
@@ -1155,6 +1156,7 @@ body.remove-scroll {
 .table .dt-delet-icon:hover {
     box-shadow: 0 0 6px 1px rgba(215, 67, 21, 0.4);
 }
+
 
 /* Hide page count text */
 
@@ -1530,9 +1532,24 @@ body.remove-scroll {
 
 /* end */
 
+
+/* =========================================================
+   Logout-pop up 
+========================================================= */
+
+.delete-user-popup .logout-swal-confirm,
+.delete-user-popup .logout-swal-cancel {
+    width: 130px;
+}
+
+
+/* end */
+
+
 /* =========================================================
    Notification pop-up 
 ========================================================= */
+
 .custom-modal.notification-modal .MuiDialog-paper {
     max-width: 660px;
 }
@@ -1714,5 +1731,6 @@ body.remove-scroll {
     text-align: left;
     margin-top: 2px;
 }
+
 
 /* end */

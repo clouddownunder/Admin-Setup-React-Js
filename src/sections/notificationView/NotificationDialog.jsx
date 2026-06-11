@@ -144,10 +144,10 @@ export default function NotificationDialog({
         resetForm();
         onClose();
       } else {
-        showErrorPopup(res.data.message.message);
+        showErrorPopup(res.data.message);
       }
     } catch (err) {
-      showErrorPopup(err?.response?.data?.message.message || err.message);
+      showErrorPopup(err?.response?.data?.message || err.message);
     } finally {
       setLoading(false);
     }
