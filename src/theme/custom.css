@@ -1064,11 +1064,11 @@ body.remove-scroll {
 
 .table thead th {
     font-size: 12px;
-    line-height: 1.1;
     text-transform: uppercase;
     font-weight: 600;
     color: var(--text-secondary);
     background-color: var(--bg-light);
+    min-width: 150px;
 }
 
 .table tbody td,
@@ -1143,6 +1143,17 @@ body.remove-scroll {
     box-shadow: 0 0 6px 1px rgba(75, 85, 99, 0.4);
 }
 
+.table .dt-delet-icon {
+    background-color: var(--primary-lighter);
+}
+
+.table .dt-delet-icon path {
+    fill: var(--primary-main);
+}
+
+.table .dt-delet-icon:hover {
+    box-shadow: 0 0 6px 1px rgba(215, 67, 21, 0.4);
+}
 
 /* Hide page count text */
 
