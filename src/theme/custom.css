@@ -498,6 +498,7 @@ body.remove-scroll {
 
 .login-container {
     padding: 30px;
+    min-height: 100dvh !important;
 }
 
 .login-btn.btn-primary:hover,
@@ -1010,6 +1011,7 @@ body.remove-scroll {
 
 .main-label {
     font-size: 14px;
+    margin-bottom: 8px !important;
 }
 
 .parent-table .dt-search {

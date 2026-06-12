@@ -249,7 +249,13 @@
 
     .filter-menu-list .filter-menu-item {
         font-size: 14px;
-        padding: 6px 16px;
+        padding: 8px 16px;
+    }
+
+    .notification-menu-list .notification-menu-item,
+    .select-type-menu-wrap .select-type-item {
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 
     /* header or sidebar CSS */
@@ -891,10 +897,10 @@
 }
 
 @media (max-width: 767px) {
-    .emoji-box {
+    /* .emoji-box {
         right: 0;
         left: 0;
-    }
+    } */
 
     .emoji-picker-wrapper {
         width: 100%;
