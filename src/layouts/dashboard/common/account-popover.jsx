@@ -44,9 +44,22 @@ export default function AccountPopover() {
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
 
   useEffect(() => {
-    const UserData = getCookie("UserData");
-    setUserData(JSON.parse(decodeURIComponent(UserData)));
-  }, [navigate]);
+    const loadUserData = () => {
+      const UserData = getCookie("UserData");
+  
+      if (UserData) {
+        setUserData(JSON.parse(decodeURIComponent(UserData)));
+      }
+    };
+  
+    loadUserData();
+  
+    window.addEventListener("userDataUpdated", loadUserData);
+  
+    return () => {
+      window.removeEventListener("userDataUpdated", loadUserData);
+    };
+  }, []);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);

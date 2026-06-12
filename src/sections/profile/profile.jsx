@@ -157,15 +157,34 @@ export default function ProfileEditView() {
       );
 
       if (res.data.status === 1) {
+        console.log(res,"response profile")
         showSuccessPopup(res.data.message);
         deleteCookie("UserData");
         setCookie("UserData", JSON.stringify(res.data.data));
-        navigate("/dashboard/admin-profile");
+        window.dispatchEvent(
+          new CustomEvent("userDataUpdated", {
+            detail: res.data.data,
+          })
+        );
+        setFormData((prev) => ({
+          ...prev,
+          fullName: res.data.data.fullName || "",
+          email: res.data.data.email || "",
+          countryCode: res.data.data.countryCode || "+61",
+          mobileNo: formatPhoneForDisplay(res.data.data.mobileNo || ""),
+          adminProfilePic: null,
+        }));
+      
+        setPreview(
+          `${import.meta.env.VITE_IMAGE_URL.replace(/\/$/, "")}${
+            res.data.data.profilePicture
+          }`
+        );
       } else {
         showErrorPopup(res.data.message);
       }
     } catch (err) {
-      showErrorPopup(err.response?.data?.message || "Something went wrong");
+      showErrorPopup(err.response?.data?.message?.message);
     }
   };
 
