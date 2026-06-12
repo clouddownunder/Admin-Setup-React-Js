@@ -339,7 +339,7 @@ export default function UserPage() {
                     count={dataFiltered.length}
                     rowsPerPage={rowsPerPage}
                     onPageChange={handleChangePage}
-                    rowsPerPageOptions={[5, 10]}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     SelectProps={{
                       IconComponent: CustomRedArrowIcon,
