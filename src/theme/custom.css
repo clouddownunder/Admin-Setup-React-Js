@@ -1158,13 +1158,11 @@ body.remove-scroll {
     box-shadow: 0 0 6px 1px rgba(215, 67, 21, 0.4);
 }
 
-
 /* Hide page count text */
 
 .custom-pagination.remove-buttons .MuiTablePagination-displayedRows {
     display: none;
 }
-
 
 /* Hide prev / next buttons */
 

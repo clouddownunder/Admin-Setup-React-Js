@@ -425,16 +425,16 @@ export default function UserPage() {
 
                   {!loading && notFound && <TableNoData query={queryText} />}
 
-                  {!loading && (
+                  {/* {!loading && (
                     <TableEmptyRows
-                      height={77}
+                      height={0}
                       emptyRows={emptyRows(
                         page,
                         rowsPerPage,
                         tabFilteredData.length,
                       )}
                     />
-                  )}
+                  )} */}
                 </TableBody>
               </Table>
             </TableContainer>

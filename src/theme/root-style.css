@@ -234,8 +234,8 @@ a,
 /* Firefox */
 
 * {
-    /* scrollbar-width: thin;
-    scrollbar-color: rgb(193 193 193) transparent; */
+    scrollbar-width: thin;
+    scrollbar-color: rgb(193 193 193) transparent;
 }
 
 a,

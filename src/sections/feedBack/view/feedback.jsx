@@ -396,7 +396,7 @@ export default function FeedbackPage() {
 
                     {!loading && notFound && <TableNoData query={queryText} />}
 
-                    {!loading && (
+                    {/* {!loading && (
                       <TableEmptyRows
                         height={77}
                         emptyRows={emptyRows(
@@ -405,7 +405,7 @@ export default function FeedbackPage() {
                           dataFiltered.length,
                         )}
                       />
-                    )}
+                    )} */}
                   </TableBody>
                 </Table>
               </TableContainer>

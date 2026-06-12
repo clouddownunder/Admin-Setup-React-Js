@@ -374,7 +374,7 @@ export default function NotificationsManagement() {
 
                   {!loading && notFound && <TableNoData query={queryText} />}
 
-                  {!loading && (
+                  {/* {!loading && (
                     <TableEmptyRows
                       height={77}
                       emptyRows={emptyRows(
@@ -383,7 +383,7 @@ export default function NotificationsManagement() {
                         dataFiltered.length,
                       )}
                     />
-                  )}
+                  )} */}
                 </TableBody>
               </Table>
             </TableContainer>
