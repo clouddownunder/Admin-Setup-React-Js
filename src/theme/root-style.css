@@ -448,3 +448,8 @@ fieldset:disabled .btn {
     background: var(--grey-500);
     color: var(--white);
 }
+
+body.swal2-shown.swal2-height-auto,
+body.swal2-height-auto {
+    height: 100% !important;
+}
