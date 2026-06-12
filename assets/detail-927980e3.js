@@ -1,0 +1,1 @@
+import{j as e,W as t}from"./index-fa6a2e6a.js";function r(){return e.jsx(e.Fragment,{children:"Hello"})}function n(){return e.jsxs(e.Fragment,{children:[e.jsx(t,{children:e.jsx("title",{children:" TruckMatch | Detail Page "})}),e.jsx(r,{})]})}export{n as default};
