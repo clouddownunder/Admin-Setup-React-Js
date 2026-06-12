@@ -216,7 +216,6 @@ export default function UserView({ userId, onClose }) {
       )}
     </div>
   );
-
   return (
     <Container maxWidth="lg" className="p-0">
       <div className="parent-table p-0">

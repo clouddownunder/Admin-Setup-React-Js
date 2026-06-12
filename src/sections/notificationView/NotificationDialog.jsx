@@ -41,7 +41,7 @@ export default function NotificationDialog({
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [users, setUsers] = useState([]);
   const [notificationType, setNotificationType] = useState("general");
-
+  const [imgError, setImgError] = useState(false);
   const [errors, setErrors] = useState({});
 
   const showSuccessPopup = (message) => {
@@ -422,15 +422,22 @@ export default function NotificationDialog({
                               gap: 1.5,
                             }}
                           >
-                            {option.profileImage ? (
+                            {option.profileImage && !imgError ? (
                               <img
                                 className="n-user-img"
-                                src={`${
-                                  import.meta.env.VITE_IMAGE_NOTIFICATION_URL
-                                }${option.profileImage}`}
+                                src={
+                                  option.profileImage
+                                    ? `${
+                                        import.meta.env
+                                          .VITE_IMAGE_NOTIFICATION_URL
+                                      }${option.profileImage}`
+                                    : ""
+                                }
+                                onError={() => setImgError(true)}
                                 alt={option.fullName}
                               />
                             ) : (
+
                               <Box className="n-user-img">{initials}</Box>
                             )}
                             <Box>
@@ -456,7 +463,9 @@ export default function NotificationDialog({
                           }}
                         />
                         {errors.userId && (
-                          <div className="Mui-error error-mesg">{errors.userId}</div>
+                          <div className="Mui-error error-mesg">
+                            {errors.userId}
+                          </div>
                         )}
                       </>
                     )}
@@ -528,16 +537,17 @@ export default function NotificationDialog({
                   }}
                 >
                   <div className="emoji-picker-wrapper">
-                  <EmojiPicker className="emojipicker-main"
-                    onEmojiClick={(emojiData) => {
-                      if (
-                        notificationText.length + emojiData.emoji.length <=
-                        MAX_CHAR
-                      ) {
-                        setNotificationText((prev) => prev + emojiData.emoji);
-                      }
-                    }}
-                  />
+                    <EmojiPicker
+                      className="emojipicker-main"
+                      onEmojiClick={(emojiData) => {
+                        if (
+                          notificationText.length + emojiData.emoji.length <=
+                          MAX_CHAR
+                        ) {
+                          setNotificationText((prev) => prev + emojiData.emoji);
+                        }
+                      }}
+                    />
                   </div>
                 </div>
               )}

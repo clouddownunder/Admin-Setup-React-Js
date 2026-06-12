@@ -22,6 +22,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { UserView } from "../userView";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import Tooltip from "@mui/material/Tooltip";
+
 export default function UserTableRow({
   selected,
   name,
@@ -451,24 +453,28 @@ export default function UserTableRow({
           {/* <IconButton onClick={(e) => setOpen(e.currentTarget)}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton> */}
-          <Iconify
-            className="dt-view-btn dt-eye-icon"
-            onClick={() => {
-              // onViewUser();
-              handleCloseMenu();
-              setViewDialogOpen(true);
-            }}
-            icon="eva:eye-fill"
-            sx={{ mr: 2 }}
-          />
-          <Iconify
-            className="dt-view-btn dt-delet-icon"
-            onClick={() => {
-              handleCloseMenu();
-              handleDeleteConfirmation(userId, name);
-            }}
-            icon="eva:trash-2-fill"
-          />
+          <Tooltip title="View Details" placement="top" arrow>
+            <Iconify
+              className="dt-view-btn dt-eye-icon"
+              onClick={() => {
+                // onViewUser();
+                handleCloseMenu();
+                setViewDialogOpen(true);
+              }}
+              icon="eva:eye-fill"
+              sx={{ mr: 2 }}
+            />
+          </Tooltip>
+          <Tooltip title="Delete User" placement="top" arrow>
+            <Iconify
+              className="dt-view-btn dt-delet-icon"
+              onClick={() => {
+                handleCloseMenu();
+                handleDeleteConfirmation(userId, name);
+              }}
+              icon="eva:trash-2-fill"
+            />
+          </Tooltip>
         </TableCell>
       </TableRow>
     </>

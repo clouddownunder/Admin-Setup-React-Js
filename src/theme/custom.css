@@ -1826,6 +1826,11 @@ body.remove-scroll {
     display: none;
 }
 
+.MuiTooltip-tooltip {
+    line-height: 1.5 !important;
+    font-size: 12px !important;
+}
+
 /* status Badges  */
 .purple-box {
     background-color: var(--purple-light);

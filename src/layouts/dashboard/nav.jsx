@@ -56,7 +56,7 @@ function NavItem({ item }) {
   const pathname = usePathname();
 
   const active = item.path === pathname;
-  
+
   const handleNavClick = () => {
     if (window.innerWidth < 992) {
       document.body.classList.remove("sidebar-show-hide");

@@ -377,16 +377,18 @@ export default function FeedbackTableRow({
             setViewDialogOpen(true);
           }}
         > */}
-          <Iconify
-            className="dt-view-btn dt-eye-icon"
-            onClick={() => {
-              handleCloseMenu();
-              setViewDialogOpen(true);
-            }}
-            icon="eva:eye-fill"
-            sx={{ mr: 2 }}
-            style={{ cursor: "pointer" }}
-          />
+          <Tooltip title="View Details" placement="top" arrow>
+            <Iconify
+              className="dt-view-btn dt-eye-icon"
+              onClick={() => {
+                handleCloseMenu();
+                setViewDialogOpen(true);
+              }}
+              icon="eva:eye-fill"
+              sx={{ mr: 2 }}
+              style={{ cursor: "pointer" }}
+            />
+          </Tooltip>
           {/* </MenuItem> */}
           {/* <IconButton onClick={(e) => setOpen(e.currentTarget)}>
             <Iconify icon="eva:more-vertical-fill" />
