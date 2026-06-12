@@ -83,36 +83,6 @@ html {
     --danger-light: #fee2e2;
 }
 
-.purple-box {
-    background-color: var(--purple-light);
-    color: var(--purple);
-}
-
-.blue-box {
-    background-color: var(--blue-light);
-    color: var(--blue);
-}
-
-.warning-box {
-    background: var(--warning-lighter);
-    color: var(--warning-main);
-}
-
-.error-box {
-    background: var(--error-lighter);
-    color: var(--error-main);
-}
-
-.danger-box {
-    background: var(--danger-light);
-    color: var(--danger);
-}
-
-.success-box {
-    background: var(--success-lighter);
-    color: var(--success-main);
-}
-
 /* ========================================
    HEADINGS 
 ======================================== */
@@ -245,10 +215,14 @@ a,
 ::-webkit-scrollbar-thumb {
     background: rgb(193 193 193);
     border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
     height: 3px;
 }
 
@@ -260,8 +234,8 @@ a,
 /* Firefox */
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(193 193 193) transparent;
+    /* scrollbar-width: thin;
+    scrollbar-color: rgb(193 193 193) transparent; */
 }
 
 a,

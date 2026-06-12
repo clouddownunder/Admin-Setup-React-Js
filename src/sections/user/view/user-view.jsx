@@ -2,19 +2,14 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
 import { useNavigate } from "react-router-dom";
-import Container from "@mui/material/Container";
 import TableBody from "@mui/material/TableBody";
-import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-import Button from "@mui/material/Button";
 import { Icon } from "@iconify/react";
 import { MenuItem, Select, FormControl, InputLabel, Box } from "@mui/material";
-import Scrollbar from "src/components/scrollbar";
+import { Tabs, Tab } from "@mui/material";
 import TableNoData from "../table-no-data";
 import UserTableRow from "../user-table-row";
 import UserTableHead from "../user-table-head";
@@ -100,6 +95,14 @@ export default function UserPage() {
   useEffect(() => {
     fetchUsers();
   }, [token, filterType]);
+
+  // For Table Tabs
+  const [activeTab, setActiveTab] = useState("all");
+  const companyTabs = [
+    { label: "All Companies", value: "all" },
+    { label: "Active Companies", value: "active" },
+    { label: "Inactive Companies", value: "inactive" },
+  ];
 
   // const handleSort = (event, id) => {
   //   const sortableFields = ["name", "email", "mobile"];
@@ -229,7 +232,20 @@ export default function UserPage() {
     filterName,
   });
 
-  const notFound = !dataFiltered.length;
+  // const notFound = !dataFiltered.length;
+  const tabFilteredData = dataFiltered.filter((item) => {
+    switch (activeTab) {
+      case "active":
+        return item.status === true || item.status === 1;
+
+      case "inactive":
+        return item.status === false || item.status === 0;
+
+      default:
+        return true;
+    }
+  });
+  const notFound = !tabFilteredData.length;
 
   let queryText = "";
 
@@ -287,9 +303,23 @@ export default function UserPage() {
       </div>
       <div className="page-content notification-page cm-page-panel pt-3">
         <div className="panel">
-          <div className="panel-heading">
+          {/* <div className="panel-heading">
             <h3 className="panel-title">Company Management List</h3>
-          </div>
+          </div> */}
+
+          {/* Table Tabs */}
+          <Tabs
+            value={activeTab}
+            onChange={(e, newValue) => {
+              setActiveTab(newValue);
+              setPage(0);
+            }}
+            className="table-tabs mt-3 company-table-tabs"
+          >
+            {companyTabs.map((tab) => (
+              <Tab key={tab.value} label={tab.label} value={tab.value} />
+            ))}
+          </Tabs>
 
           <div className="panel-body parent-table">
             <div className="row customrow mb-3 gy-2">
@@ -356,7 +386,7 @@ export default function UserPage() {
                   {loading && <TableSkeletonRows rows={rowsPerPage} />}
 
                   {!loading &&
-                    dataFiltered
+                    tabFilteredData
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage,
@@ -394,7 +424,7 @@ export default function UserPage() {
                       emptyRows={emptyRows(
                         page,
                         rowsPerPage,
-                        dataFiltered.length,
+                        tabFilteredData.length,
                       )}
                     />
                   )}
@@ -406,7 +436,7 @@ export default function UserPage() {
             <TablePagination
               className="custom-pagination pagination-buttons"
               component="div"
-              count={dataFiltered.length}
+              count={tabFilteredData.length}
               page={page}
               rowsPerPage={rowsPerPage}
               onPageChange={handleChangePage}

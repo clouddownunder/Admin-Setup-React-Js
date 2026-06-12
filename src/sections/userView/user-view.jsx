@@ -205,34 +205,39 @@ export default function UserView({ userId, onClose }) {
   // };
 
   const renderCreators = () => (
-    <Box mt={2}>
-      <Typography variant="subtitle1" fontWeight={600}>
-        Created By
-      </Typography>
+    <div className="creators-row">
+      <p className="subtitle1 mb-1">Created By</p>
       {user.createdBy ? (
-        <Typography variant="body2">
+        <p className="text-secondary mb-1 fw-400 subtitle1">
           • {user.createdBy.fullName || "N/A"} ({user.createdBy.email || "N/A"})
-        </Typography>
+        </p>
       ) : (
-        <Typography variant="body2" color="text.secondary">
-          No creator info available.
-        </Typography>
+        <p className="text-secondary mb-1 fw-400">No creator info available.</p>
       )}
-    </Box>
+    </div>
   );
 
   return (
     <Container maxWidth="lg" className="p-0">
       <div className="parent-table p-0">
-        <div className="user-details-table table">
+        <div className="user-details-table table data-info-sidebar">
           <table>
             <tbody>
+              {/* Title Row */}
+              <tr>
+                <td colspan="2" class="section-title">
+                  Profile Information
+                </td>
+              </tr>
               {/* Profile Image */}
               <tr>
-                <td className="table-label">Profile Image</td>
-                <td>
+                <td width="30%" className="table-label">
+                  Profile Image
+                </td>
+                <td width="70%">
                   <Avatar
-                    sx={{ width: 120, height: 120 }}
+                    className="st-avtar img-fluid rounded-circle border"
+                    sx={{ width: 60, height: 60, objectFit: "cover" }}
                     src={
                       user.profilePicture
                         ? `${import.meta.env.VITE_IMAGE_URL}${
@@ -246,30 +251,44 @@ export default function UserView({ userId, onClose }) {
 
               {/* Name */}
               <tr>
-                <td className="table-label">Name</td>
-                <td>
+                <td width="30%" className="table-label">
+                  Name
+                </td>
+                <td width="70%">
                   {!user.fullName ? "N/A" : `${user.fullName || ""}`.trim()}
                 </td>
               </tr>
 
               {/* Email */}
               <tr>
-                <td className="table-label">Email</td>
-                <td style={{ wordBreak: "break-word" }}>
+                <td width="30%" className="table-label">
+                  Email
+                </td>
+                <td width="70%" style={{ wordBreak: "break-word" }}>
                   {user.email || "N/A"}
                 </td>
               </tr>
 
               {/* Mobile */}
               <tr>
-                <td className="table-label">Mobile</td>
-                <td>{formatMobileNumber(user.mobileNo)}</td>
+                <td width="30%" className="table-label">
+                  Mobile
+                </td>
+                <td width="70%">{formatMobileNumber(user.mobileNo)}</td>
               </tr>
 
+              {/* Title Row */}
+              <tr>
+                <td colspan="2" class="section-title">
+                  Account Information
+                </td>
+              </tr>
               {/* Registered On */}
               <tr>
-                <td className="table-label">Registered On</td>
-                <td>
+                <td width="30%" className="table-label">
+                  Registered On
+                </td>
+                <td width="70%">
                   {user.createdAt
                     ? new Date(user.createdAt).toLocaleDateString("en-GB", {
                         day: "2-digit",
@@ -282,8 +301,10 @@ export default function UserView({ userId, onClose }) {
 
               {/* Business Registration No */}
               <tr>
-                <td className="table-label">Business Registration No.</td>
-                <td>
+                <td width="30%" className="table-label">
+                  Business Registration No.
+                </td>
+                <td width="70%">
                   {user.bussinessRegistrationNo
                     ? formatABN(user.bussinessRegistrationNo)
                     : "N/A"}
@@ -292,16 +313,26 @@ export default function UserView({ userId, onClose }) {
 
               {/* Account Status */}
               <tr>
-                <td className="table-label">Account Status</td>
-                <td>
-                  {user.isProfileSetUp === 1 ? "Completed" : "Incomplete"}
+                <td width="30%" className="table-label">
+                  Account Status
+                </td>
+                <td width="70%">
+                  <span
+                    className={`status-badge badge ${
+                      user.isProfileSetUp === 1 ? "success-box" : "danger-box"
+                    }`}
+                  >
+                    {user.isProfileSetUp === 1 ? "Completed" : "Incomplete"}
+                  </span>
                 </td>
               </tr>
 
               {/* Created By */}
               <tr>
-                <td className="table-label">Created By</td>
-                <td>{renderCreators()}</td>
+                <td width="30%" className="table-label">
+                  Created By
+                </td>
+                <td width="70%">{renderCreators()}</td>
               </tr>
             </tbody>
           </table>

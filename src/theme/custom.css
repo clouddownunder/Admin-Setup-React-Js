@@ -1056,7 +1056,6 @@ body.remove-scroll {
 
 .table {
     border-color: var(--border-color-light);
-    padding-bottom: 3px;
 }
 
 .table table {
@@ -1307,6 +1306,8 @@ body.remove-scroll {
 .custom-modal .modal-header {
     border-bottom: 1px solid var(--border-color-light);
     padding: 16px 25px;
+    background-color: var(--primary-main);
+    color: var(--white);
 }
 
 .custom-modal .modal-body {
@@ -1332,8 +1333,8 @@ body.remove-scroll {
     height: 18px;
     padding: 6px;
     opacity: 1;
-    --bs-btn-close-color: var(--primary-main);
-    --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23D74315'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414'/%3e%3c/svg%3e");
+    --bs-btn-close-color: var(--white);
+    --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414'/%3e%3c/svg%3e");
 }
 
 .badge {
@@ -1727,8 +1728,86 @@ body.remove-scroll {
 .dialog-sidebar .MuiDrawer-paperAnchorRight {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+    max-width: 600px;
+    width: 100%;
 }
 
-.user-details-table.table table {
+.data-info-sidebar table {
     min-width: 100%;
+}
+
+.data-info-sidebar tr {
+    background-color: var(--bg-light);
+    border-color: var(--border-color-light);
+}
+
+.table tbody .MuiAvatar-root.st-avtar {
+    width: 60px;
+    height: 60px;
+}
+
+.data-info-sidebar .section-title {
+    background-color: var(--primary-lighter2);
+    color: var(--primary-main);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 10px;
+    text-align: start;
+    letter-spacing: .2px;
+    border-bottom: 1px solid var(--primary-main) !important;
+    text-transform: uppercase;
+}
+
+.data-info-sidebar table tbody tr:first-child td {
+    border-top: 0;
+}
+
+.data-info-sidebar .table-label {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.data-info-sidebar table tbody td {
+    padding: 10px 10px;
+}
+
+.data-info-sidebar .table-label,
+.data-info-sidebar .section-title,
+.data-info-sidebar table tbody td {
+    font-size: 14px;
+}
+
+.creators-row p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* status Badges  */
+.purple-box {
+    background-color: var(--purple-light);
+    color: var(--purple);
+}
+
+.blue-box {
+    background-color: var(--blue-light);
+    color: var(--blue);
+}
+
+.warning-box {
+    background: var(--warning-lighter);
+    color: var(--warning-main);
+}
+
+.error-box {
+    background: var(--error-lighter);
+    color: var(--error-main);
+}
+
+.danger-box {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.success-box {
+    background: var(--success-lighter);
+    color: var(--success-main);
 }
