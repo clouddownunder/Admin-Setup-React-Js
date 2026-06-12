@@ -212,7 +212,7 @@ export default function UserView({ userId, onClose }) {
           • {user.createdBy.fullName || "N/A"} ({user.createdBy.email || "N/A"})
         </p>
       ) : (
-        <p className="text-secondary mb-1 fw-400">No creator info available.</p>
+        <p className="text-secondary mb-1 fw-400 subtitle1">No creator info available.</p>
       )}
     </div>
   );
