@@ -887,6 +887,25 @@
 }
 
 @media (max-width: 575px) {
+    .notification-form-wrap .individual .custom-user-tag {
+        font-size: 11px;
+        padding: 2px 0px;
+        margin: 2px;
+    }
+
+    .more-tag .MuiAutocomplete-tag {
+        padding: 2px 10px;
+        font-size: 12px;
+    }
+
+    .notification-form-wrap .individual .custom-user-tag .MuiChip-deleteIcon {
+        width: 16px;
+    }
+
+    .notification-form-wrap .individual .custom-user-tag .MuiChip-label {
+        padding: 0 10px;
+    }
+
     .custom-user-listbox li.MuiAutocomplete-option {
         padding: 8px 14px;
     }
@@ -999,7 +1018,7 @@
     .page-header {
         padding: 20px 16px 0px;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 10px;
     }
 
     .page-title {
