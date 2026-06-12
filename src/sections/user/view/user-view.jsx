@@ -308,18 +308,25 @@ export default function UserPage() {
           </div> */}
 
           {/* Table Tabs */}
-          <Tabs
-            value={activeTab}
-            onChange={(e, newValue) => {
-              setActiveTab(newValue);
-              setPage(0);
-            }}
-            className="table-tabs mt-3 company-table-tabs"
-          >
-            {companyTabs.map((tab) => (
-              <Tab key={tab.value} label={tab.label} value={tab.value} />
-            ))}
-          </Tabs>
+          <div className="table-tabs-wrap">
+            <Tabs
+              value={activeTab}
+              onChange={(e, newValue) => {
+                setActiveTab(newValue);
+                setPage(0);
+              }}
+              className="table-tabs company-table-tabs"
+            >
+              {companyTabs.map((tab) => (
+                <Tab
+                  key={tab.value}
+                  label={tab.label}
+                  value={tab.value}
+                  className="tab-pane-btn"
+                />
+              ))}
+            </Tabs>
+          </div>
 
           <div className="panel-body parent-table">
             <div className="row customrow mb-3 gy-2">

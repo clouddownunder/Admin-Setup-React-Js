@@ -1781,6 +1781,51 @@ body.remove-scroll {
     margin-bottom: 0 !important;
 }
 
+/* Table Tabs CSS */
+.table-tabs-wrap .table-tabs {
+    min-height: auto;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.table-tabs .tab-pane-btn {
+    padding: 16px 20px 12px;
+    min-height: auto;
+    height: auto;
+    line-height: 1.5;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: capitalize;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+}
+
+.table-tabs .tab-pane-btn.Mui-selected {
+    /* color: var(--primary-main);
+    background-color: var(--primary-lighter2); */
+    color: var(--bs-black);
+    background-color: var(--grey-300);
+}
+
+.table-tabs .tab-pane-btn:hover {
+    /* background-color: var(--primary-lighter2);
+    color: var(--primary-main); */
+    color: var(--bs-black);
+    background-color: var(--grey-300);
+}
+
+.table-tabs-wrap .table-tabs .MuiTabs-flexContainer {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.table-tabs .MuiTabs-indicator {
+    display: none;
+}
+
 /* status Badges  */
 .purple-box {
     background-color: var(--purple-light);
