@@ -6,8 +6,6 @@ import checker from 'vite-plugin-checker';
 // ----------------------------------------------------------------------
 
 export default defineConfig({
-  base: '/Admin-Setup-React-Js/',
-
   plugins: [
     react(),
     checker({
@@ -16,7 +14,6 @@ export default defineConfig({
       },
     }),
   ],
-
   resolve: {
     alias: [
       {
@@ -29,11 +26,9 @@ export default defineConfig({
       },
     ],
   },
-
   server: {
     port: 3030,
   },
-
   preview: {
     port: 3030,
   },

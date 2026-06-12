@@ -1,5 +1,4 @@
 {
-  "homepage": "https://clouddownunder.github.io/Admin-Setup-React-Js",
   "name": "@minimal/material-kit-react",
   "author": "minimals.cc",
   "licence": "MIT",
@@ -18,9 +17,7 @@
     "re:build-npm": "npm run rm:all && npm install && npm run build",
     "dev:host": "vite --host",
     "vite:start": "vite",
-    "vite:build": "vite build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "vite:build": "vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -65,7 +62,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "gh-pages": "^6.3.0",
     "prettier": "^3.0.3",
     "vite": "^4.4.11",
     "vite-plugin-checker": "^0.6.2"
