@@ -373,6 +373,7 @@ export default function AppView() {
                               inputProps={{
                                 ...params.inputProps,
                                 className: "form-control border",
+                                readOnly: true,
                               }}
                               InputProps={{
                                 ...params.InputProps,
@@ -411,6 +412,7 @@ export default function AppView() {
                                 inputProps={{
                                   ...params.inputProps,
                                   className: "form-control border",
+                                  readOnly: true,
                                 }}
                                 InputProps={{
                                   ...params.InputProps,
@@ -447,6 +449,7 @@ export default function AppView() {
                                 inputProps={{
                                   ...params.inputProps,
                                   className: "form-control border",
+                                  readOnly: true,
                                 }}
                                 InputProps={{
                                   ...params.InputProps,

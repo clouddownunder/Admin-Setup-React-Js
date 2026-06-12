@@ -527,7 +527,8 @@ export default function NotificationDialog({
                     zIndex: 1300,
                   }}
                 >
-                  <EmojiPicker
+                  <div className="emoji-picker-wrapper">
+                  <EmojiPicker className="emojipicker-main"
                     onEmojiClick={(emojiData) => {
                       if (
                         notificationText.length + emojiData.emoji.length <=
@@ -537,6 +538,7 @@ export default function NotificationDialog({
                       }
                     }}
                   />
+                  </div>
                 </div>
               )}
             </div>
