@@ -399,7 +399,21 @@ export default function UserTableRow({
         <TableCell>{mobile ? formatMobileNumber(mobile) : "N/A"}</TableCell>
         <TableCell>{userType || "N/A"}</TableCell>
         <TableCell>
-          {profileSetup === 0 ? "Incomplete" : "Complete" || "N/A"}
+          <span
+            className={`status-badge badge ${
+              profileSetup === 0
+                ? "danger-box"
+                : profileSetup === 1
+                ? "success-box"
+                : ""
+            }`}
+          >
+            {profileSetup === 0
+              ? "Incomplete"
+              : profileSetup === 1
+              ? "Complete"
+              : "N/A"}
+          </span>
         </TableCell>
         {/* <TableCell>
           {isActive === true ? "Active" : "Inactive" || "N/A"}
