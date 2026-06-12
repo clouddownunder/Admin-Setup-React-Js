@@ -404,6 +404,7 @@ export default function ProfileEditView() {
                     <button
                       type="submit"
                       className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2 lh-base"
+                      onClick={handleProfileSubmit}
                     >
                       <span className="upload-icon">
                         <svg
@@ -433,7 +434,6 @@ export default function ProfileEditView() {
 
                       <span
                         className="profile-sub-text fw-500"
-                        onClick={handleProfileSubmit}
                       >
                         Save Profile
                       </span>
@@ -622,6 +622,7 @@ export default function ProfileEditView() {
                       <button
                         type="submit"
                         className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2 lh-base"
+                        onClick={handlePasswordSubmit}
                       >
                         <span className="upload-icon">
                           <svg
@@ -637,7 +638,6 @@ export default function ProfileEditView() {
 
                         <span
                           className="profile-sub-text fw-500"
-                          onClick={handlePasswordSubmit}
                         >
                           Change Password
                         </span>
