@@ -165,33 +165,23 @@ export default function FeedbackTableRow({
 
   return (
     <>
-      {viewDialogOpen && (
-        <>
-          <Dialog
-            className="custom-modal feedback-modal"
-            open={viewDialogOpen}
-            onClose={() => setViewDialogOpen(false)}
-            PaperProps={{}}
-          >
-            {/* Header */}
-            <div className="modal-header">
-              <h3 className="mb-0 modal-title">Feedback Details</h3>
-              <button
-                onClick={() => setViewDialogOpen(false)}
-                className="btn-close in-close"
-              ></button>
-            </div>
-
-            {/* Main Content */}
-            <div className="modal-body p-0" dividers>
-              <FeedbackView
-                userId={userId}
-                onClose={() => setViewDialogOpen(false)}
-              />
-            </div>
-          </Dialog>
-        </>
-      )}
+      {/* <Dialog
+        className="custom-modal-main"
+        open={viewDialogOpen}
+        maxWidth="sm"
+        fullWidth
+        onClose={() => setViewDialogOpen(false)}
+        PaperProps={{
+          sx: {
+            borderRadius: 2
+          }
+        }}
+      > */}
+      <FeedbackView
+        userId={userId}
+        open={viewDialogOpen}
+        onClose={() => setViewDialogOpen(false)}
+      />
       {/* <DialogActions>
           <Button onClick={() => setViewDialogOpen(false)}>Close</Button>
         </DialogActions> */}
@@ -304,16 +294,11 @@ export default function FeedbackTableRow({
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar
               alt={name}
-              src={`${
-                profilePicture
-                  ? `${import.meta.env.VITE_IMAGE_URL}${profilePicture}`
-                  : ""
-              }`}
+              src={`${profilePicture
+                ? `${import.meta.env.VITE_IMAGE_URL}${profilePicture}`
+                : ""
+                }`}
             />
-            {console.log(
-              "🚀 ~ FeedbackTableRow ~ avatarUrl:",
-              `${import.meta.env.VITE_IMAGE_URL}${profilePicture}`,
-            )}
             <Typography variant="subtitle2" noWrap>
               {name || "N/A"}
             </Typography>
@@ -323,14 +308,14 @@ export default function FeedbackTableRow({
         <TableCell>
           {addedOn
             ? new Date(addedOn).toLocaleString("en-AU", {
-                timeZone: "Australia/Sydney",
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true,
-              })
+              timeZone: "Australia/Sydney",
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            })
             : "N/A"}
         </TableCell>{" "}
         {/* <TableCell>{formatMobileNumber(countryCode, mobile) || "N/A"}</TableCell> */}

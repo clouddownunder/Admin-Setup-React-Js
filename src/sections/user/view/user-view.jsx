@@ -414,6 +414,7 @@ export default function UserPage() {
                           avatarUrl={row?.profileImage}
                           userType={row.userType}
                           suspended={row.suspended}
+                          deviceDetails={row.deviceDetails}
                           block={row.isBlocked}
                           handleClick={(event) => handleClick(event, row.name)}
                           onViewUser={() => handleViewUser(row._id)}

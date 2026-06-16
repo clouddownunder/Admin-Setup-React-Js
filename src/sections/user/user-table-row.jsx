@@ -43,6 +43,7 @@ export default function UserTableRow({
   countryCode,
   block,
   key,
+  deviceDetails,
   onUserStatusUpdated,
 }) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -251,7 +252,7 @@ export default function UserTableRow({
 
         {/* User Details */}
         <div className="modal-body">
-          <UserView userId={userId} onClose={() => setViewDialogOpen(false)} />
+          <UserView userId={userId} deviceDetails={deviceDetails} onClose={() => setViewDialogOpen(false)} />
         </div>
       </SwipeableDrawer>
       {/* Delete Dialog */}

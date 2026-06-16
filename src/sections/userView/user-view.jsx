@@ -18,12 +18,17 @@ import {
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { use } from "react";
+import appleIcon from "../../theme/images/apple.svg";
+import androidIcon from "../../theme/images/android.svg";
 
-export default function UserView({ userId, onClose }) {
+export default function UserView({ userId, onClose, deviceDetails }) {
   const theme = useTheme();
   const [user, setUser] = useState(null);
   const token = localStorage.getItem("token");
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+  const [expandedDevices, setExpandedDevices] = useState({});
+  const toggleDevice = (id) =>
+    setExpandedDevices((prev) => ({ ...prev, [id]: !prev[id] }));
 
   const formatABN = (value) => {
     if (!value) return "";
@@ -212,10 +217,17 @@ export default function UserView({ userId, onClose }) {
           • {user.createdBy.fullName || "N/A"} ({user.createdBy.email || "N/A"})
         </p>
       ) : (
-        <p className="text-secondary mb-1 fw-400 subtitle1">No creator info available.</p>
+        <p className="text-secondary mb-1 fw-400 subtitle1">
+          No creator info available.
+        </p>
       )}
     </div>
   );
+  const deviceTypeMap = {
+    1: { label: "iOS", icon: appleIcon },
+    2: { label: "Android", icon: androidIcon },
+  };
+  console.log(user, "user");
   return (
     <Container maxWidth="lg" className="p-0">
       <div className="parent-table p-0">
@@ -332,6 +344,66 @@ export default function UserView({ userId, onClose }) {
                   Created By
                 </td>
                 <td width="70%">{renderCreators()}</td>
+              </tr>
+
+              {/* Device info toggle */}
+
+              {expandedDevices[user.id] && (
+                <>
+                  <tr>
+                    <td colspan="2" class="section-title">
+                      Device Information
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-label">Device</td>
+                    <td>{deviceDetails?.mobileName || "N/A"}</td>
+                  </tr>
+
+                  <tr>
+                    <td className="table-label">Device Platform</td>
+                    <td>
+                      <span className="d-inline-flex align-items-center gap-1">
+                        {deviceTypeMap[deviceDetails?.deviceType]?.icon && (
+                          <img
+                            src={deviceTypeMap[deviceDetails.deviceType].icon}
+                            alt={deviceTypeMap[deviceDetails.deviceType].label}
+                            width="16"
+                            height="16"
+                          />
+                        )}
+                        {deviceTypeMap[deviceDetails?.deviceType]?.label ||
+                          "N/A"}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="table-label">App Version</td>
+                    <td>{deviceDetails?.versionCode || "N/A"}</td>
+                  </tr>
+
+                  <tr>
+                    <td className="table-label">OS Version</td>
+                    <td>{deviceDetails?.osVersion || "N/A"}</td>
+                  </tr>
+                </>
+              )}
+              <tr>
+                <td colSpan="2" style={{ paddingBottom: 6 }}>
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      textDecoration: "underline",
+                      color: "#d74315",
+                    }}
+                    onClick={() => toggleDevice(userId)}
+                  >
+                    {expandedDevices[userId] ? "Device Info" : "Device Info"}
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
