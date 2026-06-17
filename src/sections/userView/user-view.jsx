@@ -29,7 +29,9 @@ export default function UserView({ userId, onClose, deviceDetails }) {
   const [expandedDevices, setExpandedDevices] = useState({});
   const toggleDevice = (id) =>
     setExpandedDevices((prev) => ({ ...prev, [id]: !prev[id] }));
-
+  const IMG = import.meta.env.VITE_IMAGE_URL;
+  const avatarSrc = (url) => (url ? `${IMG}${url}` : undefined);
+   
   const formatABN = (value) => {
     if (!value) return "";
 
@@ -246,17 +248,24 @@ export default function UserView({ userId, onClose, deviceDetails }) {
                   Profile Image
                 </td>
                 <td width="70%">
-                  <Avatar
-                    className="st-avtar img-fluid rounded-circle border"
-                    sx={{ width: 60, height: 60, objectFit: "cover" }}
-                    src={
-                      user.profilePicture
-                        ? `${import.meta.env.VITE_IMAGE_URL}${
-                            user.profilePicture
-                          }`
-                        : ""
-                    }
-                  />
+                  <a
+                    href={avatarSrc(user.profilePicture)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Avatar
+                      className="st-avtar img-fluid rounded-circle border"
+                      sx={{ width: 60, height: 60, objectFit: "cover" }}
+                      src={
+                        user.profilePicture
+                          ? `${import.meta.env.VITE_IMAGE_URL}${
+                              user.profilePicture
+                            }`
+                          : ""
+                      }
+                    />
+                  </a>
                 </td>
               </tr>
 

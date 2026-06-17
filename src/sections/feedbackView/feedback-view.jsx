@@ -18,6 +18,8 @@ export default function FeedbackView({ userId, open, onClose }) {
   const [expandedDevices, setExpandedDevices] = useState({});
   const toggleDevice = (id) =>
     setExpandedDevices((prev) => ({ ...prev, [id]: !prev[id] }));
+  const IMG = import.meta.env.VITE_IMAGE_URL;
+  const avatarSrc = (url) => (url ? `${IMG}${url}` : undefined);
   const [user, setUser] = useState(null);
   const token = localStorage.getItem("token");
 
@@ -137,12 +139,19 @@ export default function FeedbackView({ userId, open, onClose }) {
                 <tr>
                   <td width="35%" className="table-label">Profile Image</td>
                   <td width="65%">
+                  <a
+                    href={avatarSrc(user.profilePicture)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ cursor: "pointer" }}
+                  >
                     <Avatar
                       src={user.profilePicture ? `${IMG}${user.profilePicture}` : undefined}
                       sx={{ width: 52, height: 52 }}
                     >
                       {user.firstName?.[0]}
                     </Avatar>
+                    </a>
                   </td>
                 </tr>
 
