@@ -172,7 +172,7 @@ export default function LoginView() {
 
         <Card className="login-cardm1">
           <div className="mb-3">
-            <h2 className="fw-bold h4 mb-1">Login</h2>
+            <h2 className="fw-bold h4 mb-2">Login</h2>
             <p className="text-muted subtitle1 mb-0">
               {" "}
               Please enter your detail to login in your account{" "}

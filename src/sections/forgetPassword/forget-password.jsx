@@ -76,7 +76,7 @@ export default function ForgotPasswordView() {
         />
         <Card className="login-cardm1">
           <div className="mb-3">
-            <h2 className="fw-bold h4 mb-1">Forgot Password</h2>
+            <h2 className="fw-bold h4 mb-2">Forgot Password</h2>
             <p className="text-muted subtitle1 mb-0">
               {" "}
               Enter your registered email address and we’ll send you a reset
