@@ -42,31 +42,58 @@ export default function NotificationsManagement() {
   const [orderBy, setOrderBy] = useState("name");
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [totalNotifications, setTotalNotifications] = useState(0);
 
   const token = localStorage.getItem("token");
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      setUsers([]);
 
       const response = await axios.get(
         `${import.meta.env.VITE_API_BASEURL}/auth/getAllNotifications`,
         {
-          headers: { Authorization: `Bearer ${token}` },
-        },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            page: page + 1,
+            limit: rowsPerPage,
+            search: filterName,
+          },
+        }
       );
 
-      const data = response.data.message || []; // <-- fix here
+      const payload = response.data.message;
 
-      setUsers(Array.isArray(data) ? data : []);
-      setPage(0);
+      setUsers(payload?.data || []);
+      setTotalNotifications(payload?.total || 0);
+
     } catch (error) {
       console.error("Error fetching notifications:", error);
       setUsers([]);
+      setTotalNotifications(0);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("notificationsbackPage", page);
+    localStorage.setItem("notificationsRowsPerPage", rowsPerPage);
+    localStorage.setItem("notificationsFilterType", filterType);
+    localStorage.setItem("notificationsSearchText", filterName);
+  }, [page, rowsPerPage, filterType, filterName]);
+
+  useEffect(() => {
+
+    fetchUsers();
+
+  }, [
+    token,
+    page,
+    rowsPerPage,
+    filterName
+  ]);
 
   const TableSkeletonRows = ({ rows = 5 }) => {
     return [...Array(rows)].map((_, index) => (
@@ -80,16 +107,7 @@ export default function NotificationsManagement() {
     ));
   };
 
-  useEffect(() => {
-    localStorage.setItem("notificationsbackPage", page);
-    localStorage.setItem("notificationsRowsPerPage", rowsPerPage);
-    localStorage.setItem("notificationsFilterType", filterType);
-    localStorage.setItem("notificationsSearchText", filterName);
-  }, [page, rowsPerPage, filterType, filterName]);
 
-  useEffect(() => {
-    fetchUsers();
-  }, [token, filterType]);
 
   // const handleSort = (event, id) => {
   //   const sortableFields = ["name", "email", "mobile"];
@@ -206,14 +224,10 @@ export default function NotificationsManagement() {
   //     }
   //   };
   const handleViewUser = (userId) => {
-    Navigate(`/dashboard/view/${userId}`);
+    Navigate(`/view/${userId}`);
   };
 
-  const dataFiltered = applyFilter({
-    inputData: users,
-    // comparator: getComparator(order, orderBy),
-    filterName,
-  });
+  const dataFiltered = users;
 
   const notFound = !dataFiltered.length;
 
@@ -282,10 +296,10 @@ export default function NotificationsManagement() {
                     className="custom-pagination remove-buttons"
                     page={page}
                     component="div"
-                    count={dataFiltered.length}
+                    count={totalNotifications}
                     rowsPerPage={rowsPerPage}
                     onPageChange={handleChangePage}
-                    rowsPerPageOptions={[5, 10]}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     SelectProps={{
                       IconComponent: CustomRedArrowIcon,
@@ -339,38 +353,33 @@ export default function NotificationsManagement() {
                   {loading && <TableSkeletonRows rows={rowsPerPage} />}
 
                   {!loading &&
-                    dataFiltered
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage,
-                      )
-                      .map((row) => (
-                        <FaqTableRow
-                          key={row.id}
-                          name={
-                            row?.userId?.firstName + " " + row?.userId?.lastName
-                          }
-                          notificationType={row?.notificationType}
-                          text={row?.text}
-                          fullName={row?.user?.fullName}
-                          email={row?.user?.email}
-                          status={row?.status}
-                          countryCode={row?.user?.countryCode}
-                          mobile={row?.user?.phone}
-                          feedback={row?.feedback}
-                          addedOn={row?.date}
-                          userId={row._id}
-                          avatarUrl={row?.user?.profilePicture}
-                          userType={row.userType}
-                          suspended={row.suspended}
-                          block={row.isBlocked}
-                          handleClick={(event) => handleClick(event, row.name)}
-                          onViewUser={() => handleViewUser(row._id)}
-                          onUserDeleted={() => fetchUsers()}
-                          onSuspendedUser={() => fetchUsers()}
-                          onUserStatusUpdated={() => fetchUsers()}
-                        />
-                      ))}
+                    dataFiltered.map((row) => (
+                      <FaqTableRow
+                        key={row.id}
+                        name={
+                          row?.userId?.firstName + " " + row?.userId?.lastName
+                        }
+                        notificationType={row?.notificationType}
+                        text={row?.text}
+                        fullName={row?.user?.fullName}
+                        email={row?.user?.email}
+                        status={row?.status}
+                        countryCode={row?.user?.countryCode}
+                        mobile={row?.user?.phone}
+                        feedback={row?.feedback}
+                        addedOn={row?.date}
+                        userId={row._id}
+                        avatarUrl={row?.user?.profilePicture}
+                        userType={row.userType}
+                        suspended={row.suspended}
+                        block={row.isBlocked}
+                        handleClick={(event) => handleClick(event, row.name)}
+                        onViewUser={() => handleViewUser(row._id)}
+                        onUserDeleted={() => fetchUsers()}
+                        onSuspendedUser={() => fetchUsers()}
+                        onUserStatusUpdated={() => fetchUsers()}
+                      />
+                    ))}
 
                   {!loading && notFound && <TableNoData query={queryText} />}
 
@@ -392,7 +401,7 @@ export default function NotificationsManagement() {
             <TablePagination
               className="custom-pagination pagination-buttons"
               component="div"
-              count={dataFiltered.length}
+              count={totalNotifications}
               page={page}
               rowsPerPage={rowsPerPage}
               onPageChange={handleChangePage}

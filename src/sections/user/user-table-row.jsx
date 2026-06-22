@@ -35,7 +35,7 @@ export default function UserTableRow({
   handleClick,
   onViewUser,
   onUserDeleted,
-  profileSetup,
+  isProfileSetUp,
   userId,
   userType,
   suspended,
@@ -44,6 +44,7 @@ export default function UserTableRow({
   block,
   key,
   deviceDetails,
+  createdAt,
   onUserStatusUpdated,
 }) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -400,24 +401,25 @@ export default function UserTableRow({
         <TableCell>{email || "N/A"}</TableCell>
         <TableCell>{createdBy || "N/A"}</TableCell>
         <TableCell>{mobile ? formatMobileNumber(mobile) : "N/A"}</TableCell>
-        <TableCell>{userType || "N/A"}</TableCell>
+        {/* <TableCell>{userType || "N/A"}</TableCell> */}
         <TableCell>
           <span
             className={`status-badge badge ${
-              profileSetup === 0
+              isProfileSetUp === 0
                 ? "danger-box"
-                : profileSetup === 1
+                : isProfileSetUp === 1
                 ? "success-box"
                 : ""
             }`}
           >
-            {profileSetup === 0
+            {isProfileSetUp === 0
               ? "Incomplete"
-              : profileSetup === 1
+              : isProfileSetUp === 1
               ? "Complete"
               : "N/A"}
           </span>
         </TableCell>
+        <TableCell>{createdAt || "N/A"}</TableCell>
         {/* <TableCell>
           {isActive === true ? "Active" : "Inactive" || "N/A"}
         </TableCell>
