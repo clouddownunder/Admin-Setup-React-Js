@@ -18,6 +18,7 @@ import { emptyRows, applyFilter } from "../utils";
 import dayjs from "dayjs";
 import NotificationDialog from "../../notificationView/NotificationDialog";
 import { Skeleton, TableRow, TableCell } from "@mui/material";
+import Swal from "sweetalert2";
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +40,7 @@ export default function NotificationsManagement() {
   );
   const [order, setOrder] = useState("desc");
   const [selected, setSelected] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
   const [orderBy, setOrderBy] = useState("name");
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
@@ -60,14 +62,13 @@ export default function NotificationsManagement() {
             limit: rowsPerPage,
             search: filterName,
           },
-        }
+        },
       );
 
       const payload = response.data.message;
 
       setUsers(payload?.data || []);
       setTotalNotifications(payload?.total || 0);
-
     } catch (error) {
       console.error("Error fetching notifications:", error);
       setUsers([]);
@@ -85,15 +86,8 @@ export default function NotificationsManagement() {
   }, [page, rowsPerPage, filterType, filterName]);
 
   useEffect(() => {
-
     fetchUsers();
-
-  }, [
-    token,
-    page,
-    rowsPerPage,
-    filterName
-  ]);
+  }, [token, page, rowsPerPage, filterName]);
 
   const TableSkeletonRows = ({ rows = 5 }) => {
     return [...Array(rows)].map((_, index) => (
@@ -106,8 +100,6 @@ export default function NotificationsManagement() {
       </TableRow>
     ));
   };
-
-
 
   // const handleSort = (event, id) => {
   //   const sortableFields = ["name", "email", "mobile"];
@@ -132,6 +124,17 @@ export default function NotificationsManagement() {
       return;
     }
     setSelected([]);
+  };
+  const handleSelectAllClickBox = (event) => {
+    if (event.target.checked) {
+      console.log("checked", users);
+      const allIds = users.map((row) => row.id);
+      console.log("allIds", allIds);
+
+      setSelectedRows(allIds);
+    } else {
+      setSelectedRows([]);
+    }
   };
 
   const handleClick = (event, name) => {
@@ -271,10 +274,60 @@ export default function NotificationsManagement() {
     </svg>
   );
 
+  const handleDeselectAll = () => {
+    setSelectedRows([]);
+  };
+  const handleDeleteSelected = async () => {
+    console.log("Selected IDs:", selectedRows);
+
+    // Call your delete API here
+
+    // Example:
+    // await axios.post(
+    //   `${import.meta.env.VITE_API_BASEURL}/auth/deleteNotifications`,
+    //   { ids: selectedRows },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+
+    fetchUsers();
+    // setSelectedRows([]);
+  };
+
+  const handleDeleteConfirmation = async (userId, userName) => {
+    const result = await Swal.fire({
+      title: "Confirm Delete",
+      html: `Are you sure you want to delete <strong>${userName}</strong>?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "No",
+      reverseButtons: true,
+      customClass: {
+        container: "logout-swal-container", // parent wrapper
+        popup: "logout-swal-popup", // main modal
+        title: "logout-swal-title",
+        htmlContainer: "logout-swal-text",
+        icon: "logout-swal-icon",
+        confirmButton: "logout-swal-confirm btn btn-primary",
+        cancelButton: "logout-swal-cancel btn btn-lighter-grey",
+      },
+    });
+
+    // if (result.isConfirmed) {
+    //   handleDeleteUserConfirm(userId);
+    // }
+  };
+  // const handleCloseMenu = () => {
+  //   setOpen(null);
+  // };
   return (
     <>
       <div className="page-header">
-        <h1 className="page-title mb-0">Send Notification</h1>
+        <h1 className="page-title mb-0">Notifications</h1>
         <button
           className="btn btn-primary"
           onClick={() => setFaqDialogOpen(true)}
@@ -286,6 +339,30 @@ export default function NotificationsManagement() {
         <div className="panel">
           <div className="panel-heading">
             <h3 className="panel-title">All Notifications</h3>
+            <div className="d-flex align-items-center">
+              {selectedRows.length > 0 && (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-danger delete-selected-notifications"
+                    onClick={() => {
+                      // handleCloseMenu();
+                      handleDeleteConfirmation();
+                    }}
+                  >
+                    Delete Notifications
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-secondary deselect-all-notifications ms-2"
+                    onClick={handleDeselectAll}
+                  >
+                    Deselect All
+                  </button>
+                </>
+              )}
+            </div>
           </div>
 
           <div className="panel-body parent-table">
@@ -337,20 +414,44 @@ export default function NotificationsManagement() {
                   // onRequestSort={handleSort}
                   onSelectAllClick={handleSelectAllClick}
                   headLabel={[
-                    { id: "fullName", label: "Send To" },
+                    {
+                      id: "select",
+                      label: (
+                        <input
+                          type="checkbox"
+                          id="select-all-notifications"
+                          className="form-check-input ms-2 me-3"
+                          checked={
+                            users.length > 0 &&
+                            selectedRows.length === users.length
+                          }
+                          onChange={handleSelectAllClickBox}
+                        />
+                      ),
+                      className: "checkbox-col",
+                    },
                     {
                       id: "notificationType",
                       label: "Notification Type",
                     },
-                    { id: "text", label: "Notification Text" },
+                    { id: "text", label: "Message" },
+                    { id: "fullName", label: "Send To" },
                     // { id: "createdAt", label: "Added On" },
                     // { id: "status", label: "Status" },
                     // { id: "suspended", label: "Suspend" },
-                    // { id: "feedback", label: "Feedback" },
+                    {
+                      id: "date",
+                      label: "Sent On",
+                    },
+                    { id: "action", label: "Actions" },
                   ]}
                 />
                 <TableBody>
-                  {loading && <TableSkeletonRows rows={rowsPerPage} />}
+                  {loading && (
+                    <div className="custom-loader">
+                      <div className="loader"></div>
+                    </div>
+                  )}
 
                   {!loading &&
                     dataFiltered.map((row) => (
@@ -374,10 +475,21 @@ export default function NotificationsManagement() {
                         suspended={row.suspended}
                         block={row.isBlocked}
                         handleClick={(event) => handleClick(event, row.name)}
+                        date={row.date}
                         onViewUser={() => handleViewUser(row._id)}
                         onUserDeleted={() => fetchUsers()}
                         onSuspendedUser={() => fetchUsers()}
                         onUserStatusUpdated={() => fetchUsers()}
+                        isChecked={selectedRows.includes(row.id)}
+                        onCheckboxChange={(checked) => {
+                          if (checked) {
+                            setSelectedRows((prev) => [...prev, row.id]);
+                          } else {
+                            setSelectedRows((prev) =>
+                              prev.filter((id) => id !== row.id),
+                            );
+                          }
+                        }}
                       />
                     ))}
 
@@ -415,18 +527,13 @@ export default function NotificationsManagement() {
               }
             />
 
-            {faqDialogOpen && (
-              <>
-                <NotificationDialog
-                  open={faqDialogOpen}
-                  onClose={() => setFaqDialogOpen(false)}
-                  onSuccess={() => {
-                    setFaqDialogOpen(false);
-                    fetchUsers();
-                  }}
-                />
-              </>
-            )}
+            <NotificationDialog
+              open={faqDialogOpen}
+              onClose={() => setFaqDialogOpen(false)}
+              onSuccess={() => {
+                fetchUsers();
+              }}
+            />
           </div>
         </div>
       </div>

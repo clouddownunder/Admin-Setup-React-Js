@@ -14,29 +14,23 @@ import { visuallyHidden } from "./utils";
 export default function FaqTableHead({
   order,
   orderBy,
-  rowCount,
   headLabel,
   numSelected,
   onRequestSort,
   onSelectAllClick,
 }) {
   const onSort = (property) => (event) => {
-    onRequestSort(event, property);
+    if (typeof onRequestSort === "function") {
+      onRequestSort(event, property);
+    }
   };
 
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-          />
-        </TableCell> */}
-
-        {headLabel.map((headCell) => (
+        {headLabel.map((headCell, index) => (
           <TableCell
+            className={index === 0 ? "checkbox-col" : ""}
             classes={{
               root: "dt-column-ordering",
             }}
@@ -74,7 +68,6 @@ export default function FaqTableHead({
 FaqTableHead.propTypes = {
   order: PropTypes.oneOf(["asc", "desc"]),
   orderBy: PropTypes.string,
-  rowCount: PropTypes.number,
   headLabel: PropTypes.array,
   numSelected: PropTypes.number,
   onRequestSort: PropTypes.func,

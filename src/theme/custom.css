@@ -297,7 +297,7 @@
 
 .sidebar-menu .site-menu-title {
     padding-left: 16px;
-    font-weight: 500;
+    font-weight: 300;
     font-size: 16px;
     line-height: normal;
     color: var(--text-primary);
@@ -601,6 +601,37 @@ body.remove-scroll {
     font-size: 16px;
 }
 
+/* CheckBox CSS */
+.form-check-input {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-color: var(--border-color-light);
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-main);
+    border-color: var(--primary-main);
+}
+
+.form-check-input[type=checkbox]:indeterminate {
+    background-color: var(--primary-main);
+    border-color: var(--primary-main);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-main);
+    box-shadow: 0 0 0 .25rem var(--primary-lighter);
+}
+
+table .checkbox-col {
+    min-width: fit-content !important;
+}
 
 /* =========================================================
    Dashboard 
@@ -1055,7 +1086,6 @@ body.remove-scroll {
 
 
 /* Common Table CSS */
-
 .table {
     border-color: var(--border-color-light);
 }
@@ -1071,12 +1101,13 @@ body.remove-scroll {
     color: var(--text-secondary);
     background-color: var(--bg-light);
     min-width: 150px;
+    letter-spacing: .3px;
 }
 
 .table tbody td,
 .table tbody .MuiTableCell-root,
 .table tbody .MuiTableCell-root .MuiTypography-subtitle2 {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
     color: var(--text-primary);
 }
@@ -1918,4 +1949,135 @@ body.remove-scroll {
 .success-box {
     background: var(--success-lighter);
     color: var(--success-main);
+}
+
+
+/* Summary Box Styles */
+.summary-box {
+    background: var(--white);
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.summary-box.success-box {
+    border-color: #198754 !important;
+    background: linear-gradient(135deg, #f8fff9 0%, #fff 100%);
+}
+
+.summary-box.failed-box {
+    border-color: var(--danger) !important;
+    background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+}
+
+.summary-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.summary-icon {
+    opacity: 0.9;
+}
+
+.summary-count {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.summary-label {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    margin-top: 4px;
+}
+
+/* Notification Recipients  */
+.total-recipients {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recipients-svg {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-lighter);
+}
+
+.parent-table .view-recipients-wrapper {
+    cursor: pointer;
+    color: var(--blue);
+    margin-left: 4px;
+}
+
+.view-recipients-modal table {
+    min-width: auto;
+}
+
+.parent-table table h6 {
+    text-overflow: unset;
+    white-space: normal;
+}
+
+.select-user-col {
+    min-width: 200px;
+}
+
+.view-recipients-modal .modal-body {
+    background-color: var(--white);
+}
+
+/* Custom Loader CSS */
+.custom-loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    background: rgba(15, 23, 42, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.loader {
+    height: 50px;
+    width: 50px;
+    background: transparent;
+    border: red 3px solid;
+    border-top: transparent;
+    border-radius: 50%;
+    animation: spinLoader 0.8s linear infinite;
+    -webkit-animation: spinLoader 0.8s linear infinite;
+}
+
+@keyframes spinLoader {
+    0% {
+        border: 3px solid var(--primary-main);
+        border-top: transparent;
+        border-left: transparent;
+        transform: rotate(0deg);
+    }
+
+    50% {
+        border: 3px dashed var(--primary-main);
+        border-top: transparent;
+        border-left: transparent;
+        transform: rotate(270deg);
+    }
+
+    100% {
+        border: 3px dotted var(--primary-main);
+        border-top: transparent;
+        border-left: transparent;
+        transform: rotate(360deg);
+    }
 }

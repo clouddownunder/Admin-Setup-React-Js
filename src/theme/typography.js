@@ -22,7 +22,7 @@ export function responsiveFontSizes({ sm, md, lg }) {
   };
 }
 
-export const primaryFont = 'Public Sans';
+export const primaryFont = 'Roboto';
 export const secondaryFont = 'Barlow';
 
 // ----------------------------------------------------------------------

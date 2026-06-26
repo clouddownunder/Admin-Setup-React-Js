@@ -225,7 +225,7 @@ export default function UserTableRow({
   return (
     <>
       <SwipeableDrawer
-        className="custom-modal dialog-sidebar"
+        className="custom-modal dialog-sidebar modal-dialog-slideout modal-dialog-scrollable"
         anchor="right"
         open={viewDialogOpen}
         onClose={() => setViewDialogOpen(false)}
@@ -253,7 +253,11 @@ export default function UserTableRow({
 
         {/* User Details */}
         <div className="modal-body">
-          <UserView userId={userId} deviceDetails={deviceDetails} onClose={() => setViewDialogOpen(false)} />
+          <UserView
+            userId={userId}
+            deviceDetails={deviceDetails}
+            onClose={() => setViewDialogOpen(false)}
+          />
         </div>
       </SwipeableDrawer>
       {/* Delete Dialog */}
@@ -398,9 +402,13 @@ export default function UserTableRow({
             </Typography>
           </Stack>
         </TableCell>
+
         <TableCell>{email || "N/A"}</TableCell>
+
         <TableCell>{createdBy || "N/A"}</TableCell>
+
         <TableCell>{mobile ? formatMobileNumber(mobile) : "N/A"}</TableCell>
+
         {/* <TableCell>{userType || "N/A"}</TableCell> */}
         <TableCell>
           <span
@@ -419,10 +427,13 @@ export default function UserTableRow({
               : "N/A"}
           </span>
         </TableCell>
+
         <TableCell>{createdAt || "N/A"}</TableCell>
+
         {/* <TableCell>
           {isActive === true ? "Active" : "Inactive" || "N/A"}
         </TableCell>
+
         <TableCell>
           <Box sx={{ ml: -1 }}>
             <Switch
@@ -452,6 +463,7 @@ export default function UserTableRow({
             "N/A"
           )}
         </TableCell> */}
+
         <TableCell align="left">
           {/* <IconButton onClick={(e) => setOpen(e.currentTarget)}>
             <Iconify icon="eva:more-vertical-fill" />
