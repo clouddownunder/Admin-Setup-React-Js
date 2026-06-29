@@ -41,54 +41,36 @@ export default function FeedbackPage() {
   const token = localStorage.getItem("token");
   const [totalUsers, setTotalUsers] = useState(0);
   const fetchUsers = async () => {
-
     try {
-
       setLoading(true);
-
 
       const response = await axios.get(
         `${import.meta.env.VITE_API_BASEURL}/auth/getFeedback`,
         {
-
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
 
-
           params: {
-
             filter: filterType,
 
             page: page + 1,
 
             limit: rowsPerPage,
 
-            search: filterName
-
-          }
-
-        }
+            search: filterName,
+          },
+        },
       );
-
 
       setUsers(response.data.data.data);
 
       setTotalUsers(response.data.data.total);
-
-
-    }
-    catch (error) {
-
+    } catch (error) {
       console.log(error);
-
-    }
-    finally {
-
+    } finally {
       setLoading(false);
-
     }
-
   };
 
   const TableSkeletonRows = ({ rows = 5 }) => {
@@ -110,15 +92,8 @@ export default function FeedbackPage() {
   }, [page, rowsPerPage, filterType, filterName]);
 
   useEffect(() => {
-
     fetchUsers();
-
-  }, [
-    page,
-    rowsPerPage,
-    filterType,
-    filterName
-  ]);
+  }, [page, rowsPerPage, filterType, filterName]);
   // const handleSort = (event, id) => {
   //   const sortableFields = ["name", "email", "mobile"];
   //   if (!sortableFields.includes(id)) return;
@@ -399,25 +374,28 @@ export default function FeedbackPage() {
                     ]}
                   />
                   <TableBody>
-                    {loading && <TableSkeletonRows rows={rowsPerPage} />}
+                    {loading && (
+                      <div className="custom-loader">
+                        <div className="loader"></div>
+                      </div>
+                    )}
 
                     {!loading &&
-                      dataFiltered
-                        .map((user) => (
-                          <FeedbackTableRow
-                            key={user.userId}
-                            name={`${user.firstName} ${user.lastName}`}
-                            email={user.email}
-                            feedbackCount={user.totalFeedbacks}
-                            addedOn={
-                              user.feedbacks?.length
-                                ? user.feedbacks[0].dateTime
-                                : null
-                            }
-                            profilePicture={user.profilePicture}
-                            userId={user.userId}
-                          />
-                        ))}
+                      dataFiltered.map((user) => (
+                        <FeedbackTableRow
+                          key={user.userId}
+                          name={`${user.firstName} ${user.lastName}`}
+                          email={user.email}
+                          feedbackCount={user.totalFeedbacks}
+                          addedOn={
+                            user.feedbacks?.length
+                              ? user.feedbacks[0].dateTime
+                              : null
+                          }
+                          profilePicture={user.profilePicture}
+                          userId={user.userId}
+                        />
+                      ))}
 
                     {!loading && notFound && <TableNoData query={queryText} />}
 
