@@ -366,7 +366,7 @@ export default function NotificationsManagement() {
           </div>
 
           <div className="panel-body parent-table">
-            <div className="row customrow mb-3 gy-2">
+            <div className="row customrow mb-3 gy-2 p-0">
               <div className="col1">
                 <div className="show-page-row">
                   <TablePagination
@@ -378,6 +378,7 @@ export default function NotificationsManagement() {
                     onPageChange={handleChangePage}
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                    labelRowsPerPage="Show:"
                     SelectProps={{
                       IconComponent: CustomRedArrowIcon,
                       MenuProps: {
@@ -390,6 +391,8 @@ export default function NotificationsManagement() {
                       },
                     }}
                   />
+                  <span className="ms-2 customtext">entries</span>
+
                 </div>
               </div>
               <div className="col1">

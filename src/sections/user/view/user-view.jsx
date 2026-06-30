@@ -184,7 +184,7 @@ export default function ConstructionView() {
           <Box className="panel-body parent-table">
             {/* Top row: rows-per-page + search */}
             <div
-              className="row customrow mb-3 gy-2"
+              className="row customrow mb-3 gy-2 p-0"
               style={{ padding: "0 16px", paddingTop: "16px" }}
             >
               <div className="col1">
@@ -198,6 +198,7 @@ export default function ConstructionView() {
                     onPageChange={handleChangePage}
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                    labelRowsPerPage="Show:"
                     SelectProps={{
                       IconComponent: CustomRedArrowIcon,
                       MenuProps: {
@@ -210,6 +211,7 @@ export default function ConstructionView() {
                       },
                     }}
                   />
+                  <span className="ms-2 customtext">entries</span>
                 </div>
               </div>
               <div className="col1">

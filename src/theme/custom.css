@@ -1211,9 +1211,20 @@ table .checkbox-col {
     min-height: auto;
 }
 
-.show-page-row .custom-pagination .MuiTablePagination-selectLabel {
+.show-page-row .custom-pagination .MuiTablePagination-selectLabel,
+.show-page-row .customtext {
     margin-bottom: 0;
     color: var(--grey-700);
+    line-height: 1;
+}
+
+.show-page-row .MuiTablePagination-input {
+    margin-right: 0;
+}
+
+.show-page-row {
+    display: inline-flex;
+    align-items: center;
 }
 
 .rows-per-page-menu .rows-per-page-menu-list {
@@ -2080,4 +2091,22 @@ table .checkbox-col {
         border-left: transparent;
         transform: rotate(360deg);
     }
+}
+
+/* Setting Page */
+.setting-page .input-group-text {
+    font-size: 16px;
+    color: var(--primary-main);
+    background: var(--primary-lighter);
+    border: 1px solid #D8DADC;
+    padding: 8px 16px;
+    border-radius: 0 10px 10px 0;
+    -webkit-border-radius: 0 10px 10px 0;
+    -moz-border-radius: 0 10px 10px 0;
+    -ms-border-radius: 0 10px 10px 0;
+    -o-border-radius: 0 10px 10px 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
 }

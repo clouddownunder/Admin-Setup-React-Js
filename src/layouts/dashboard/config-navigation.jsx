@@ -30,6 +30,11 @@ const navConfig = [
     path: "/dashboard/notifications",
     icon: icon("ic_notification"),
   },
+  {
+    title: "settings",
+    path: "/dashboard/settings",
+    icon: icon("ic_setting"),
+  },
   //  {
   //   title: "detail",
   //   path: "/dashboard/detail",

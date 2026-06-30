@@ -22,8 +22,8 @@ export function responsiveFontSizes({ sm, md, lg }) {
   };
 }
 
-export const primaryFont = 'Roboto';
-export const secondaryFont = 'Barlow';
+export const primaryFont = 'Roboto, sans-serif';
+export const secondaryFont = 'Roboto, sans-serif';
 
 // ----------------------------------------------------------------------
 

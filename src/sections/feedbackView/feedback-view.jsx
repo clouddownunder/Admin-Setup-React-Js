@@ -226,12 +226,12 @@ export default function FeedbackView({ userId, open, onClose }) {
                           {expandedDevices[fb.id] && (
                             <>
                               <tr>
-                                <td className="table-label">Device</td>
+                                <td className="table-label">Device Name</td>
                                 <td>{fb.deviceInfo?.mobileName || "N/A"}</td>
                               </tr>
 
                               <tr>
-                                <td className="table-label">Device Platform</td>
+                                <td className="table-label">Device Type</td>
                                 <td>
                                   <span className="d-inline-flex align-items-center gap-1">
                                     {deviceTypeMap[fb.deviceInfo?.deviceType]?.icon && (
@@ -246,15 +246,25 @@ export default function FeedbackView({ userId, open, onClose }) {
                                   </span>
                                 </td>
                               </tr>
+                          
+                              <tr>
+                                <td className="table-label">OS Version</td>
+                                <td>{fb.deviceInfo?.osVersion || "N/A"}</td>
+                              </tr>
 
                               <tr>
-                                <td className="table-label">App Version</td>
+                                <td className="table-label">Version Code</td>
                                 <td>{fb.deviceInfo?.versionCode || "N/A"}</td>
                               </tr>
 
                               <tr>
-                                <td className="table-label">OS Version</td>
-                                <td>{fb.deviceInfo?.osVersion || "N/A"}</td>
+                                <td className="table-label">App Environment</td>
+                                <td>{fb.deviceInfo?.appEnvironment || "N/A"}</td>
+                              </tr>
+
+                              <tr>
+                                <td className="table-label">Server Environment</td>
+                                <td>{fb.deviceInfo?.serverEnvironment || "N/A"}</td>
                               </tr>
                             </>
                           )}

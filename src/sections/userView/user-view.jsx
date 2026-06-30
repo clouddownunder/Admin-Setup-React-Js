@@ -365,12 +365,12 @@ export default function UserView({ userId, onClose, deviceDetails }) {
                     </td>
                   </tr>
                   <tr>
-                    <td className="table-label">Device</td>
+                    <td className="table-label">Device Name</td>
                     <td>{deviceDetails?.mobileName || "N/A"}</td>
                   </tr>
 
                   <tr>
-                    <td className="table-label">Device Platform</td>
+                    <td className="table-label">Device Type</td>
                     <td>
                       <span className="d-inline-flex align-items-center gap-1">
                         {deviceTypeMap[deviceDetails?.deviceType]?.icon && (
@@ -388,13 +388,23 @@ export default function UserView({ userId, onClose, deviceDetails }) {
                   </tr>
 
                   <tr>
-                    <td className="table-label">App Version</td>
+                    <td className="table-label">OS Version</td>
+                    <td>{deviceDetails?.osVersion || "N/A"}</td>
+                  </tr>
+
+                  <tr>
+                    <td className="table-label">Version Code</td>
                     <td>{deviceDetails?.versionCode || "N/A"}</td>
                   </tr>
 
                   <tr>
-                    <td className="table-label">OS Version</td>
-                    <td>{deviceDetails?.osVersion || "N/A"}</td>
+                    <td className="table-label">App Environment</td>
+                    <td>{deviceDetails?.appEnvironment || "N/A"}</td>
+                  </tr>
+
+                  <tr>
+                    <td className="table-label">Server Environment</td>
+                    <td>{deviceDetails?.serverEnvironment || "N/A"}</td>
                   </tr>
                 </>
               )}

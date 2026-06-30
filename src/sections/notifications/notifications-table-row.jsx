@@ -336,6 +336,7 @@ export default function FaqTableRow({
         open={viewRecipientsOpen}
         onClick={handleCloseRecipients}
         className="custom-modal view-recipients-modal modal-dialog modal-dialog-slideout modal-dialog-scrollable"
+        data-bs-backdrop="static"
       >
         <div className="modal-content">
           {/* Header */}

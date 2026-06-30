@@ -959,6 +959,10 @@
 }
 
 @media (max-width: 575px) {
+    .form-group {
+        margin-bottom: 16px;
+    }
+
     .summary-label {
         font-size: 12px;
     }

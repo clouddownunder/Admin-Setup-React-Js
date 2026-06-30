@@ -15,7 +15,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import ThemeProvider from "src/theme";
 
 import App from "./app";
-axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
  
 // ======================================================
 // APP VERSION CACHE RESET
