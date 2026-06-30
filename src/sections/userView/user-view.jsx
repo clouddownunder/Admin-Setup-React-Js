@@ -292,7 +292,7 @@ export default function UserView({ userId, onClose, deviceDetails }) {
               {/* Mobile */}
               <tr>
                 <td width="30%" className="table-label">
-                  Mobile
+                  Phone Number
                 </td>
                 <td width="70%">{formatMobileNumber(user.mobileNo)}</td>
               </tr>

@@ -235,7 +235,7 @@ export default function ConstructionView() {
                     { id: "name", label: "Name" },
                     { id: "email", label: "Email" },
                     { id: "createdBy", label: "Created By" },
-                    { id: "mobile", label: "Mobile" },
+                    { id: "mobile", label: "Phone Number" },
                     { id: "profileSetup", label: "Profile Setup" },
                     { id: "createdAt", label: "Created Date" },
                     { id: "actions", label: "Actions" },

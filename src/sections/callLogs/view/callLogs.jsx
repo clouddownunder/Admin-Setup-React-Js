@@ -212,7 +212,7 @@ export default function CallLogsPage() {
               headLabel={[
                 { id: "name", label: "Client Name" },
                 { id: "email", label: "Email" },
-                { id: "mobile", label: "Mobile" },
+                { id: "mobile", label: "Phone Number" },
                 { id: "is_single_call", label: "Call Type" },
                 { id: "platform", label: "Platform" },
                 { id: "date", label: "Date" },
