@@ -226,6 +226,11 @@ export default function FeedbackView({ userId, open, onClose }) {
                           {expandedDevices[fb.id] && (
                             <>
                               <tr>
+                                <td colspan="2" class="section-title">
+                                  Device Information
+                                </td>
+                              </tr>
+                              <tr>
                                 <td className="table-label">Device Name</td>
                                 <td>{fb.deviceInfo?.mobileName || "N/A"}</td>
                               </tr>
