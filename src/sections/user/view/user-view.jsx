@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-import { Icon } from "@iconify/react";
 import {
   MenuItem,
   Select,
@@ -29,7 +28,6 @@ import AddUserDialog from "../../userView/add-user";
 
 export default function ConstructionView() {
   const [addUserDialogOpen, setAddUserDialogOpen] = useState(false);
-  const [totalCompanies, setTotalCompanies] = useState(0);
   const [page, setPage] = useState(
     () => Number(localStorage.getItem("constructionPage")) || 0,
   );
@@ -44,45 +42,34 @@ export default function ConstructionView() {
 
   const [selected, setSelected] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [companies, setCompanies] = useState([]);
-
+  const [users, setUsers] = useState([]);
   const token = localStorage.getItem("token");
 
   const fetchConstructionAdmins = async () => {
     setLoading(true);
+    setUsers([]);
+      try {
+        const params = {};
 
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_BASEURL}/auth/getAllUsers`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASEURL}/auth/getAllUsers`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params,
           },
-
-          params: {
-            page: page + 1,
-            limit: rowsPerPage,
-            search: filterName,
-          },
-        },
-      );
-
-      const payload = response.data.data;
-
-      setCompanies(
-        (payload.data || []).map((company) => ({
-          ...company,
-          name: company.fullName || "",
-        })),
-      );
-
-      setTotalCompanies(payload.total || 0);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        );
+        setUsers(
+          response.data.data.data.map((user) => ({
+            ...user,
+            name: user.fullName || "",
+          })),
+        );
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
   useEffect(() => {
     localStorage.setItem("constructionPage", page);
@@ -93,6 +80,15 @@ export default function ConstructionView() {
   useEffect(() => {
     fetchConstructionAdmins();
   }, [page, rowsPerPage, filterName]);
+
+
+  // For Table Tabs
+  const [activeTab, setActiveTab] = useState("all");
+  const companyTabs = [
+    { label: "All Companies", value: "all" },
+    { label: "Active Companies", value: "active" },
+    { label: "Inactive Companies", value: "inactive" },
+  ];
 
   const TableSkeletonRows = ({ rows = 5 }) =>
     [...Array(rows)].map((_, index) => (
@@ -129,9 +125,29 @@ export default function ConstructionView() {
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
-  const dataFiltered = companies;
 
-  const notFound = !companies.length;
+  const dataFiltered = applyFilter({
+    inputData: users,
+    // comparator: getComparator(order, orderBy),
+    filterName,
+  });
+
+  // const notFound = !dataFiltered.length;
+  const tabFilteredData = dataFiltered.filter((item) => {
+    switch (activeTab) {
+      case "active":
+        return item.status === true || item.status === 1;
+
+      case "inactive":
+        return item.status === false || item.status === 0;
+
+      default:
+        return true;
+    }
+  });
+
+  const notFound = !tabFilteredData.length;
+  
   const CustomRedArrowIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -146,6 +162,7 @@ export default function ConstructionView() {
       ></path>
     </svg>
   );
+
   return (
     <div>
       <div
@@ -177,11 +194,33 @@ export default function ConstructionView() {
         fixedRole="construction_admin"
       />
       <div className="page-content notification-page cm-page-panel pt-3">
-        <Card className="panel">
-          <div className="panel-heading">
-            <h3 className="panel-title">Company Management</h3>
+        <div className="panel">
+         {/* <div className="panel-heading">
+            <h3 className="panel-title">Company Management List</h3>
+          </div> */}
+
+          {/* Table Tabs */}
+       
+          <div className="table-tabs-wrap">
+            <Tabs
+              value={activeTab}
+              onChange={(e, newValue) => {
+                setActiveTab(newValue);
+                setPage(0);
+              }}
+              className="table-tabs company-table-tabs"
+            >
+              {companyTabs.map((tab) => (
+                <Tab
+                  key={tab.value}
+                  label={tab.label}
+                  value={tab.value}
+                  className="tab-pane-btn"
+                />
+              ))}
+            </Tabs>
           </div>
-          <Box className="panel-body parent-table">
+          <div className="panel-body parent-table">
             {/* Top row: rows-per-page + search */}
             <div
               className="row customrow mb-3 gy-2 p-0"
@@ -193,7 +232,7 @@ export default function ConstructionView() {
                     className="custom-pagination remove-buttons"
                     page={page}
                     component="div"
-                    count={totalCompanies}
+                    count={dataFiltered.length}
                     rowsPerPage={rowsPerPage}
                     onPageChange={handleChangePage}
                     rowsPerPageOptions={[5, 10, 25, 50]}
@@ -228,7 +267,7 @@ export default function ConstructionView() {
             <TableContainer className="table">
               <Table>
                 <UserTableHead
-                  rowCount={companies.length}
+                  rowCount={users.length}
                   numSelected={selected.length}
                   onSelectAllClick={handleSelectAllClick}
                   headLabel={[
@@ -250,24 +289,48 @@ export default function ConstructionView() {
                   )}
 
                   {!loading &&
-                    dataFiltered.map((row) => (
-                      <UserTableRow
-                        key={row._id}
-                        name={row.fullName}
-                        email={row.email}
-                        mobile={row.mobile}
-                        profileImage={row.profileImage}
-                        isProfileSetUp={row.isProfileSetUp}
-                        createdBy={row?.createdBy?.fullName}
-                        createdAt={row?.createdAt}
-                        userId={row._id}
-                        company={row}
-                        onCompanyDeleted={fetchConstructionAdmins}
-                      />
+                    tabFilteredData
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage,
+                      )
+                      .map((row) => (
+                        <UserTableRow
+                          key={row._id}
+                          name={
+                            !row?.fullName ? "N/A" : `${row.fullName}`.trim()
+                          }
+                          email={row?.email}
+                          isActive={row?.status}
+                          countryCode={row?.countryCode}
+                          createdBy={row?.createdBy?.fullName}
+                          profileSetup={row?.isProfileSetUp}
+                          mobile={row?.mobile}
+                          userId={row._id}
+                          avatarUrl={row?.profileImage}
+                          userType={row.userType}
+                          suspended={row.suspended}
+                          block={row.isBlocked}
+                          handleClick={(event) => handleClick(event, row.name)}
+                          onViewUser={() => handleViewUser(row._id)}
+                          onUserDeleted={() => fetchUsers()}
+                          onSuspendedUser={() => fetchUsers()}
+                          onUserStatusUpdated={() => fetchUsers()}
+                        />
                     ))}
 
                   {!loading && notFound && (
                     <TableNoData query={filterName || "Construction Admin"} />
+                  )}
+                  {!loading && (
+                    <TableEmptyRows
+                      height={77}
+                      emptyRows={emptyRows(
+                        page,
+                        rowsPerPage,
+                        tabFilteredData.length,
+                      )}
+                    />
                   )}
                 </TableBody>
               </Table>
@@ -277,7 +340,7 @@ export default function ConstructionView() {
             <TablePagination
               className="custom-pagination pagination-buttons"
               component="div"
-              count={totalCompanies}
+              count={tabFilteredData.length}
               page={page}
               rowsPerPage={rowsPerPage}
               onPageChange={handleChangePage}
@@ -288,8 +351,8 @@ export default function ConstructionView() {
                 `${from}-${to} of ${count}`
               }
             />
-          </Box>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

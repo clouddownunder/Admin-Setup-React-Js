@@ -26,7 +26,10 @@ export default function ProfileEditView() {
     adminProfilePic: null,
   });
   const [readonlyData, setReadonlyData] = useState({ email: "", mobileNo: "" });
-
+  const [savedProfile, setSavedProfile] = useState({
+    fullName: "",
+    profilePicture: "",
+  });
   const [errors, setErrors] = useState({
     fullName: "",
     oldPassword: "",
@@ -92,13 +95,17 @@ export default function ProfileEditView() {
       adminProfilePic: null,
     });
 
-    // Use the actual uploaded image from cookie
+    setSavedProfile({
+      fullName: parsed.fullName || "",
+      profilePicture: parsed.profilePicture || "",
+    });
+
     if (parsed.profilePicture) {
       setPreview(
-        `${import.meta.env.VITE_IMAGE_URL.replace(/\/$/, "")}${parsed.profilePicture
-        }`
+        `${import.meta.env.VITE_IMAGE_URL.replace(/\/$/, "")}${parsed.profilePicture}`
       );
     }
+
     setReadonlyData({
       email: parsed.email || "",
       mobileNo: parsed.mobileNo || "",
@@ -249,6 +256,10 @@ export default function ProfileEditView() {
       if (res.data.status === 1) {
         showSuccessPopup(res.data.message);
         deleteCookie("UserData");
+        setSavedProfile({
+          fullName: res.data.data.fullName || "",
+          profilePicture: res.data.data.profilePicture || "",
+        });
         setCookie("UserData", JSON.stringify(res.data.data));
         window.dispatchEvent(
           new CustomEvent("userDataUpdated", {
@@ -327,9 +338,6 @@ export default function ProfileEditView() {
 
       if (res.data.status === 1) {
         showSuccessPopup(res.data.message);
-        localStorage.removeItem("token");
-        deleteCookie("UserData");
-        navigate("/login");
       } else {
         showErrorPopup(res.data.message);
       }
@@ -352,8 +360,18 @@ export default function ProfileEditView() {
           {/* LEFT PROFILE CARD */}
           <div className="col-lg-3">
             <div className="profile-view text-center">
-              <Avatar className="profile-avatar" src={preview || ""} />
-              <h5 className="profile-avatar-name">{formData.fullName}</h5>
+              <Avatar
+                className="profile-avatar"
+                src={
+                  savedProfile.profilePicture
+                    ? `${import.meta.env.VITE_IMAGE_URL.replace(/\/$/, "")}/${savedProfile.profilePicture.replace(/^\//, "")}`
+                    : ""
+                }
+              />
+
+              <h5 className="profile-avatar-name">
+                {savedProfile.fullName}
+              </h5>
               <p className="profile-sub mb-1">{readonlyData.email}</p>
               <p className="profile-sub mb-0">+61 {formatPhoneForDisplay(readonlyData.mobileNo)}</p>
             </div>
