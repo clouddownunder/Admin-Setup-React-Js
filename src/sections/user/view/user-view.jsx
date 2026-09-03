@@ -219,7 +219,7 @@ export default function UserPage() {
     }
   };
   const handleViewUser = (userId) => {
-    Navigate(`/dashboard/view/${userId}`);
+    Navigate(`/view/${userId}`);
   };
 
   const handleAddUser = () => {

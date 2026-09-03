@@ -35,8 +35,8 @@ export default function NotificationDialog({
   const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const [notificationText, setNotificationText] = useState("");
-  const [sendTo, setSendTo] = useState("all");
-  const [role, setRole] = useState("construction_admin");
+  const [sendTo, setSendTo] = useState("");
+  const [role, setRole] = useState("");
   const [selectedUser, setSelectedUser] = useState([]);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [users, setUsers] = useState([]);
@@ -71,7 +71,7 @@ export default function NotificationDialog({
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          setUsers(res.data.data || []);
+          setUsers(res.data?.data?.data || []);
         })
         .catch(console.error);
     }
@@ -79,8 +79,8 @@ export default function NotificationDialog({
 
   const resetForm = () => {
     setNotificationText("");
-    setSendTo("all");
-    setRole("construction_admin");
+    setSendTo("");
+    setRole("");
     setNotificationType("general");
     setErrors({});
     setSelectedUser([]);
@@ -121,7 +121,6 @@ export default function NotificationDialog({
     if (!validate()) return;
 
     setLoading(true);
-    console.log("Selected User:", selectedUser);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_BASEURL}/auth/pushNotification`,
@@ -171,13 +170,19 @@ export default function NotificationDialog({
 
   return (
     <Dialog
-      className="custom-modal notification-modal"
+      className="custom-modal-main"
       open={open}
+      fullWidth
+      maxWidth='sm'
       onClose={() => {
         resetForm();
         onClose();
       }}
-      PaperProps={{}}
+      PaperProps={{
+        sx: {
+          borderRadius: 2
+        }
+      }}
     >
       {/* Header */}
       <div className="modal-header">
@@ -256,9 +261,10 @@ export default function NotificationDialog({
                 labelId="send-to-label"
                 id="send-to"
                 value={sendTo}
+                displayEmpty
                 onChange={(e) => {
                   setSendTo(e.target.value);
-                  setRole("construction_admin");
+                  setRole("");
                   setErrors({ ...errors, sendTo: "" });
                   setSelectedUser([]);
                 }}
@@ -275,6 +281,9 @@ export default function NotificationDialog({
                   },
                 }}
               >
+                <MenuItem value="" disabled className="notification-menu-item">
+                  Select Recipient
+                </MenuItem>
                 <MenuItem value="all" className="notification-menu-item">
                   All Users
                 </MenuItem>
@@ -310,6 +319,7 @@ export default function NotificationDialog({
                   labelId="role-label"
                   id="role-label"
                   value={role}
+                  displayEmpty
                   onChange={(e) => {
                     setRole(e.target.value);
                     setErrors({ ...errors, role: "" });
@@ -327,6 +337,9 @@ export default function NotificationDialog({
                     },
                   }}
                 >
+                  <MenuItem value="" disabled className="notification-menu-item">
+                    Select Role
+                  </MenuItem>
                   <MenuItem
                     value="construction_admin"
                     className="notification-menu-item"
@@ -376,7 +389,7 @@ export default function NotificationDialog({
                 <div className="autocomplete-input position-relative">
                   <Autocomplete
                     multiple
-                    options={users}
+                    options={Array.isArray(users) ? users : []}
                     // open={sendTo === "individual"} // For temp
                     // disableCloseOnSelect
                     ListboxProps={{
@@ -427,10 +440,9 @@ export default function NotificationDialog({
                                 className="n-user-img"
                                 src={
                                   option.profileImage
-                                    ? `${
-                                        import.meta.env
-                                          .VITE_IMAGE_NOTIFICATION_URL
-                                      }${option.profileImage}`
+                                    ? `${import.meta.env
+                                      .VITE_IMAGE_NOTIFICATION_URL
+                                    }${option.profileImage}`
                                     : ""
                                 }
                                 onError={() => setImgError(true)}
@@ -453,15 +465,26 @@ export default function NotificationDialog({
                     renderInput={(params) => (
                       <>
                         <TextField
-                          className="form-control border"
                           {...params}
+                          className="form-control border"
                           error={!!errors.userId}
-                          inputProps={{
-                            ...params.inputProps,
-                            placeholder:
-                              selectedUser?.length > 0 ? "" : "Select User",
+                          placeholder={selectedUser?.length > 0 ? "" : "Select User"}
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              borderRadius: "10px",
+                              padding: "0px 10px",
+                            },
+
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              border: "none",
+                            },
+
+                            "& .MuiInputBase-input": {
+                              padding: "10px 0px",
+                            },
                           }}
                         />
+
                         {errors.userId && (
                           <div className="Mui-error error-mesg">
                             {errors.userId}
@@ -579,8 +602,8 @@ export default function NotificationDialog({
           {loading
             ? "Sending..."
             : editData
-            ? "Update Notification"
-            : "Send Notification"}
+              ? "Update Notification"
+              : "Send Notification"}
         </button>
       </div>
     </Dialog>

@@ -18,6 +18,7 @@ import { bgGradient } from "src/theme/css";
 
 import Logo from "src/components/logo";
 import Iconify from "src/components/iconify";
+import { showError } from "../../utils/swalTheme";
 
 // ----------------------------------------------------------------------
 
@@ -28,11 +29,37 @@ export default function LoginView() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Reset previous error
+
+
+    const newErrors = {
+      email: "",
+      password: "",
+    };
+
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+    ) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+    }
+
+    setErrors(newErrors);
+
+    if (newErrors.email || newErrors.password) {
+      return;
+    }
 
     axios
       .post(`${import.meta.env.VITE_API_BASEURL}/auth/adminLogin`, {
@@ -45,22 +72,25 @@ export default function LoginView() {
           setCookie("UserData", JSON.stringify(response.data.data));
           router.push("/dashboard");
         } else {
-          setErrorMessage(response.data.message || "Login failed");
+          // backend error only
+          showError(theme, response.data.message || "Login failed");
         }
       })
       .catch((error) => {
+        // backend error only
         const msg =
           error?.response?.data?.message ||
           error?.message ||
           "Something went wrong";
-        setErrorMessage(msg);
+
+        showError(theme, msg);
       });
   };
 
   const renderForm = (
     <Box component="form" onSubmit={handleSubmit}>
       <Stack>
-        {errorMessage && (
+        {/* {errorMessage && (
           <Typography
             color="error"
             variant="body2"
@@ -68,7 +98,7 @@ export default function LoginView() {
           >
             {errorMessage}
           </Typography>
-        )}
+        )} */}
 
         <Typography variant="body2" sx={{ mt: 2, mb: 1, fontWeight: 500 }}>
           Email Address*
@@ -77,8 +107,16 @@ export default function LoginView() {
           name="email"
           placeholder="Email Address"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+          error={!!errors.email}
+          helperText={errors.email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+
+            setErrors((prev) => ({
+              ...prev,
+              email: "",
+            }));
+          }}
           margin="none"
           className="input-field"
           InputProps={{
@@ -96,8 +134,16 @@ export default function LoginView() {
           placeholder="Password"
           type={showPassword ? "text" : "password"}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
+          error={!!errors.password}
+          helperText={errors.password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+
+            setErrors((prev) => ({
+              ...prev,
+              password: "",
+            }));
+          }}
           className="input-field"
           InputProps={{
             inputProps: {
@@ -172,7 +218,7 @@ export default function LoginView() {
 
         <Card className="login-cardm1">
           <div className="mb-3">
-            <h2 className="fw-bold h4 mb-1">Login</h2>
+            <h2 className="fw-bold h4 mb-2">Login</h2>
             <p className="text-muted subtitle1 mb-0">
               {" "}
               Please enter your detail to login in your account{" "}

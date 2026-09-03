@@ -1283,7 +1283,7 @@ body.remove-scroll {
 /* Feedback Modal or common modal CSS */
 
 .custom-modal .MuiDialog-paper {
-    max-width: 900px;
+    max-width: 660px;
     width: 100%;
     margin: 30px 20px;
     border-radius: 20px;
@@ -1336,6 +1336,51 @@ body.remove-scroll {
     --bs-btn-close-color: var(--white);
     --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414'/%3e%3c/svg%3e");
 }
+
+.custom-modal-main {}
+
+.custom-modal.dialog-sidebar .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+}
+.custom-modal-main .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+}
+
+.custom-modal-main .scroll-content {
+    overflow-y: auto;
+    max-height: calc(90vh - 70px);
+}
+
+.custom-modal-main .modal-header {
+    border-bottom: 1px solid var(--border-color-light);
+    padding: 16px 25px;
+    background-color: var(--primary-main);
+    color: var(--white);
+}
+
+.custom-modal-main .modal-body {
+    padding: 16px 25px;
+}
+
+.custom-modal-main .modal-footer {
+    padding: 16px 25px;
+    row-gap: 6px;
+}
+
+.custom-modal-main .modal-title {
+    padding-top: 3px;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+
 
 .badge {
     display: inline-block;
@@ -1540,6 +1585,10 @@ body.remove-scroll {
 .custom-modal.notification-modal .MuiDialog-paper {
     max-width: 660px;
 }
+
+/* .custom-modal.construction-detail-modal .MuiDialog-paper {
+    max-width: 400px;
+} */
 
 .notification-form-wrap .input-field .MuiInputBase-formControl {
     width: 100%;

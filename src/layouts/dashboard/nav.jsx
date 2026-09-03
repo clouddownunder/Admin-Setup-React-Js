@@ -55,7 +55,8 @@ Nav.propTypes = {
 function NavItem({ item }) {
   const pathname = usePathname();
 
-  const active = item.path === pathname;
+  const active =
+    item.path === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(item.path);
 
   const handleNavClick = () => {
     if (window.innerWidth < 992) {

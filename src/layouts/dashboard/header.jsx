@@ -8,10 +8,11 @@ import Logo from "src/components/logo";
 // import Searchbar from './common/searchbar';
 import AccountPopover from "./common/account-popover";
 import LanguagePopover from "./common/language-popover";
-
+import { useNavigate } from "react-router-dom";
 // ----------------------------------------------------------------------
 
 export default function Header({ onOpenNav }) {
+  const navigate = useNavigate()
   // Menu toogle - open/close sidebar
   const handleSidebarToggle = () => {
     document.body.classList.toggle("sidebar-show-hide");
@@ -21,6 +22,9 @@ export default function Header({ onOpenNav }) {
     }
   };
 
+  const handleLogoClick = () => {
+    navigate("/dashboard")
+  }
   const renderContent = (
     <>
       <div className="header-right">
@@ -35,7 +39,7 @@ export default function Header({ onOpenNav }) {
   return (
     <div className="main-header fixed-top navbar">
       <div className="headera-logo-wrap sidebar-top-toggle">
-        <div className="headera-mlogo">
+        <div className="headera-mlogo" onClick={handleLogoClick}>
           <svg
             width="30"
             height="30"
@@ -51,7 +55,7 @@ export default function Header({ onOpenNav }) {
           {/* <img src={Favicon} alt="icon" className="header-favicon" /> */}
         </div>
 
-        <div className="headera-logo">
+        <div className="headera-logo" onClick={handleLogoClick}>
           <Logo className="logo" />
         </div>
 

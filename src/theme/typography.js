@@ -22,8 +22,8 @@ export function responsiveFontSizes({ sm, md, lg }) {
   };
 }
 
-export const primaryFont = 'Public Sans';
-export const secondaryFont = 'Barlow';
+export const primaryFont = 'Public Sans, sans-serif';
+export const secondaryFont = 'Public Sans, sans-serif';
 
 // ----------------------------------------------------------------------
 

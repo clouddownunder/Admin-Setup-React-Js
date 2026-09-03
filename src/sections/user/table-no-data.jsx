@@ -11,8 +11,6 @@ export default function TableNoData({ query }) {
 
           <p className="mb-0 text-muted">
             No results found for <strong>&quot;{query}&quot;</strong>.
-            <br />
-            Try checking for typos or using complete words.
           </p>
         </div>
       </td>

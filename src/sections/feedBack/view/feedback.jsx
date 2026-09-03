@@ -24,43 +24,66 @@ export default function FeedbackPage() {
   const [page, setPage] = useState(
     () => Number(localStorage.getItem("feedbackPage")) || 0,
   );
-  const [rowsPerPage, setRowsPerPage] = useState(
-    () => Number(localStorage.getItem("feedbackRowsPerPage")) || 5,
-  );
-  const [filterType, setFilterType] = useState(
-    () => localStorage.getItem("feedbackFilterType") || "all",
-  );
-  const [filterName, setFilterName] = useState(
-    () => localStorage.getItem("feedbackSearchText") || "",
-  );
+  const [rowsPerPage, setRowsPerPage] = useState(25);
+  const [filterType, setFilterType] = useState("all");
+  const [filterName, setFilterName] = useState("");
   const [order, setOrder] = useState("desc");
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState("name");
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem("token");
+  const [totalUsers, setTotalUsers] = useState(0);
   const fetchUsers = async () => {
+
     try {
+
       setLoading(true);
+
 
       const response = await axios.get(
         `${import.meta.env.VITE_API_BASEURL}/auth/getFeedback`,
         {
-          headers: { Authorization: `Bearer ${token}` },
-          params: { filter: filterType },
-        },
+
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+
+
+          params: {
+
+            filter: filterType,
+
+            page: page + 1,
+
+            limit: rowsPerPage,
+
+            search: filterName
+
+          }
+
+        }
       );
 
-      // ✅ DO NOT FLATTEN
-      setUsers(response.data.data);
-      setPage(0);
-    } catch (error) {
-      console.error("Error fetching feedback:", error);
-    } finally {
-      setLoading(false);
+
+      setUsers(response.data.data.data);
+
+      setTotalUsers(response.data.data.total);
+
+
     }
+    catch (error) {
+
+      console.log(error);
+
+    }
+    finally {
+
+      setLoading(false);
+
+    }
+
   };
-  console.log(users, "users");
 
   const TableSkeletonRows = ({ rows = 5 }) => {
     return [...Array(rows)].map((_, index) => (
@@ -75,15 +98,18 @@ export default function FeedbackPage() {
   };
   useEffect(() => {
     localStorage.setItem("feedbackPage", page);
-    localStorage.setItem("feedbackRowsPerPage", rowsPerPage);
-    localStorage.setItem("feedbackFilterType", filterType);
-    localStorage.setItem("feedbackSearchText", filterName);
-  }, [page, rowsPerPage, filterType, filterName]);
+  }, [page]);
 
   useEffect(() => {
-    fetchUsers();
-  }, [token, filterType]);
 
+    fetchUsers();
+
+  }, [
+    page,
+    rowsPerPage,
+    filterType,
+    filterName
+  ]);
   // const handleSort = (event, id) => {
   //   const sortableFields = ["name", "email", "mobile"];
   //   if (!sortableFields.includes(id)) return;
@@ -199,15 +225,10 @@ export default function FeedbackPage() {
   //   }
   // };
   const handleViewUser = (userId) => {
-    Navigate(`/dashboard/view/${userId}`);
+    Navigate(`/view/${userId}`);
   };
 
-  const dataFiltered = applyFilter({
-    inputData: users,
-    // comparator: getComparator(order, orderBy),
-    filterName,
-  });
-
+  const dataFiltered = users;
   const notFound = !dataFiltered.length;
 
   let queryText = "";
@@ -274,10 +295,10 @@ export default function FeedbackPage() {
                     className="custom-pagination remove-buttons"
                     page={page}
                     component="div"
-                    count={dataFiltered.length}
+                    count={totalUsers}
                     rowsPerPage={rowsPerPage}
                     onPageChange={handleChangePage}
-                    rowsPerPageOptions={[5, 10]}
+                    rowsPerPageOptions={[10, 25, 50, 100]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     SelectProps={{
                       IconComponent: CustomRedArrowIcon,
@@ -371,13 +392,8 @@ export default function FeedbackPage() {
                   <TableBody>
                     {loading && <TableSkeletonRows rows={rowsPerPage} />}
 
-                    {console.log(dataFiltered, "filter")}
                     {!loading &&
                       dataFiltered
-                        .slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage,
-                        )
                         .map((user) => (
                           <FeedbackTableRow
                             key={user.userId}
@@ -415,7 +431,7 @@ export default function FeedbackPage() {
             <TablePagination
               className="custom-pagination pagination-buttons"
               component="div"
-              count={dataFiltered.length}
+              count={totalUsers}
               page={page}
               rowsPerPage={rowsPerPage}
               onPageChange={handleChangePage}

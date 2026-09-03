@@ -1,0 +1,1 @@
+export { default as TruckOperatorView } from './operator-view';

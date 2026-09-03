@@ -22,8 +22,7 @@ export default function TableNoData({ query }) {
 
           <Typography variant="body2">
             No results found for &nbsp;
-            <strong>&quot;{query}&quot;</strong>.
-            <br /> Try checking for typos or using complete words.
+            <strong>&quot;{query}&quot;</strong>
           </Typography>
         </Paper>
       </TableCell>

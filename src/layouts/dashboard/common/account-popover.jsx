@@ -46,16 +46,16 @@ export default function AccountPopover() {
   useEffect(() => {
     const loadUserData = () => {
       const UserData = getCookie("UserData");
-  
+
       if (UserData) {
         setUserData(JSON.parse(decodeURIComponent(UserData)));
       }
     };
-  
+
     loadUserData();
-  
+
     window.addEventListener("userDataUpdated", loadUserData);
-  
+
     return () => {
       window.removeEventListener("userDataUpdated", loadUserData);
     };
@@ -126,7 +126,7 @@ export default function AccountPopover() {
   const handleMenuClick = (label) => {
     if (label === "Admin Profile") {
       handleClose();
-      navigate("/dashboard/admin-profile");
+      navigate("/admin-profile");
     }
   };
 
@@ -148,9 +148,8 @@ export default function AccountPopover() {
       </Dialog> */}
       <div
         onClick={handleOpen}
-        className={`profile-avtar-btn d-flex align-items-center ${
-          open ? "active" : ""
-        }`}
+        className={`profile-avtar-btn d-flex align-items-center ${open ? "active" : ""
+          }`}
       >
         <Avatar
           className={`profile-avtar-img ${open ? "active" : ""}`}

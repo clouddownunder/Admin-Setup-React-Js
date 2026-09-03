@@ -21,30 +21,49 @@ export default function ForgotPasswordView() {
   const theme = useTheme();
 
   const [email, setEmail] = useState("");
-
+  const [errors, setErrors] = useState({
+    email: "",
+  });
   const handleForgotPassword = async () => {
-    if (!email) {
-      showError(theme, "Please enter your email");
+    const newErrors = {
+      email: "",
+    };
+
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+    ) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    setErrors(newErrors);
+
+    if (newErrors.email) {
       return;
     }
 
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_BASEURL}/auth/adminForgotPassword`,
-        { email },
+        { email }
       );
 
       if (res.data.status === 1) {
         showSuccess(theme, res.data.message);
         setEmail("");
-        navigate("/login");
       } else {
+        // backend error only
         showError(theme, res.data.message);
-        setEmail("");
       }
+
     } catch (err) {
-      console.error(err);
-      showError(theme, err.message);
+      // backend error only
+      showError(
+        theme,
+        err?.response?.data?.message ||
+        "Something went wrong"
+      );
     }
   };
 
@@ -76,7 +95,7 @@ export default function ForgotPasswordView() {
         />
         <Card className="login-cardm1">
           <div className="mb-3">
-            <h2 className="fw-bold h4 mb-1">Forgot Password</h2>
+            <h2 className="fw-bold h4 mb-2">Forgot Password</h2>
             <p className="text-muted subtitle1 mb-0">
               {" "}
               Enter your registered email address and we’ll send you a reset
@@ -93,8 +112,16 @@ export default function ForgotPasswordView() {
               placeholder="Email Address"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input-field mb-4"
+              error={!!errors.email}
+              helperText={errors.email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+
+                setErrors((prev) => ({
+                  ...prev,
+                  email: "",
+                }));
+              }} className="input-field mb-4"
               InputProps={{
                 inputProps: {
                   className: "form-control border",

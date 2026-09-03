@@ -1,8 +1,10 @@
 /* eslint-disable */
 import { getCookie } from "../../../utils/format-user";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { MenuItem, TextField } from "@mui/material";
+import SvgColor from "src/components/svg-color";
 
 // import { DatePicker } from "@mui/x-date-pickers";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -10,6 +12,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 export default function AppView() {
+  const navigate = useNavigate();
   const [summary, setSummary] = useState({});
   const [filter, setFilter] = useState("total");
   const [startDate, setStartDate] = useState(dayjs().startOf(null));
@@ -48,6 +51,8 @@ export default function AppView() {
 
         setSummary({
           totalUsers: data?.companies?.total ?? 0,
+          totalConstructionCompanies: data?.companies?.construction ?? 0,
+          totalTruckOperatorCompanies: data?.companies?.truckOperator ?? 0,
 
           activeSubscriptions: data?.subscriptions?.active ?? 0,
           inactiveSubscriptions: data?.subscriptions?.inactive ?? 0,
@@ -271,7 +276,7 @@ export default function AppView() {
                     {/* LEFT SIDE FILTERS */}
                     <div className="filter-dropdown-wrap floating-label group-field">
                       <label htmlFor="filter" className="mb-2 main-label">
-                        Select Time Range
+                        Statistics
                       </label>
 
                       <TextField
@@ -405,7 +410,7 @@ export default function AppView() {
                             PopperProps={{
                               className: "date-cal-wrapper",
                             }}
-                            
+
                             renderInput={(params) => (
                               <TextField
                                 {...params}
@@ -420,7 +425,7 @@ export default function AppView() {
                                 }}
                               />
                             )}
-                            
+
                           />
                         </div>
                       </div>
@@ -442,7 +447,7 @@ export default function AppView() {
                             PopperProps={{
                               className: "date-cal-wrapper",
                             }}
-                            
+
                             renderInput={(params) => (
                               <TextField
                                 {...params}
@@ -457,7 +462,7 @@ export default function AppView() {
                                 }}
                               />
                             )}
-                            
+
                           />
                         </div>
                       </div>
@@ -469,136 +474,52 @@ export default function AppView() {
 
             {/* ===== CARDS ===== */}
             <div className="row gx-3 gx-xxl-4">
-              {/* card 1 */}
-              <div className="col-sm-6 col-xl-4 col-xxl-3">
-                <div className="card card-block">
-                  <div className="counter-main">
-                    <div className="stat-icon blue-box">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                      </svg>
-                    </div>
-                    <div className="counter counter-lg">
-                      <span className="counter-number user-counter">
-                        {summary.totalUsers || 0}
-                      </span>
-                      <div className="counter-label text-uppercase">
-                        Total Companies
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* card 2 */}
-              <div className="col-sm-6 col-xl-4 col-xxl-3">
-                <div className="card card-block">
-                  <div className="counter-main">
-                    <div className="stat-icon success-box">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                      </svg>
-                    </div>
-                    <div className="counter counter-lg">
-                      <span className="counter-number user-counter">
-                        {summary.activeSubscriptions || 0}
-                      </span>
-                      <div className="counter-label text-uppercase">
-                        Active Subscriptions
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* card 3 */}
-              <div className="col-sm-6 col-xl-4 col-xxl-3">
-                <div className="card card-block">
+              {/* Construction Companies Card */}
+              <div className="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <div
+                  className="card card-block"
+                  onClick={() => navigate("/construction-companies")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="counter-main">
                     <div className="stat-icon warning-box">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                      </svg>
+                      <SvgColor
+                        src="/assets/icons/navbar/construction.svg"
+                        sx={{ width: 28, height: 28 }}
+                      />
                     </div>
                     <div className="counter counter-lg">
                       <span className="counter-number user-counter">
-                        {summary.inactiveSubscriptions || 0}
+                        {summary.totalConstructionCompanies || 0}
                       </span>
                       <div className="counter-label text-uppercase">
-                        Inactive Subscriptions
+                        Construction Companies
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* card 4 */}
-              <div className="col-sm-6 col-xl-4 col-xxl-3">
-                <div className="card card-block">
+              {/* Truck Operator Companies Card */}
+              <div className="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <div
+                  className="card card-block"
+                  onClick={() => navigate("/truck-operator-companies")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="counter-main">
                     <div className="stat-icon blue-box">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                      </svg>
+                      <SvgColor
+                        src="/assets/icons/navbar/truck_operator.svg"
+                        sx={{ width: 28, height: 28 }}
+                      />
                     </div>
                     <div className="counter counter-lg">
                       <span className="counter-number user-counter">
-                        {summary.totalRevenue || 0}
+                        {summary.totalTruckOperatorCompanies || 0}
                       </span>
                       <div className="counter-label text-uppercase">
-                        Total Revenue
+                        Truck Operator Companies
                       </div>
                     </div>
                   </div>

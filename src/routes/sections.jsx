@@ -19,13 +19,16 @@ export const ForgotPasswordPage = lazy(() =>
   import("../pages/forget-password"),
 );
 export const ResetPasswordPage = lazy(() => import("../pages/reset-password"));
+export const ConstructionCompanyPage = lazy(() => import("../pages/construction-company"));
+export const ConstructionCompanyDetailPage = lazy(() => import("../pages/construction-company-detail"));
+export const TruckOperatorCompanyPage = lazy(() => import("../pages/truck-operator-company"));
+export const TruckOperatorCompanyDetailPage = lazy(() => import("../pages/truck-operator-company-detail"));
 export const ViewPage = lazy(() => import("../pages/viewUser"));
-export const DetailPage = lazy(() => import("../pages/detail"));
 export const ProfilePage = lazy(() => import("../pages/profile"));
 export const CallLogsPage = lazy(() => import("../pages/call-logs"));
 export const IncomePage = lazy(() => import("../pages/income"));
 export const SubscriptionPage = lazy(() => import("../pages/subscription"));
-// export const ProfileEditPage = lazy(() => import("../pages/profile-edit"));
+export const ProfileEditPage = lazy(() => import("../pages/profile-edit"));
 export const Page404 = lazy(() => import("src/pages/page-not-found"));
 
 // ----------------------------------------------------------------------
@@ -33,7 +36,7 @@ export const Page404 = lazy(() => import("src/pages/page-not-found"));
 export default function Router() {
   const routes = useRoutes([
     {
-      path: "dashboard",
+      path: "/",
       element: (
         <ProtectedRoutes>
           <DashboardLayout>
@@ -44,22 +47,44 @@ export default function Router() {
         </ProtectedRoutes>
       ),
       children: [
-        { element: <IndexPage />, index: true },
-        { path: "company-management", element: <UserPage /> },
-        { path: "feedbacks", element: <FeedbackPage /> },
-        { path: "detail", element: <DetailPage /> },
+        { path: "dashboard", element: <IndexPage /> },
+
+        {
+          path: "construction-companies",
+          element: <ConstructionCompanyPage />,
+        },
+
+        {
+          path: "construction-companies/:id",
+          element: <ConstructionCompanyDetailPage />,
+        },
+
+        {
+          path: "truck-operator-companies",
+          element: <TruckOperatorCompanyPage />,
+        },
+
+        {
+          path: "truck-operator-companies/:id",
+          element: <TruckOperatorCompanyDetailPage />,
+        },
+
+        {
+          path: "feedbacks",
+          element: <FeedbackPage />,
+        },
+
         {
           path: "notifications",
           element: <NotificationsManagementPage />,
         },
-        { path: "calls&invoices", element: <CallLogsPage /> },
-        { path: "subscription&commission", element: <IncomePage /> },
-        { path: "plans&fess", element: <SubscriptionPage /> },
-        { path: "view/:id", element: <ViewPage /> },
-        { path: "admin-profile", element: <ProfilePage /> },
-        // { path: "admin-profile/edit", element: <ProfileEditPage /> },
+        {
+          path: "admin-profile",
+          element: <ProfilePage />,
+        },
       ],
     },
+
     {
       path: "login",
       element: (
@@ -69,17 +94,18 @@ export default function Router() {
       ),
     },
     {
-      path: "forgetPassword",
+      path: "/forgetPassword",
       element: <ForgotPasswordPage />,
     },
     {
-      path: "reset-password",
+      path: "/reset-password",
       element: <ResetPasswordPage />,
     },
     {
       path: "404",
       element: <Page404 />,
     },
+
     {
       path: "*",
       element: <Navigate to="/login" replace />,

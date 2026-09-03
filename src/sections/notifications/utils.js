@@ -43,16 +43,21 @@ export function applyFilter({ inputData = [], filterName }) {
   const lowerCaseSearch = filterName.toLowerCase();
 
   return inputData.filter((item) => {
-    const fullName = `${item?.userId?.firstName || ""} ${
-      item?.userId?.lastName || ""
-    }`.toLowerCase();
+    const userName = item?.user?.fullName?.toLowerCase() || "";
+
+    const email = item?.user?.email?.toLowerCase() || "";
 
     const text = item?.text?.toLowerCase() || "";
+
+    const title = item?.title?.toLowerCase() || "";
+
     const type = item?.notificationType?.toLowerCase() || "";
 
     return (
-      fullName.includes(lowerCaseSearch) ||
+      userName.includes(lowerCaseSearch) ||
+      email.includes(lowerCaseSearch) ||
       text.includes(lowerCaseSearch) ||
+      title.includes(lowerCaseSearch) ||
       type.includes(lowerCaseSearch)
     );
   });

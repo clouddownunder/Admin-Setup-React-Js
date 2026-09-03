@@ -6,7 +6,6 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { RecoilRoot } from "recoil";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./theme/root-style.css";
 import "./theme/custom.css";
@@ -15,13 +14,12 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import ThemeProvider from "src/theme";
 
 import App from "./app";
-axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
  
 // ======================================================
 // APP VERSION CACHE RESET
 // ======================================================
 
-const APP_VERSION = "1.0.1";
+const APP_VERSION = "1.0.2";
 
 // ======================================================
 // CLEAR ALL COOKIES

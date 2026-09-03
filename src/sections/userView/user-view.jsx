@@ -224,7 +224,7 @@ export default function UserView({ userId, onClose }) {
             <tbody>
               {/* Title Row */}
               <tr>
-                <td colspan="2" class="section-title">
+                <td colspan="2" className="section-title">
                   Profile Information
                 </td>
               </tr>
@@ -278,7 +278,7 @@ export default function UserView({ userId, onClose }) {
 
               {/* Title Row */}
               <tr>
-                <td colspan="2" class="section-title">
+                <td colspan="2" className="section-title">
                   Account Information
                 </td>
               </tr>

@@ -15,19 +15,29 @@ const navConfig = [
     path: "/dashboard",
     icon: icon("ic_analytics"),
   },
+  // {
+  //   title: "company management",
+  //   path: "/dashboard/company-management",
+  //   icon: icon("ic_user"),
+  // },
   {
-    title: "company management",
-    path: "/dashboard/company-management",
-    icon: icon("ic_user"),
+    title: "construction companies",
+    path: "/construction-companies",
+    icon: icon("construction"),
+  },
+  {
+    title: "truck operator companies",
+    path: "/truck-operator-companies",
+    icon: icon("truck_operator"),
   },
   {
     title: "feedbacks",
-    path: "/dashboard/feedbacks",
+    path: "/feedbacks",
     icon: icon("ic_feedback"),
   },
   {
     title: "notifications",
-    path: "/dashboard/notifications",
+    path: "/notifications",
     icon: icon("ic_notification"),
   },
   //  {

@@ -680,6 +680,27 @@
         width: 34px;
         height: 30px;
     }
+
+    .table-filter-wrap {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 6px;
+    }
+
+    .rows-serach-wrap {
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .table-filter-wrap .main-label {
+        margin-right: 10px;
+        margin-bottom: 0px !important;
+    }
+
+    .table-filter .form-control.border {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 1024px) {}
@@ -1072,6 +1093,16 @@
     }
 
     .custom-modal .modal-title {
+        font-size: 18px;
+    }
+
+    .custom-modal-main .modal-header,
+    .custom-modal-main .modal-body,
+    .custom-modal-main .modal-footer {
+        padding: 16px 16px;
+    }
+
+    .custom-modal-main .modal-title {
         font-size: 18px;
     }
 
